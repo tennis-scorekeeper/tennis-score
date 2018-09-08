@@ -21,7 +21,7 @@
         android:id="@+id/warmupTime"
         android:layout_width="65dp"
         android:layout_height="41dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="numberDecimal"
@@ -33,7 +33,7 @@
     <TextView
         android:id="@+id/timerDisplay"
         android:layout_width="121dp"
-        android:layout_height="wrap-content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:text="5:00"
         android:textAlignment="center"
