@@ -33,14 +33,24 @@ public class NewMatch extends AppCompatActivity {
             ((TextView)findViewById(R.id.tournamentNameError)).setText("* Enter tournament format.");
             formValid = false;
         }
+        else {
+            ((TextView)findViewById(R.id.tournamentNameError)).setText("");
+        }
+
         if (playerOneName.length() <= 0) {
             ((TextView)findViewById(R.id.player1NameError)).setText("* Name.");
             formValid = false;
+        }
+        else {
+            ((TextView)findViewById(R.id.player1NameError)).setText("");
         }
 
         if (playerTwoName.length() <= 0) {
             ((TextView)findViewById(R.id.player2NameError)).setText("* Name.");
             formValid = false;
+        }
+        else {
+            ((TextView)findViewById(R.id.player2NameError)).setText("");
         }
 
         RadioButton selectedAdRule = (RadioButton)findViewById(((RadioGroup) findViewById(R.id.advantageSelect)).getCheckedRadioButtonId());
