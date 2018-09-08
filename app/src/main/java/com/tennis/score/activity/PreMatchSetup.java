@@ -1,6 +1,7 @@
 package com.tennis.score.activity;
 
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.tennis.score.R;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class PreMatchSetup extends AppCompatActivity {
 
@@ -44,8 +48,17 @@ public class PreMatchSetup extends AppCompatActivity {
         if (secondString.length() == 1) {
             secondString = "0" + secondString;
         }
+        TextView textView = (TextView)findViewById(R.id.timerDisplay);
+        CountDownTimer countDownTimer = new CountDownTimer(remainingSeconds * 1000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                System.out.println(millisUntilFinished);
+            }
+            public void onFinish() {
+                System.out.println("done");
+            }
+        };
 
-        ((TextView)findViewById(R.id.timerDisplay)).setText(minuteString + ":" + secondString);
+        countDownTimer.start();
     }
 
     public void tester(View view) {
