@@ -22,7 +22,7 @@ public class PreMatchSetup extends AppCompatActivity {
     private Button startTimerButton;
     private Button stopTimerButton;
 
-    private String matchName;
+    private String tournamentName;
     private String playerOneName;
     private String playerTwoName;
     private String adRule;
@@ -39,11 +39,11 @@ public class PreMatchSetup extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        matchName = intent.getStringExtra("matchName");
+        tournamentName = intent.getStringExtra("tournamentName");
         playerOneName = intent.getStringExtra("playerOneName");
         playerTwoName = intent.getStringExtra("playerTwoName");
-        adRule = intent.getStringExtra("adRule");
         matchFormat = intent.getStringExtra("matchFormat");
+        adRule = intent.getStringExtra("adRule");
 
         timerDisplay = (TextView)findViewById(R.id.timerDisplay);
 
@@ -54,7 +54,7 @@ public class PreMatchSetup extends AppCompatActivity {
         startTimerButton.setEnabled(false);
         stopTimerButton.setEnabled(false);
 
-        System.out.println(matchName + "-" + playerOneName + "-" + playerTwoName + "-" + adRule + "-" + matchFormat);
+        System.out.println(tournamentName + "-" + playerOneName + "-" + playerTwoName + "-" + matchFormat + "-" + adRule);
     }
 
     public void setTimer(View view) {

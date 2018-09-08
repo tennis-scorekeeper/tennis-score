@@ -17,7 +17,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/matchNameText"
+                android:id="@+id/tournamentNameText"
                 android:layout_width="wrap_content"
                 android:layout_height="26dp"
                 android:layout_marginLeft="16dp"
@@ -27,7 +27,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/matchName"
+                android:id="@+id/tournamentName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -36,7 +36,7 @@
                 android:inputType="textPersonName"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/matchNameText" />
+                app:layout_constraintTop_toBottomOf="@+id/tournamentNameText" />
 
             <TextView
                 android:id="@+id/playerOneText"
@@ -46,7 +46,7 @@
                 android:layout_marginTop="8dp"
                 android:text="Player 1 name"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/matchName" />
+                app:layout_constraintTop_toBottomOf="@+id/tournamentName" />
 
             <TextView
                 android:id="@+id/playerTwoText"
@@ -56,7 +56,7 @@
                 android:layout_marginTop="8dp"
                 android:text="Player 2 name"
                 app:layout_constraintStart_toEndOf="@+id/playerOneText"
-                app:layout_constraintTop_toBottomOf="@+id/matchName" />
+                app:layout_constraintTop_toBottomOf="@+id/tournamentName" />
 
             <EditText
                 android:id="@+id/playerOneName"
@@ -208,8 +208,8 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
                 android:textColor="@android:color/holo_red_dark"
-                app:layout_constraintBottom_toTopOf="@+id/matchName"
-                app:layout_constraintStart_toEndOf="@+id/matchNameText" />
+                app:layout_constraintBottom_toTopOf="@+id/tournamentName"
+                app:layout_constraintStart_toEndOf="@+id/tournamentNameText" />
 
             <TextView
                 android:id="@+id/player1NameError"
@@ -222,7 +222,7 @@
                 android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/playerOneName"
                 app:layout_constraintStart_toEndOf="@+id/playerOneText"
-                app:layout_constraintTop_toBottomOf="@+id/matchName" />
+                app:layout_constraintTop_toBottomOf="@+id/tournamentName" />
 
             <TextView
                 android:id="@+id/player2NameError"
@@ -235,7 +235,7 @@
                 android:textColor="@android:color/holo_red_dark"
                 app:layout_constraintBottom_toTopOf="@+id/playerTwoName"
                 app:layout_constraintStart_toEndOf="@+id/playerTwoText"
-                app:layout_constraintTop_toBottomOf="@+id/matchName"
+                app:layout_constraintTop_toBottomOf="@+id/tournamentName"
                 app:layout_constraintVertical_bias="0.0" />
 
         </android.support.constraint.ConstraintLayout>

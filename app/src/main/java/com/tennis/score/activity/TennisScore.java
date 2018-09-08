@@ -5,10 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.ListMenuItemView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.tennis.score.R;
 
@@ -22,8 +27,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class TennisScore extends AppCompatActivity {
+
+    private File file;
+    private String fileName = "matchData";
+
+    private View.OnClickListener viewMatch;
+
+    LinearLayout matchList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,40 +46,112 @@ public class TennisScore extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), NewMatch.class);
-                startActivity(intent);
-            }
-        });
+        matchList = (LinearLayout)findViewById(R.id.matchList);
 
+        createMatchDataFile();
+        createViewMatchOnClickListener();
+        updateMatchList();
+    }
 
-        String fileName = "matches";
-        File file = new File(getFilesDir(), fileName);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        updateMatchList();
+    }
+
+    public void newMatch(View view) {
+        Intent intent = new Intent(view.getContext(), NewMatch.class);
+        startActivityForResult(intent, 0);
+    }
+
+    private void createMatchDataFile() {
+        file = new File(getFilesDir(), fileName);
         if (!file.exists()) {
             try {
                 file.createNewFile();
-                System.out.println("created");
             }
             catch (IOException e){
                 e.printStackTrace();
             }
         }
+    }
+
+    private void createViewMatchOnClickListener() {
+        viewMatch = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int lineToGet = (int)view.getTag();
+                try {
+                    FileInputStream fis = new FileInputStream(file);
+                    InputStreamReader chapterReader = new InputStreamReader(fis);
+                    BufferedReader buffReader = new BufferedReader(chapterReader);
+
+                    String line = buffReader.readLine();
+                    int counter = 0;
+                    while (line != null) {
+                        if (counter == lineToGet) {
+                            String[] lineSplit = line.split(",");
+
+                            Intent intent = new Intent(view.getContext(), PreMatchSetup.class);
+                            intent.putExtra("tournamentName", lineSplit[0]);
+                            intent.putExtra("playerOneName", lineSplit[1]);
+                            intent.putExtra("playerTwoName", lineSplit[2]);
+                            intent.putExtra("matchFormat", lineSplit[3]);
+                            intent.putExtra("adRule", lineSplit[4]);
+                            startActivity(intent);
+
+                            break;
+                        }
+
+                        line = buffReader.readLine();
+                        counter++;
+                    }
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+    }
+
+    private void updateMatchList() {
+        file = new File(getFilesDir(), fileName);
+
         try {
             FileInputStream fis = new FileInputStream(file);
             InputStreamReader chapterReader = new InputStreamReader(fis);
             BufferedReader buffReader = new BufferedReader(chapterReader);
+
             String line = buffReader.readLine();
+            int counter = 0;
+            matchList.removeAllViews();
             while (line != null) {
-                System.out.println(line);
+                TextView currentMatch = new TextView(this);
+
+                currentMatch.setText(getMatchDisplayString(line));
+                currentMatch.setTag(counter);
+                currentMatch.setClickable(true);
+                currentMatch.setOnClickListener(viewMatch);
+                currentMatch.setTextSize(30);
+                currentMatch.setPadding(5, 5, 5, 5);
+
+                matchList.addView(currentMatch, 0);
+
                 line = buffReader.readLine();
+                counter++;
             }
         }
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private String getMatchDisplayString(String line) {
+        String[] lineValues = line.split(",");
+        String tournamentName = lineValues[0];
+        String playerOne = lineValues[1];
+        String playerTwo = lineValues[2];
+
+        return tournamentName + ": " + playerOne + " Vs. " + playerTwo;
     }
 
     @Override

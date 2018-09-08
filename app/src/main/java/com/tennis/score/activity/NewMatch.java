@@ -1,6 +1,5 @@
 package com.tennis.score.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -29,12 +28,12 @@ public class NewMatch extends AppCompatActivity {
     public void onSubmit(View view) {
         boolean formValid = true;
 
-        String matchName = ((EditText)findViewById(R.id.matchName)).getText().toString();
+        String tournamentName = ((EditText)findViewById(R.id.tournamentName)).getText().toString();
         String playerOneName = ((EditText)findViewById(R.id.playerOneName)).getText().toString();
         String playerTwoName = ((EditText)findViewById(R.id.playerTwoName)).getText().toString();
 
-        if (matchName.length() <= 0) {
-            ((TextView)findViewById(R.id.tournamentNameError)).setText("* Enter tournament format.");
+        if (tournamentName.length() <= 0) {
+            ((TextView)findViewById(R.id.tournamentNameError)).setText("* Enter tournament name.");
             formValid = false;
         }
         else {
@@ -79,24 +78,20 @@ public class NewMatch extends AppCompatActivity {
         String matchFormat = selectedFormat.getText().toString();
 
         if (formValid) {
-            File file = new File(getFilesDir(), "matches");
+            File file = new File(getFilesDir(), "matchData");
             try {
-                FileWriter fw = new FileWriter(file, false);
-                fw.write(matchName + "," + playerOneName + "," + playerTwoName + "," + adRule + "," + matchFormat);
+                FileWriter fw = new FileWriter(file, true);
+                fw.write(tournamentName + "," + playerOneName + "," + playerTwoName + "," + matchFormat + "," + adRule);
+                fw.write(System.getProperty("line.separator"));
                 fw.flush();
                 fw.close();
+                System.out.println("wrote data");
             }
             catch (IOException e) {
                 e.printStackTrace();
             }
-
-            Intent intent = new Intent(view.getContext(), PreMatchSetup.class);
-            intent.putExtra("matchName", matchName);
-            intent.putExtra("playerOneName", playerOneName);
-            intent.putExtra("playerTwoName", playerTwoName);
-            intent.putExtra("adRule", adRule);
-            intent.putExtra("matchFormat", matchFormat);
-            startActivity(intent);
+            setResult(0);
+            finish();
         }
     }
 }
