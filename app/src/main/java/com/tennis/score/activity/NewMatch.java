@@ -29,13 +29,23 @@ public class NewMatch extends AppCompatActivity {
         String playerOneName = ((EditText)findViewById(R.id.playerOneName)).getText().toString();
         String playerTwoName = ((EditText)findViewById(R.id.playerTwoName)).getText().toString();
 
-        if (matchName.length() <= 0 || playerOneName.length() <= 0 || playerTwoName.length() <= 0) {
+        if (matchName.length() <= 0) {
+            ((TextView)findViewById(R.id.tournamentNameError)).setText("* Enter tournament format.");
+            formValid = false;
+        }
+        if (playerOneName.length() <= 0) {
+            ((TextView)findViewById(R.id.player1NameError)).setText("* Name.");
+            formValid = false;
+        }
+
+        if (playerTwoName.length() <= 0) {
+            ((TextView)findViewById(R.id.player2NameError)).setText("* Name.");
             formValid = false;
         }
 
         RadioButton selectedAdRule = (RadioButton)findViewById(((RadioGroup) findViewById(R.id.advantageSelect)).getCheckedRadioButtonId());
         if (selectedAdRule == null) {
-            ((TextView)findViewById(R.id.adSelectError)).setText("* Must select a rule for Ads!");
+            ((TextView)findViewById(R.id.adSelectError)).setText("* Select scoring format.");
             formValid = false;
         }
         else {
@@ -44,7 +54,7 @@ public class NewMatch extends AppCompatActivity {
 
         RadioButton selectedFormat = (RadioButton)findViewById(((RadioGroup) findViewById(R.id.matchFormatSelect)).getCheckedRadioButtonId());
         if (selectedFormat == null) {
-            ((TextView)findViewById(R.id.matchFormatSelectError)).setText("* Must select a match format!");
+            ((TextView)findViewById(R.id.matchFormatSelectError)).setText("* Select match format.");
             formValid = false;
         }
         else {
