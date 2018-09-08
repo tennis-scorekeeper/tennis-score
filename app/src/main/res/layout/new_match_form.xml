@@ -6,165 +6,183 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/matchName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="93dp"
-        android:layout_height="26dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Match Name"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Match Format"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/advantageSelect" />
-
-    <RadioGroup
-        android:id="@+id/matchFormat"
-        android:layout_width="355dp"
-        android:layout_height="101dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
-
-        <RadioButton
-            android:id="@+id/oneTiebreakSet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="One Tiebreak Set" />
-
-        <RadioButton
-            android:id="@+id/eightGameProset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="8 Game Pro Set" />
-
-        <RadioButton
-            android:id="@+id/twoSetsMatchTiebreak"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Two Sets and a match Tiebreak" />
-
-        <RadioButton
-            android:id="@+id/radioButton"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="RadioButton" />
-    </RadioGroup>
+            android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:onClick="onClickTest"
-        android:text="Submit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+            <TextView
+                android:id="@+id/matchNameText"
+                android:layout_width="93dp"
+                android:layout_height="26dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Match Name"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Player 1 Name"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/matchName" />
+            <EditText
+                android:id="@+id/matchName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/matchNameText" />
 
-    <EditText
-        android:id="@+id/playerOneName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:ems="8"
-        android:inputType="textPersonName"
-        android:text="Player 1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            <TextView
+                android:id="@+id/playerOneText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Player 1 Name"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/matchName" />
 
-    <EditText
-        android:id="@+id/playerTwoName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="6dp"
-        android:ems="8"
-        android:inputType="textPersonName"
-        android:text="Player 2"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/playerOneName"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            <TextView
+                android:id="@+id/playerTwoText"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:layout_marginStart="88dp"
+                android:layout_marginTop="8dp"
+                android:text="Player 2 Name"
+                app:layout_constraintStart_toEndOf="@+id/playerOneText"
+                app:layout_constraintTop_toBottomOf="@+id/matchName" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="8dp"
-        android:text="Player 2 Name"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/matchName" />
+            <EditText
+                android:id="@+id/playerOneName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:ems="8"
+                android:inputType="textPersonName"
+                android:text="Player 1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/playerOneText" />
 
-    <RadioGroup
-        android:id="@+id/advantageSelect"
-        android:layout_width="317dp"
-        android:layout_height="34dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6">
+            <EditText
+                android:id="@+id/playerTwoName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="6dp"
+                android:ems="8"
+                android:inputType="textPersonName"
+                android:text="Player 2"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/playerOneName"
+                app:layout_constraintTop_toBottomOf="@+id/playerTwoText" />
 
-        <RadioButton
-            android:id="@+id/adSelect"
-            android:layout_width="67dp"
-            android:layout_height="wrap_content"
-            android:text="Ads" />
+            <TextView
+                android:id="@+id/adRuleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Advantage Rule"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/playerOneName" />
 
-        <RadioButton
-            android:id="@+id/noAdSelect"
-            android:layout_width="88dp"
-            android:layout_height="wrap_content"
-            android:text="No Ads" />
+            <RadioGroup
+                android:id="@+id/advantageSelect"
+                android:layout_width="317dp"
+                android:layout_height="34dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/adRuleText">
 
-        <RadioButton
-            android:id="@+id/duecePlusOneSelect"
-            android:layout_width="143dp"
-            android:layout_height="wrap_content"
-            android:text="Deuce Plus One" />
-    </RadioGroup>
+                <RadioButton
+                    android:id="@+id/adSelect"
+                    android:layout_width="67dp"
+                    android:layout_height="wrap_content"
+                    android:text="Ads" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Advantage Rule"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playerOneName" />
+                <RadioButton
+                    android:id="@+id/noAdSelect"
+                    android:layout_width="88dp"
+                    android:layout_height="wrap_content"
+                    android:text="No Ads" />
+
+                <RadioButton
+                    android:id="@+id/duecePlusOneSelect"
+                    android:layout_width="143dp"
+                    android:layout_height="wrap_content"
+                    android:text="Deuce Plus One" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/matchFormatText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Match Format"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/advantageSelect" />
+
+            <RadioGroup
+                android:id="@+id/matchFormat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/matchFormatText">
+
+                <RadioButton
+                    android:id="@+id/oneTiebreakSet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="One Tiebreak Set" />
+
+                <RadioButton
+                    android:id="@+id/eightGameProset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="8 Game Pro Set" />
+
+                <RadioButton
+                    android:id="@+id/twoSetsMatchTiebreak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Two Sets and a match Tiebreak" />
+
+                <RadioButton
+                    android:id="@+id/bestOfThree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Best of 3 Tiebreak sets" />
+
+                <RadioButton
+                    android:id="@+id/bestOfFive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Best of 5 Tiebreak sets" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:onClick="onClickTest"
+                android:text="Submit"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/matchFormat" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
