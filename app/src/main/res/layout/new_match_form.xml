@@ -16,7 +16,7 @@
 
             <TextView
                 android:id="@+id/matchNameText"
-                android:layout_width="wrap-content"
+                android:layout_width="wrap_content"
                 android:layout_height="26dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
@@ -84,9 +84,10 @@
                 android:id="@+id/adRuleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="Scoring format"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="373dp" />
+                app:layout_constraintTop_toBottomOf="@+id/matchFormatSelect"
+                tools:layout_editor_absoluteX="16dp" />
 
             <TextView
                 android:id="@+id/adSelectError"
