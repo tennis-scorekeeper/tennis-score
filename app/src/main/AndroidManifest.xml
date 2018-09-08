@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.NewMatch" />
+        <activity android:name=".activity.PreMatchSetup"></activity>
     </application>
 
 </manifest>

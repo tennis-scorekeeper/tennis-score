@@ -90,6 +90,16 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/playerOneName" />
 
+            <TextView
+                android:id="@+id/adSelectError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:textColor="@android:color/holo_red_dark"
+                app:layout_constraintStart_toEndOf="@+id/adRuleText"
+                app:layout_constraintTop_toBottomOf="@+id/playerOneName" />
+
             <RadioGroup
                 android:id="@+id/advantageSelect"
                 android:layout_width="317dp"
@@ -129,8 +139,18 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/advantageSelect" />
 
+            <TextView
+                android:id="@+id/matchFormatSelectError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="16dp"
+                android:textColor="@android:color/holo_red_dark"
+                app:layout_constraintStart_toEndOf="@+id/matchFormatText"
+                app:layout_constraintTop_toBottomOf="@+id/advantageSelect" />
+
             <RadioGroup
-                android:id="@+id/matchFormat"
+                android:id="@+id/matchFormatSelect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
@@ -175,11 +195,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:onClick="onClickTest"
+                android:onClick="onSubmit"
                 android:text="Submit"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/matchFormat" />
+                app:layout_constraintTop_toBottomOf="@+id/matchFormatSelect" />
 
         </android.support.constraint.ConstraintLayout>
 

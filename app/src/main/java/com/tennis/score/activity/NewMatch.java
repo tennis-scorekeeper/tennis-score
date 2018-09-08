@@ -1,9 +1,13 @@
 package com.tennis.score.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.tennis.score.R;
 
@@ -18,9 +22,44 @@ public class NewMatch extends AppCompatActivity {
         setContentView(R.layout.new_match_form);
     }
 
-    public void onClickTest(View view) {
-        EditText edit = (EditText)findViewById(R.id.matchName);
-        System.out.println(edit.getText().toString());
+    public void onSubmit(View view) {
+        boolean formValid = true;
+
+        String matchName = ((EditText)findViewById(R.id.matchName)).getText().toString();
+        String playerOneName = ((EditText)findViewById(R.id.playerOneName)).getText().toString();
+        String playerTwoName = ((EditText)findViewById(R.id.playerTwoName)).getText().toString();
+
+        if (matchName.length() <= 0 || playerOneName.length() <= 0 || playerTwoName.length() <= 0) {
+            formValid = false;
+        }
+
+        RadioButton selectedAdRule = (RadioButton)findViewById(((RadioGroup) findViewById(R.id.advantageSelect)).getCheckedRadioButtonId());
+        if (selectedAdRule == null) {
+            ((TextView)findViewById(R.id.adSelectError)).setText("* Must select a rule for Ads!");
+            formValid = false;
+        }
+        else {
+            ((TextView)findViewById(R.id.adSelectError)).setText("");
+        }
+
+        RadioButton selectedFormat = (RadioButton)findViewById(((RadioGroup) findViewById(R.id.matchFormatSelect)).getCheckedRadioButtonId());
+        if (selectedFormat == null) {
+            ((TextView)findViewById(R.id.matchFormatSelectError)).setText("* Must select a match format!");
+            formValid = false;
+        }
+        else {
+            ((TextView)findViewById(R.id.matchFormatSelectError)).setText("");
+        }
+
+        if (formValid) {
+            Intent intent = new Intent(view.getContext(), PreMatchSetup.class);
+            intent.putExtra("matchName", matchName);
+            intent.putExtra("playerOneName", playerOneName);
+            intent.putExtra("playerTwoName", playerTwoName);
+            intent.putExtra("adRule", selectedAdRule.getText().toString());
+            intent.putExtra("matchFormat", selectedFormat.getText().toString());
+            startActivity(intent);
+        }
     }
 }
 
