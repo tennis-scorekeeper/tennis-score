@@ -1,5 +1,6 @@
 package com.tennis.score.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +11,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.tennis.score.R;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 public class TennisScore extends AppCompatActivity {
 
@@ -28,6 +40,32 @@ public class TennisScore extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        String fileName = "matches";
+        File file = new File(getFilesDir(), fileName);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                System.out.println("created");
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            InputStreamReader chapterReader = new InputStreamReader(fis);
+            BufferedReader buffReader = new BufferedReader(chapterReader);
+            String line = buffReader.readLine();
+            while (line != null) {
+                System.out.println(line);
+                line = buffReader.readLine();
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
