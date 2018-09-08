@@ -64,7 +64,16 @@ public class PreMatchSetup extends AppCompatActivity {
             return;
         }
 
-        double warmupTime = Double.parseDouble(inputWarmupTime);
+        double warmupTime;
+
+        try {
+            warmupTime = Double.parseDouble(inputWarmupTime);
+        }
+        catch (NumberFormatException nfe) {
+            System.out.println("Invalid input");
+            return;
+        }
+
         warmupSeconds = (int)(warmupTime * 60);
 
         countDownTimer = new CountDownTimer(warmupSeconds * 1000, 1000) {
