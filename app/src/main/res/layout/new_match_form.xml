@@ -16,11 +16,11 @@
 
             <TextView
                 android:id="@+id/matchNameText"
-                android:layout_width="93dp"
+                android:layout_width="wrap-content"
                 android:layout_height="26dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Match Name"
+                android:text="Tournament name"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Player 1 Name"
+                android:text="Player 1 name"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/matchName" />
 
@@ -52,7 +52,7 @@
                 android:layout_height="19dp"
                 android:layout_marginStart="88dp"
                 android:layout_marginTop="8dp"
-                android:text="Player 2 Name"
+                android:text="Player 2 name"
                 app:layout_constraintStart_toEndOf="@+id/playerOneText"
                 app:layout_constraintTop_toBottomOf="@+id/matchName" />
 
@@ -84,21 +84,20 @@
                 android:id="@+id/adRuleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Advantage Rule"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/playerOneName" />
+                android:text="Scoring format"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="373dp" />
 
             <TextView
                 android:id="@+id/adSelectError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
                 android:textColor="@android:color/holo_red_dark"
                 app:layout_constraintStart_toEndOf="@+id/adRuleText"
-                app:layout_constraintTop_toBottomOf="@+id/playerOneName" />
+                app:layout_constraintTop_toBottomOf="@+id/matchFormatSelect" />
 
             <RadioGroup
                 android:id="@+id/advantageSelect"
@@ -112,42 +111,37 @@
 
                 <RadioButton
                     android:id="@+id/adSelect"
-                    android:layout_width="67dp"
+                    android:layout_width="87dp"
                     android:layout_height="wrap_content"
-                    android:text="Ads" />
+                    android:text="Regular" />
 
                 <RadioButton
                     android:id="@+id/noAdSelect"
                     android:layout_width="88dp"
                     android:layout_height="wrap_content"
-                    android:text="No Ads" />
+                    android:text="No-Ad" />
 
-                <RadioButton
-                    android:id="@+id/duecePlusOneSelect"
-                    android:layout_width="143dp"
-                    android:layout_height="wrap_content"
-                    android:text="Deuce Plus One" />
             </RadioGroup>
 
             <TextView
                 android:id="@+id/matchFormatText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Match Format"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/advantageSelect" />
+                android:text="Match format"
+                app:layout_constraintTop_toBottomOf="@+id/playerOneName"
+                tools:layout_editor_absoluteX="16dp" />
 
             <TextView
                 android:id="@+id/matchFormatSelectError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:textColor="@android:color/holo_red_dark"
                 app:layout_constraintStart_toEndOf="@+id/matchFormatText"
-                app:layout_constraintTop_toBottomOf="@+id/advantageSelect" />
+                app:layout_constraintTop_toBottomOf="@+id/playerOneName" />
 
             <RadioGroup
                 android:id="@+id/matchFormatSelect"
@@ -163,43 +157,42 @@
                     android:id="@+id/oneTiebreakSet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="One Tiebreak Set" />
+                    android:text="Best of five tiebreak sets" />
 
                 <RadioButton
                     android:id="@+id/eightGameProset"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="8 Game Pro Set" />
+                    android:text="Best of three tiebreak sets" />
 
                 <RadioButton
                     android:id="@+id/twoSetsMatchTiebreak"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Two Sets and a match Tiebreak" />
+                    android:text="Best of two tiebreak sets and match tiebreak" />
 
                 <RadioButton
                     android:id="@+id/bestOfThree"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Best of 3 Tiebreak sets" />
+                    android:text="Eight game pro-set" />
 
                 <RadioButton
                     android:id="@+id/bestOfFive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Best of 5 Tiebreak sets" />
+                    android:text="Six game pro-set" />
             </RadioGroup>
 
             <Button
                 android:id="@+id/submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:onClick="onSubmit"
                 android:text="Submit"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/matchFormatSelect" />
+                tools:layout_editor_absoluteY="452dp" />
 
         </android.support.constraint.ConstraintLayout>
 
