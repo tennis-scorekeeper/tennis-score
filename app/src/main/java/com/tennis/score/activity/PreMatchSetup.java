@@ -5,6 +5,7 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -15,6 +16,22 @@ import java.util.TimerTask;
 
 public class PreMatchSetup extends AppCompatActivity {
 
+    private TextView timerDisplay;
+
+    private Button setTimerButton;
+    private Button startTimerButton;
+    private Button stopTimerButton;
+
+    private String matchName;
+    private String playerOneName;
+    private String playerTwoName;
+    private String adRule;
+    private String matchFormat;
+
+    private int warmupSeconds;
+
+    private CountDownTimer countDownTimer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,22 +39,74 @@ public class PreMatchSetup extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        String matchName = intent.getStringExtra("matchName");
-        String playerOneName = intent.getStringExtra("playerOneName");
-        String playerTwoName = intent.getStringExtra("playerTwoName");
-        String adRule = intent.getStringExtra("adRule");
-        String matchFormat = intent.getStringExtra("matchFormat");
+        matchName = intent.getStringExtra("matchName");
+        playerOneName = intent.getStringExtra("playerOneName");
+        playerTwoName = intent.getStringExtra("playerTwoName");
+        adRule = intent.getStringExtra("adRule");
+        matchFormat = intent.getStringExtra("matchFormat");
+
+        timerDisplay = (TextView)findViewById(R.id.timerDisplay);
+
+        setTimerButton = (Button)findViewById(R.id.setTimer);
+        startTimerButton = (Button)findViewById(R.id.startTimer);
+        stopTimerButton = (Button)findViewById(R.id.stopTimer);
+
+        startTimerButton.setEnabled(false);
+        stopTimerButton.setEnabled(false);
 
         System.out.println(matchName + "-" + playerOneName + "-" + playerTwoName + "-" + adRule + "-" + matchFormat);
     }
 
+    public void setTimer(View view) {
+        String inputWarmupTime = ((EditText)findViewById(R.id.warmupTime)).getText().toString();
+
+        if (inputWarmupTime.length() <= 0) {
+            return;
+        }
+
+        double warmupTime = Double.parseDouble(inputWarmupTime);
+        warmupSeconds = (int)(warmupTime * 60);
+
+        countDownTimer = new CountDownTimer(warmupSeconds * 1000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                warmupSeconds = (int)(millisUntilFinished / 1000);
+
+                timerDisplay.setText(getTimeString(warmupSeconds));
+
+            }
+            public void onFinish() {
+                timerDisplay.setText("00:00");
+                setTimerButton.setEnabled(true);
+                startTimerButton.setEnabled(true);
+                stopTimerButton.setEnabled(false);
+            }
+        };
+
+        timerDisplay.setText(getTimeString(warmupSeconds));
+
+        startTimerButton.setEnabled(true);
+    }
+
     public void startTimer(View view) {
-        double warmupTime = Double.parseDouble(((EditText)findViewById(R.id.warmupTime)).getText().toString());
+        timerDisplay.setText(getTimeString(warmupSeconds-1));
+        countDownTimer.start();
 
-        int remainingSeconds = (int)(warmupTime * 60);
+        setTimerButton.setEnabled(false);
+        startTimerButton.setEnabled(false);
+        stopTimerButton.setEnabled(true);
+    }
 
-        int minutes = remainingSeconds / 60;
-        int seconds = remainingSeconds % 60;
+    public void stopTimer(View view) {
+        countDownTimer.cancel();
+
+        setTimerButton.setEnabled(true);
+        startTimerButton.setEnabled(true);
+        stopTimerButton.setEnabled(false);
+    }
+
+    private String getTimeString(int totalSeconds) {
+        int minutes = warmupSeconds / 60;
+        int seconds = warmupSeconds % 60;
 
         String minuteString = String.valueOf(minutes);
         String secondString = String.valueOf(seconds);
@@ -48,20 +117,6 @@ public class PreMatchSetup extends AppCompatActivity {
         if (secondString.length() == 1) {
             secondString = "0" + secondString;
         }
-        TextView textView = (TextView)findViewById(R.id.timerDisplay);
-        CountDownTimer countDownTimer = new CountDownTimer(remainingSeconds * 1000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                System.out.println(millisUntilFinished);
-            }
-            public void onFinish() {
-                System.out.println("done");
-            }
-        };
-
-        countDownTimer.start();
-    }
-
-    public void tester(View view) {
-        System.out.println("test");
+        return minuteString + ":" + secondString;
     }
 }
