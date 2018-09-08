@@ -11,6 +11,10 @@ import android.widget.TextView;
 
 import com.tennis.score.R;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * Created by Ali on 9/6/2018.
  */
@@ -71,13 +75,27 @@ public class NewMatch extends AppCompatActivity {
             ((TextView)findViewById(R.id.matchFormatSelectError)).setText("");
         }
 
+        String adRule = selectedAdRule.getText().toString();
+        String matchFormat = selectedFormat.getText().toString();
+
         if (formValid) {
+            File file = new File(getFilesDir(), "matches");
+            try {
+                FileWriter fw = new FileWriter(file, false);
+                fw.write(matchName + "," + playerOneName + "," + playerTwoName + "," + adRule + "," + matchFormat);
+                fw.flush();
+                fw.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
             Intent intent = new Intent(view.getContext(), PreMatchSetup.class);
             intent.putExtra("matchName", matchName);
             intent.putExtra("playerOneName", playerOneName);
             intent.putExtra("playerTwoName", playerTwoName);
-            intent.putExtra("adRule", selectedAdRule.getText().toString());
-            intent.putExtra("matchFormat", selectedFormat.getText().toString());
+            intent.putExtra("adRule", adRule);
+            intent.putExtra("matchFormat", matchFormat);
             startActivity(intent);
         }
     }
