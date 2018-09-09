@@ -5,6 +5,7 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -56,14 +57,16 @@ public class PreMatchSetup extends AppCompatActivity {
 
         System.out.println(tournamentName + "-" + playerOneName + "-" + playerTwoName + "-" + matchFormat + "-" + adRule);
 
-        ((RadioButton)findViewById(R.id.playerOneServe)).setText(playerOneName);
-        ((RadioButton)findViewById(R.id.playerTwoServe)).setText(playerTwoName);
+        ((RadioButton)findViewById(R.id.coinTossWinnerPlayerOne)).setText(playerOneName);
+        ((RadioButton)findViewById(R.id.coinTossWinnerPlayerTwo)).setText(playerTwoName);
 
         ((RadioButton)findViewById(R.id.leftSidePlayerOne)).setText(playerOneName);
         ((RadioButton)findViewById(R.id.leftSidePlayerTwo)).setText(playerTwoName);
 
         ((RadioButton)findViewById(R.id.rightSidePlayerOne)).setText(playerOneName);
         ((RadioButton)findViewById(R.id.rightSidePlayerTwo)).setText(playerTwoName);
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     public void startTimer(View view) {

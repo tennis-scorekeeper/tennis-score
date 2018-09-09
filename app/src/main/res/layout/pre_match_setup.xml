@@ -4,11 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_editor_absoluteX="40dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -43,8 +48,8 @@
                 android:id="@+id/startTimer"
                 android:layout_width="88dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:layout_marginStart="104dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginLeft="104dp"
                 android:layout_marginTop="8dp"
                 android:onClick="startTimer"
                 android:text="Start"
@@ -56,8 +61,8 @@
                 android:id="@+id/resetTimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="100dp"
-                android:layout_marginStart="4dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginLeft="4dp"
                 android:layout_marginTop="8dp"
                 android:onClick="resetTimer"
                 android:text="Reset"
@@ -66,38 +71,75 @@
                 app:layout_constraintTop_toBottomOf="@+id/timerDisplay" />
 
             <TextView
-                android:id="@+id/servingFirstText"
+                android:id="@+id/coinTossWinnerText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="12dp"
-                android:text="Serving first"
+                android:text="Coin toss winner"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/startTimer" />
 
             <RadioGroup
-                android:id="@+id/servingFirst"
+                android:id="@+id/coinTossWinnerSelect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/servingFirstText">
+                app:layout_constraintTop_toBottomOf="@+id/coinTossWinnerText">
 
                 <RadioButton
-                    android:id="@+id/playerOneServe"
+                    android:id="@+id/coinTossWinnerPlayerOne"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Player 1" />
 
                 <RadioButton
-                    android:id="@+id/playerTwoServe"
+                    android:id="@+id/coinTossWinnerPlayerTwo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Player 2" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/winnerElectedText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Coin toss winner choice"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/coinTossWinnerSelect" />
+
+            <RadioGroup
+                android:id="@+id/winnerChoiceSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/winnerElectedText">
+
+                <RadioButton
+                    android:id="@+id/winnerChoiceServe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Serve" />
+
+                <RadioButton
+                    android:id="@+id/winnerChoiceReceive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Receive" />
 
             </RadioGroup>
 
@@ -110,13 +152,14 @@
                 android:text="Player's starting sides"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/servingFirst" />
+                app:layout_constraintTop_toBottomOf="@+id/winnerChoiceSelect" />
 
             <ImageView
                 android:id="@+id/tennisCourtImage"
-                android:layout_width="151dp"
-                android:layout_height="104dp"
-                android:layout_marginTop="12dp"
+                android:layout_width="131dp"
+                android:layout_height="85dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintHorizontal_bias="0.501"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sideSelectText"
@@ -162,7 +205,7 @@
                 android:id="@+id/rightSideText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Right of chair"
                 app:layout_constraintStart_toEndOf="@+id/tennisCourtImage"
@@ -172,10 +215,8 @@
                 android:id="@+id/rightSideSelect"
                 android:layout_width="98dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tennisCourtImage"
                 app:layout_constraintTop_toBottomOf="@+id/rightSideText">
 
@@ -192,7 +233,58 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Player 2" />
+
             </RadioGroup>
+
+            <TextView
+                android:id="@+id/chairUmpireText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:text="Chair umpire"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/leftSideSelect" />
+
+            <EditText
+                android:id="@+id/chairUmpire"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chairUmpireText" />
+
+            <TextView
+                android:id="@+id/courtNumberText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="140dp"
+                android:layout_marginTop="20dp"
+                android:text="Court number"
+                app:layout_constraintStart_toEndOf="@+id/chairUmpireText"
+                app:layout_constraintTop_toBottomOf="@+id/leftSideSelect" />
+
+            <EditText
+                android:id="@+id/courtNumber"
+                android:layout_width="61dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="number"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/chairUmpire"
+                app:layout_constraintTop_toBottomOf="@+id/courtNumberText"
+                app:layout_constraintVertical_bias="1.0" />
 
         </android.support.constraint.ConstraintLayout>
 
