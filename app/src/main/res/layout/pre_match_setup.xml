@@ -18,34 +18,11 @@
                 android:id="@+id/warmupTimeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_marginLeft="44dp"
                 android:layout_marginTop="16dp"
-                android:text="Warm-up Time (Minutes):"
+                android:text="Warm-up time"
                 android:textSize="14sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/warmupTime"
-                android:layout_width="44dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:inputType="numberDecimal"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@+id/warmupTimeLabel"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/setTimer"
-                android:layout_width="64dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:onClick="setTimer"
-                android:text="Set"
-                app:layout_constraintStart_toEndOf="@+id/warmupTime"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -74,13 +51,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/timerDisplay" />
 
             <Button
-                android:id="@+id/stopTimer"
+                android:id="@+id/resetTimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
-                android:onClick="stopTimer"
-                android:text="Stop"
+                android:onClick="resetTimer"
+                android:text="Reset"
                 app:layout_constraintStart_toEndOf="@+id/startTimer"
                 app:layout_constraintTop_toBottomOf="@+id/timerDisplay" />
 
@@ -90,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="12dp"
-                android:text="Serving First"
+                android:text="Serving first"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/startTimer" />
 
@@ -147,13 +124,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Left of Chair"
+                android:text="Left of chair"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sideSelectText" />
 
             <RadioGroup
                 android:id="@+id/leftSideSelect"
-                android:layout_width="91dp"
+                android:layout_width="98dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
@@ -183,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Right of Chair"
+                android:text="Right of chair"
                 app:layout_constraintStart_toEndOf="@+id/tennisCourtImage"
                 app:layout_constraintTop_toBottomOf="@+id/sideSelectText" />
 
