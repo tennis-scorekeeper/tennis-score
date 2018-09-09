@@ -57,10 +57,15 @@ public class PreMatchSetup extends AppCompatActivity {
 
         System.out.println(tournamentName + "-" + playerOneName + "-" + playerTwoName + "-" + matchFormat + "-" + adRule);
 
-        RadioButton playerOneServe = (RadioButton)findViewById(R.id.playerOneServe);
-        RadioButton playerTwoServe = (RadioButton)findViewById(R.id.playerTwoServe);
-        playerOneServe.setText(playerOneName);
-        playerTwoServe.setText(playerTwoName);
+        ((RadioButton)findViewById(R.id.playerOneServe)).setText(playerOneName);
+        ((RadioButton)findViewById(R.id.playerTwoServe)).setText(playerTwoName);
+
+        ((RadioButton)findViewById(R.id.leftSidePlayerOne)).setText(playerOneName);
+        ((RadioButton)findViewById(R.id.leftSidePlayerTwo)).setText(playerTwoName);
+
+        ((RadioButton)findViewById(R.id.rightSidePlayerOne)).setText(playerOneName);
+        ((RadioButton)findViewById(R.id.rightSidePlayerTwo)).setText(playerTwoName);
+
     }
 
     public void setTimer(View view) {

@@ -117,9 +117,104 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Player 2" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/sideSelectText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_weight="1"
+                android:text="Player's starting sides"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/servingFirst" />
+
+            <ImageView
+                android:id="@+id/tennisCourtImage"
+                android:layout_width="151dp"
+                android:layout_height="104dp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sideSelectText"
+                app:srcCompat="@drawable/tenniscourt" />
+
+            <TextView
+                android:id="@+id/leftSideText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Left of Chair"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sideSelectText" />
+
+            <RadioGroup
+                android:id="@+id/leftSideSelect"
+                android:layout_width="91dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/leftSideText">
+
+                <RadioButton
+                    android:id="@+id/leftSidePlayerOne"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Player 1" />
+
+                <RadioButton
+                    android:id="@+id/leftSidePlayerTwo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Player 2" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/rightSideText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Right of Chair"
+                app:layout_constraintStart_toEndOf="@+id/tennisCourtImage"
+                app:layout_constraintTop_toBottomOf="@+id/sideSelectText" />
+
+            <RadioGroup
+                android:id="@+id/rightSideSelect"
+                android:layout_width="98dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tennisCourtImage"
+                app:layout_constraintTop_toBottomOf="@+id/rightSideText">
+
+                <RadioButton
+                    android:id="@+id/rightSidePlayerOne"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Player 1" />
+
+                <RadioButton
+                    android:id="@+id/rightSidePlayerTwo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Player 2" />
             </RadioGroup>
 
         </android.support.constraint.ConstraintLayout>
+
     </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
