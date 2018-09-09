@@ -9,8 +9,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -19,10 +19,10 @@
             <TextView
                 android:id="@+id/tournamentNameText"
                 android:layout_width="wrap_content"
-                android:layout_height="26dp"
+                android:layout_height="19dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Tournament name"
+                android:text="Tournament name *"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,19 +44,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Player 1 name"
+                android:text="Player 1 name *"
+                app:layout_constraintBottom_toTopOf="@+id/playerOneName"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tournamentName" />
 
             <TextView
                 android:id="@+id/playerTwoText"
                 android:layout_width="wrap_content"
-                android:layout_height="19dp"
-                android:layout_marginStart="88dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Player 2 name"
-                app:layout_constraintStart_toEndOf="@+id/playerOneText"
-                app:layout_constraintTop_toBottomOf="@+id/tournamentName" />
+                android:text="Player 2 name *"
+                app:layout_constraintBottom_toTopOf="@+id/playerTwoName"
+                app:layout_constraintEnd_toStartOf="@+id/player2NameError"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/playerOneName" />
 
             <EditText
                 android:id="@+id/playerOneName"
@@ -72,22 +78,25 @@
                 android:id="@+id/playerTwoName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="6dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:ems="8"
                 android:inputType="textPersonName"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/playerOneName"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/playerTwoText" />
 
             <TextView
                 android:id="@+id/adRuleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Scoring format"
+                android:text="Scoring format *"
+                app:layout_constraintBottom_toTopOf="@+id/advantageSelect"
+                app:layout_constraintEnd_toStartOf="@+id/adSelectError"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/matchFormatSelect" />
 
@@ -99,15 +108,16 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:textColor="@android:color/holo_red_dark"
+                app:layout_constraintBottom_toTopOf="@+id/advantageSelect"
                 app:layout_constraintStart_toEndOf="@+id/adRuleText"
-                app:layout_constraintTop_toBottomOf="@+id/matchFormatSelect" />
+                app:layout_constraintTop_toBottomOf="@+id/matchFormatSelect"
+                app:layout_constraintVertical_bias="1.0" />
 
             <RadioGroup
                 android:id="@+id/advantageSelect"
                 android:layout_width="317dp"
                 android:layout_height="34dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"
                 android:orientation="horizontal"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/adRuleText">
@@ -130,31 +140,40 @@
                 android:id="@+id/matchFormatText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Match format"
+                android:text="Match format *"
+                app:layout_constraintBottom_toTopOf="@+id/matchFormatSelect"
+                app:layout_constraintEnd_toStartOf="@+id/matchFormatSelectError"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/playerOneName" />
+                app:layout_constraintTop_toBottomOf="@+id/division" />
 
             <TextView
                 android:id="@+id/matchFormatSelectError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:textColor="@android:color/holo_red_dark"
+                app:layout_constraintBottom_toTopOf="@+id/matchFormatSelect"
                 app:layout_constraintStart_toEndOf="@+id/matchFormatText"
-                app:layout_constraintTop_toBottomOf="@+id/playerOneName" />
+                app:layout_constraintTop_toBottomOf="@+id/round" />
 
             <RadioGroup
                 android:id="@+id/matchFormatSelect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="56dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="56dp"
                 android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/adRuleText"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/matchFormatText">
 
@@ -193,18 +212,16 @@
                 android:id="@+id/submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:onClick="onSubmit"
                 android:text="Submit"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/advantageSelect" />
+                tools:layout_editor_absoluteY="604dp" />
 
             <TextView
                 android:id="@+id/tournamentNameError"
                 android:layout_width="wrap_content"
                 android:layout_height="18dp"
-                android:layout_marginBottom="8dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
                 android:textColor="@android:color/holo_red_dark"
@@ -215,8 +232,8 @@
                 android:id="@+id/player1NameError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="14sp"
@@ -228,15 +245,142 @@
                 android:id="@+id/player2NameError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:textColor="@android:color/holo_red_dark"
                 app:layout_constraintBottom_toTopOf="@+id/playerTwoName"
                 app:layout_constraintStart_toEndOf="@+id/playerTwoText"
-                app:layout_constraintTop_toBottomOf="@+id/tournamentName"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/playerOneName" />
+
+            <TextView
+                android:id="@+id/player1FromText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="166dp"
+                android:layout_marginLeft="57dp"
+                android:layout_marginRight="166dp"
+                android:layout_marginStart="57dp"
+                android:layout_marginTop="8dp"
+                android:text="from"
+                app:layout_constraintBottom_toTopOf="@+id/player1from"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/player1NameError"
+                app:layout_constraintTop_toBottomOf="@+id/tournamentName" />
+
+            <EditText
+                android:id="@+id/player1from"
+                android:layout_width="183dp"
+                android:layout_height="46dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/playerOneName"
+                app:layout_constraintTop_toBottomOf="@+id/player1FromText" />
+
+            <TextView
+                android:id="@+id/player2FromText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="166dp"
+                android:layout_marginLeft="57dp"
+                android:layout_marginRight="166dp"
+                android:layout_marginStart="57dp"
+                android:layout_marginTop="8dp"
+                android:text="from"
+                app:layout_constraintBottom_toTopOf="@+id/player2from"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/player2NameError"
+                app:layout_constraintTop_toBottomOf="@+id/player1from" />
+
+            <EditText
+                android:id="@+id/player2from"
+                android:layout_width="183dp"
+                android:layout_height="46dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/playerTwoName"
+                app:layout_constraintTop_toBottomOf="@+id/player2FromText" />
+
+            <TextView
+                android:id="@+id/roundText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Round"
+                app:layout_constraintBottom_toTopOf="@+id/round"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/playerTwoName" />
+
+            <EditText
+                android:id="@+id/round"
+                android:layout_width="172dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/roundText" />
+
+            <EditText
+                android:id="@+id/division"
+                android:layout_width="183dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/round"
+                app:layout_constraintTop_toBottomOf="@+id/divisionText" />
+
+            <TextView
+                android:id="@+id/divisionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="148dp"
+                android:layout_marginLeft="132dp"
+                android:layout_marginRight="148dp"
+                android:layout_marginStart="132dp"
+                android:layout_marginTop="8dp"
+                android:text="Division"
+                app:layout_constraintBottom_toTopOf="@+id/division"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/roundText"
+                app:layout_constraintTop_toBottomOf="@+id/player2from" />
+
+            <TextView
+                android:id="@+id/dateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="118dp"
+                android:layout_marginLeft="81dp"
+                android:layout_marginRight="118dp"
+                android:layout_marginStart="81dp"
+                android:layout_marginTop="17dp"
+                android:text="Date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tournamentNameError"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/editText8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="565dp" />
 
         </android.support.constraint.ConstraintLayout>
 
