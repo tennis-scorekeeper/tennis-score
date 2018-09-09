@@ -19,9 +19,8 @@ public class PreMatchSetup extends AppCompatActivity {
 
     private TextView timerDisplay;
 
-    private Button setTimerButton;
     private Button startTimerButton;
-    private Button stopTimerButton;
+    private Button resetTimerButton;
 
     private String tournamentName;
     private String playerOneName;
@@ -29,7 +28,11 @@ public class PreMatchSetup extends AppCompatActivity {
     private String adRule;
     private String matchFormat;
 
-    private int warmupSeconds;
+    private final int maxSeconds = 60*60;
+
+    private int warmupSeconds = 0;
+    private int stoppedAtSecond = 0;
+    private boolean paused = true;
 
     private CountDownTimer countDownTimer;
 
@@ -48,12 +51,8 @@ public class PreMatchSetup extends AppCompatActivity {
 
         timerDisplay = (TextView)findViewById(R.id.timerDisplay);
 
-        setTimerButton = (Button)findViewById(R.id.setTimer);
         startTimerButton = (Button)findViewById(R.id.startTimer);
-        stopTimerButton = (Button)findViewById(R.id.stopTimer);
-
-        startTimerButton.setEnabled(false);
-        stopTimerButton.setEnabled(false);
+        resetTimerButton = (Button)findViewById(R.id.resetTimer);
 
         System.out.println(tournamentName + "-" + playerOneName + "-" + playerTwoName + "-" + matchFormat + "-" + adRule);
 
@@ -65,68 +64,48 @@ public class PreMatchSetup extends AppCompatActivity {
 
         ((RadioButton)findViewById(R.id.rightSidePlayerOne)).setText(playerOneName);
         ((RadioButton)findViewById(R.id.rightSidePlayerTwo)).setText(playerTwoName);
-
-    }
-
-    public void setTimer(View view) {
-        String inputWarmupTime = ((EditText)findViewById(R.id.warmupTime)).getText().toString();
-
-        if (inputWarmupTime.length() <= 0) {
-            return;
-        }
-
-        double warmupTime;
-
-        try {
-            warmupTime = Double.parseDouble(inputWarmupTime);
-        }
-        catch (NumberFormatException nfe) {
-            System.out.println("Invalid input");
-            return;
-        }
-
-        warmupSeconds = (int)(warmupTime * 60);
-
-        countDownTimer = new CountDownTimer(warmupSeconds * 1000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                warmupSeconds = (int)(millisUntilFinished / 1000);
-
-                timerDisplay.setText(getTimeString(warmupSeconds));
-
-            }
-            public void onFinish() {
-                timerDisplay.setText("00:00");
-                setTimerButton.setEnabled(true);
-                startTimerButton.setEnabled(true);
-                stopTimerButton.setEnabled(false);
-            }
-        };
-
-        timerDisplay.setText(getTimeString(warmupSeconds));
-
-        startTimerButton.setEnabled(true);
     }
 
     public void startTimer(View view) {
-        timerDisplay.setText(getTimeString(warmupSeconds-1));
-        countDownTimer.start();
+        if (paused) {
+            countDownTimer = new CountDownTimer(maxSeconds * 1000, 1000) {
+                public void onTick(long millisUntilFinished) {
+                    warmupSeconds = maxSeconds - ((int) (millisUntilFinished / 1000));
+                    timerDisplay.setText(getTimeString(warmupSeconds + stoppedAtSecond));
+                }
 
-        setTimerButton.setEnabled(false);
-        startTimerButton.setEnabled(false);
-        stopTimerButton.setEnabled(true);
+                public void onFinish() {
+                    timerDisplay.setText("00:00");
+                    resetTimerButton.setEnabled(true);
+                }
+            };
+
+            countDownTimer.start();
+            paused = false;
+
+            startTimerButton.setText("Stop");
+            resetTimerButton.setEnabled(false);
+        }
+        else {
+            stoppedAtSecond = warmupSeconds;
+
+            countDownTimer.cancel();
+            paused = true;
+
+            startTimerButton.setText("Start");
+            resetTimerButton.setEnabled(true);
+
+        }
     }
 
-    public void stopTimer(View view) {
-        countDownTimer.cancel();
-
-        setTimerButton.setEnabled(true);
-        startTimerButton.setEnabled(true);
-        stopTimerButton.setEnabled(false);
+    public void resetTimer(View view) {
+        stoppedAtSecond = 0;
+        timerDisplay.setText("00:00");
     }
 
     private String getTimeString(int totalSeconds) {
-        int minutes = warmupSeconds / 60;
-        int seconds = warmupSeconds % 60;
+        int minutes = totalSeconds / 60;
+        int seconds = totalSeconds % 60;
 
         String minuteString = String.valueOf(minutes);
         String secondString = String.valueOf(seconds);
