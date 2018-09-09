@@ -87,7 +87,7 @@ public class PreMatchSetup extends AppCompatActivity {
             resetTimerButton.setEnabled(false);
         }
         else {
-            stoppedAtSecond = warmupSeconds;
+            stoppedAtSecond += warmupSeconds;
 
             countDownTimer.cancel();
             paused = true;
