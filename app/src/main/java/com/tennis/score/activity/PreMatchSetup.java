@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.tennis.score.R;
@@ -55,6 +56,11 @@ public class PreMatchSetup extends AppCompatActivity {
         stopTimerButton.setEnabled(false);
 
         System.out.println(tournamentName + "-" + playerOneName + "-" + playerTwoName + "-" + matchFormat + "-" + adRule);
+
+        RadioButton playerOneServe = (RadioButton)findViewById(R.id.playerOneServe);
+        RadioButton playerTwoServe = (RadioButton)findViewById(R.id.playerTwoServe);
+        playerOneServe.setText(playerOneName);
+        playerTwoServe.setText(playerTwoName);
     }
 
     public void setTimer(View view) {
