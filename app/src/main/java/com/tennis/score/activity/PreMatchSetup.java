@@ -95,13 +95,13 @@ public class PreMatchSetup extends AppCompatActivity {
 
         ((TextView)findViewById(R.id.MatchTournament)).setText(tournamentName);
         if (division == " ") {
-            ((TextView) findViewById(R.id.DivisionRound)).setText(round);
+            ((TextView) findViewById(R.id.divisionRound)).setText(round);
         }
         else if (round == " ") {
-            ((TextView) findViewById(R.id.DivisionRound)).setText(division);
+            ((TextView) findViewById(R.id.divisionRound)).setText(division);
         }
         else {
-            ((TextView) findViewById(R.id.DivisionRound)).setText(division + ", " + round);
+            ((TextView) findViewById(R.id.divisionRound)).setText(division + ", " + round);
         }
         ((TextView)findViewById(R.id.FormatScoring)).setText(matchFormat + ", " + adRule + " scoring");
 

@@ -261,16 +261,13 @@
                 android:id="@+id/chairUmpire"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/chairUmpireText"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/chairUmpireText" />
 
             <TextView
                 android:id="@+id/courtNumberText"
@@ -300,12 +297,12 @@
                 android:id="@+id/setMatch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="148dp"
-                android:layout_marginLeft="148dp"
-                android:layout_marginRight="148dp"
-                android:layout_marginStart="148dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="131dp"
+                android:layout_marginLeft="131dp"
+                android:layout_marginRight="131dp"
+                android:layout_marginStart="131dp"
+                android:layout_marginTop="16dp"
                 android:text="Start match"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -313,7 +310,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/chairUmpire" />
 
             <TextView
-                android:id="@+id/DivisionRound"
+                android:id="@+id/divisionRound"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -332,7 +329,7 @@
                 android:layout_marginTop="16dp"
                 android:text="Format, Scoring"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/DivisionRound" />
+                app:layout_constraintTop_toBottomOf="@+id/divisionRound" />
 
             <TextView
                 android:id="@+id/MatchTournament"
