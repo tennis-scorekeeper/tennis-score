@@ -7,14 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.tennis.score.R;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class PreMatchSetup extends AppCompatActivity {
 
@@ -74,14 +70,40 @@ public class PreMatchSetup extends AppCompatActivity {
                 + matchFormat + "," + adRule + "," + referee;
         System.out.println(fetchedData);
 
-        ((RadioButton)findViewById(R.id.coinTossWinnerPlayerOne)).setText(playerOneName);
-        ((RadioButton)findViewById(R.id.coinTossWinnerPlayerTwo)).setText(playerTwoName);
+        if (playerOneFrom == " ") {
+            ((RadioButton)findViewById(R.id.coinTossWinnerPlayerOne)).setText(playerOneName);
+        }
+        else {
+            ((RadioButton)findViewById(R.id.coinTossWinnerPlayerOne)).setText(
+                    playerOneName + " (" + playerOneFrom + ")");
+        }
+
+        if (playerTwoFrom == " ") {
+            ((RadioButton)findViewById(R.id.coinTossWinnerPlayerTwo)).setText(playerTwoName);
+        }
+        else {
+            ((RadioButton)findViewById(R.id.coinTossWinnerPlayerTwo)).setText(
+                    playerTwoName + " (" + playerTwoFrom + ")");
+        }
+
 
         ((RadioButton)findViewById(R.id.leftSidePlayerOne)).setText(playerOneName);
         ((RadioButton)findViewById(R.id.leftSidePlayerTwo)).setText(playerTwoName);
 
         ((RadioButton)findViewById(R.id.rightSidePlayerOne)).setText(playerOneName);
         ((RadioButton)findViewById(R.id.rightSidePlayerTwo)).setText(playerTwoName);
+
+        ((TextView)findViewById(R.id.MatchTournament)).setText(tournamentName);
+        if (division == " ") {
+            ((TextView) findViewById(R.id.DivisionRound)).setText(round);
+        }
+        else if (round == " ") {
+            ((TextView) findViewById(R.id.DivisionRound)).setText(division);
+        }
+        else {
+            ((TextView) findViewById(R.id.DivisionRound)).setText(division + ", " + round);
+        }
+        ((TextView)findViewById(R.id.FormatScoring)).setText(matchFormat + ", " + adRule + " scoring");
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
