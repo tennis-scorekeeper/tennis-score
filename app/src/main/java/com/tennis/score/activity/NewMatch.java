@@ -35,6 +35,9 @@ public class NewMatch extends AppCompatActivity {
         String playerOneName = ((EditText)findViewById(R.id.playerOneName)).getText().toString();
         String playerTwoName = ((EditText)findViewById(R.id.playerTwoName)).getText().toString();
 
+        String adRule = "";
+        String matchFormat = "";
+
         if (tournamentName.length() <= 0) {
             ((TextView)findViewById(R.id.tournamentNameError)).setText("* Enter tournament.");
             formValid = false;
@@ -66,6 +69,7 @@ public class NewMatch extends AppCompatActivity {
         }
         else {
             ((TextView)findViewById(R.id.adSelectError)).setText("");
+            adRule = selectedAdRule.getText().toString();
         }
 
         RadioButton selectedFormat = (RadioButton)findViewById(((RadioGroup) findViewById(R.id.matchFormatSelect)).getCheckedRadioButtonId());
@@ -75,10 +79,8 @@ public class NewMatch extends AppCompatActivity {
         }
         else {
             ((TextView)findViewById(R.id.matchFormatSelectError)).setText("");
+            matchFormat = selectedFormat.getText().toString();
         }
-
-        String adRule = selectedAdRule.getText().toString();
-        String matchFormat = selectedFormat.getText().toString();
 
         if (formValid) {
             File file = new File(getFilesDir(), "matchData");
