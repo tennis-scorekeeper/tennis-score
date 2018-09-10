@@ -72,6 +72,7 @@ public class PreMatchSetup extends AppCompatActivity {
         String fetchedData = tournamentName + "," + date + "," + playerOneName + "," + playerOneFrom + ","
                 + playerTwoName + "," + playerTwoFrom + "," + round + "," + division + ","
                 + matchFormat + "," + adRule + "," + referee;
+        System.out.println(fetchedData);
 
         ((RadioButton)findViewById(R.id.coinTossWinnerPlayerOne)).setText(playerOneName);
         ((RadioButton)findViewById(R.id.coinTossWinnerPlayerTwo)).setText(playerTwoName);
