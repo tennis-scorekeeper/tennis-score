@@ -43,7 +43,7 @@ public class NewMatch extends AppCompatActivity {
         String playerTwoName = ((EditText)findViewById(R.id.playerTwoName)).getText().toString();
         String playerTwoFrom = ((EditText)findViewById(R.id.player2from)).getText().toString();
 
-        String round = ((EditText)findViewById(R.id.MatchRound)).getText().toString();
+        String round = ((EditText)findViewById(R.id.round)).getText().toString();
         String division = ((EditText)findViewById(R.id.division)).getText().toString();
         String referee = ((EditText)findViewById(R.id.referee)).getText().toString();
 
