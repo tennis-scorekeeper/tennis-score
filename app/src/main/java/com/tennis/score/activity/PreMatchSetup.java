@@ -24,10 +24,17 @@ public class PreMatchSetup extends AppCompatActivity {
     private Button resetTimerButton;
 
     private String tournamentName;
+    private String date;
     private String playerOneName;
+    private String playerOneFrom;
     private String playerTwoName;
-    private String adRule;
+    private String playerTwoFrom;
+    private String round;
+    private String division;
     private String matchFormat;
+    private String adRule;
+    private String referee;
+
 
     private final int maxSeconds = 60*60;
 
@@ -45,17 +52,26 @@ public class PreMatchSetup extends AppCompatActivity {
         Intent intent = getIntent();
 
         tournamentName = intent.getStringExtra("tournamentName");
+        date = intent.getStringExtra("date");
         playerOneName = intent.getStringExtra("playerOneName");
+        playerOneFrom = intent.getStringExtra("playerOneFrom");
         playerTwoName = intent.getStringExtra("playerTwoName");
+        playerTwoFrom = intent.getStringExtra("playerTwoFrom");
+        round = intent.getStringExtra("round");
+        division = intent.getStringExtra("division");
         matchFormat = intent.getStringExtra("matchFormat");
         adRule = intent.getStringExtra("adRule");
+        referee = intent.getStringExtra("referee");
 
         timerDisplay = (TextView)findViewById(R.id.timerDisplay);
 
         startTimerButton = (Button)findViewById(R.id.startTimer);
         resetTimerButton = (Button)findViewById(R.id.resetTimer);
 
-        System.out.println(tournamentName + "-" + playerOneName + "-" + playerTwoName + "-" + matchFormat + "-" + adRule);
+
+        String fetchedData = tournamentName + "," + date + "," + playerOneName + "," + playerOneFrom + ","
+                + playerTwoName + "," + playerTwoFrom + "," + round + "," + division + ","
+                + matchFormat + "," + adRule + "," + referee;
 
         ((RadioButton)findViewById(R.id.coinTossWinnerPlayerOne)).setText(playerOneName);
         ((RadioButton)findViewById(R.id.coinTossWinnerPlayerTwo)).setText(playerTwoName);

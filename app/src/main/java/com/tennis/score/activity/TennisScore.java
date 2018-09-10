@@ -93,10 +93,16 @@ public class TennisScore extends AppCompatActivity {
 
                             Intent intent = new Intent(view.getContext(), PreMatchSetup.class);
                             intent.putExtra("tournamentName", lineSplit[0]);
-                            intent.putExtra("playerOneName", lineSplit[1]);
-                            intent.putExtra("playerTwoName", lineSplit[2]);
-                            intent.putExtra("matchFormat", lineSplit[3]);
-                            intent.putExtra("adRule", lineSplit[4]);
+                            intent.putExtra("date", lineSplit[1]);
+                            intent.putExtra("playerOneName", lineSplit[2]);
+                            intent.putExtra("playerOneFrom", lineSplit[3]);
+                            intent.putExtra("playerTwoName", lineSplit[4]);
+                            intent.putExtra("playerTwoFrom", lineSplit[5]);
+                            intent.putExtra("round", lineSplit[6]);
+                            intent.putExtra("division", lineSplit[7]);
+                            intent.putExtra("matchFormat", lineSplit[8]);
+                            intent.putExtra("adRule", lineSplit[9]);
+                            intent.putExtra("referee", lineSplit[10]);
                             startActivity(intent);
 
                             break;
@@ -148,8 +154,8 @@ public class TennisScore extends AppCompatActivity {
     private String getMatchDisplayString(String line) {
         String[] lineValues = line.split(",");
         String tournamentName = lineValues[0];
-        String playerOne = lineValues[1];
-        String playerTwo = lineValues[2];
+        String playerOne = lineValues[2];
+        String playerTwo = lineValues[4];
 
         return tournamentName + ": " + playerOne + " Vs. " + playerTwo;
     }

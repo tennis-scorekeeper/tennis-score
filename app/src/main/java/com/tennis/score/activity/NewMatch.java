@@ -32,8 +32,16 @@ public class NewMatch extends AppCompatActivity {
         boolean formValid = true;
 
         String tournamentName = ((EditText)findViewById(R.id.tournamentName)).getText().toString();
+        String date = ((EditText)findViewById(R.id.date)).getText().toString();
+
         String playerOneName = ((EditText)findViewById(R.id.playerOneName)).getText().toString();
+        String playerOneFrom = ((EditText)findViewById(R.id.player1from)).getText().toString();
         String playerTwoName = ((EditText)findViewById(R.id.playerTwoName)).getText().toString();
+        String playerTwoFrom = ((EditText)findViewById(R.id.player2from)).getText().toString();
+
+        String round = ((EditText)findViewById(R.id.round)).getText().toString();
+        String division = ((EditText)findViewById(R.id.division)).getText().toString();
+        String referee = ((EditText)findViewById(R.id.referee)).getText().toString();
 
         String adRule = "";
         String matchFormat = "";
@@ -46,6 +54,10 @@ public class NewMatch extends AppCompatActivity {
             ((TextView)findViewById(R.id.tournamentNameError)).setText("");
         }
 
+        if (date.length() <= 0) {
+            date = " ";
+        }
+
         if (playerOneName.length() <= 0) {
             ((TextView)findViewById(R.id.player1NameError)).setText("* Name.");
             formValid = false;
@@ -54,12 +66,28 @@ public class NewMatch extends AppCompatActivity {
             ((TextView)findViewById(R.id.player1NameError)).setText("");
         }
 
+        if (playerOneFrom.length() <= 0) {
+            playerOneFrom = " ";
+        }
+
         if (playerTwoName.length() <= 0) {
             ((TextView)findViewById(R.id.player2NameError)).setText("* Name.");
             formValid = false;
         }
         else {
             ((TextView)findViewById(R.id.player2NameError)).setText("");
+        }
+
+        if (playerTwoFrom.length() <= 0) {
+            playerTwoFrom = " ";
+        }
+
+        if (round.length() <= 0) {
+            round = " ";
+        }
+
+        if (division.length() <= 0) {
+            division = " ";
         }
 
         RadioButton selectedAdRule = (RadioButton)findViewById(((RadioGroup) findViewById(R.id.advantageSelect)).getCheckedRadioButtonId());
@@ -82,15 +110,21 @@ public class NewMatch extends AppCompatActivity {
             matchFormat = selectedFormat.getText().toString();
         }
 
+        if (referee.length() <= 0) {
+            referee = " ";
+        }
+
         if (formValid) {
             File file = new File(getFilesDir(), "matchData");
             try {
+                String lineToWrite = tournamentName + "," + date + "," + playerOneName + "," + playerOneFrom + ","
+                        + playerTwoName + "," + playerTwoFrom + "," + round + "," + division + ","
+                        + matchFormat + "," + adRule + "," + referee;
                 FileWriter fw = new FileWriter(file, true);
-                fw.write(tournamentName + "," + playerOneName + "," + playerTwoName + "," + matchFormat + "," + adRule);
+                fw.write(lineToWrite);
                 fw.write(System.getProperty("line.separator"));
                 fw.flush();
                 fw.close();
-                System.out.println("wrote data");
             }
             catch (IOException e) {
                 e.printStackTrace();
