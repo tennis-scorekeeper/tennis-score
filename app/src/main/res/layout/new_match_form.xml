@@ -174,7 +174,7 @@
                 android:textColor="@android:color/holo_red_dark"
                 app:layout_constraintBottom_toTopOf="@+id/matchFormatSelect"
                 app:layout_constraintStart_toEndOf="@+id/matchFormatText"
-                app:layout_constraintTop_toBottomOf="@+id/round" />
+                app:layout_constraintTop_toBottomOf="@+id/MatchRound" />
 
             <RadioGroup
                 android:id="@+id/matchFormatSelect"
@@ -334,7 +334,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/player2FromText" />
 
             <TextView
-                android:id="@+id/roundText"
+                android:id="@+id/DivisionRound"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -342,12 +342,12 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="Round"
-                app:layout_constraintBottom_toTopOf="@+id/round"
+                app:layout_constraintBottom_toTopOf="@+id/MatchRound"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/playerTwoName" />
 
             <EditText
-                android:id="@+id/round"
+                android:id="@+id/MatchRound"
                 android:layout_width="172dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -356,7 +356,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/roundText" />
+                app:layout_constraintTop_toBottomOf="@+id/DivisionRound" />
 
             <EditText
                 android:id="@+id/division"
@@ -368,7 +368,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/round"
+                app:layout_constraintStart_toEndOf="@+id/MatchRound"
                 app:layout_constraintTop_toBottomOf="@+id/divisionText" />
 
             <TextView
@@ -384,7 +384,7 @@
                 android:text="Division"
                 app:layout_constraintBottom_toTopOf="@+id/division"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/roundText"
+                app:layout_constraintStart_toEndOf="@+id/DivisionRound"
                 app:layout_constraintTop_toBottomOf="@+id/player2from" />
 
             <TextView
