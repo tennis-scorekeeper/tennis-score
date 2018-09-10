@@ -103,6 +103,7 @@
                     android:id="@+id/coinTossWinnerPlayerTwo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:layout_weight="1"
                     android:text="Player 2" />
             </RadioGroup>
@@ -129,7 +130,7 @@
 
                 <RadioButton
                     android:id="@+id/winnerChoiceServe"
-                    android:layout_width="83dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Serve" />
@@ -138,6 +139,7 @@
                     android:id="@+id/winnerChoiceReceive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:layout_weight="1"
                     android:text="Receive" />
 
