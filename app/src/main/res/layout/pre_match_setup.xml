@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        tools:layout_editor_absoluteX="40dp">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -48,8 +48,8 @@
                 android:id="@+id/startTimer"
                 android:layout_width="88dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="4dp"
                 android:layout_marginLeft="104dp"
+                android:layout_marginRight="4dp"
                 android:layout_marginTop="8dp"
                 android:onClick="startTimer"
                 android:text="Start"
@@ -61,8 +61,8 @@
                 android:id="@+id/resetTimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="100dp"
                 android:layout_marginLeft="4dp"
+                android:layout_marginRight="100dp"
                 android:layout_marginTop="8dp"
                 android:onClick="resetTimer"
                 android:text="Reset"
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="12dp"
-                android:text="Coin toss winner"
+                android:text="Toss winner"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/startTimer" />
 
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Coin toss winner choice"
+                android:text="Choice"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/coinTossWinnerSelect" />
 
@@ -129,7 +129,7 @@
 
                 <RadioButton
                     android:id="@+id/winnerChoiceServe"
-                    android:layout_width="wrap_content"
+                    android:layout_width="83dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Serve" />
@@ -259,7 +259,8 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/chairUmpireText" />
+                app:layout_constraintTop_toBottomOf="@+id/chairUmpireText"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/courtNumberText"
@@ -276,6 +277,7 @@
                 android:layout_width="61dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:layout_marginLeft="28dp"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
@@ -284,7 +286,23 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/chairUmpire"
                 app:layout_constraintTop_toBottomOf="@+id/courtNumberText"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="0.0" />
+
+            <Button
+                android:id="@+id/setMatch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="148dp"
+                android:layout_marginLeft="148dp"
+                android:layout_marginRight="148dp"
+                android:layout_marginStart="148dp"
+                android:layout_marginTop="24dp"
+                android:text="Start match"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chairUmpire" />
 
         </android.support.constraint.ConstraintLayout>
 
