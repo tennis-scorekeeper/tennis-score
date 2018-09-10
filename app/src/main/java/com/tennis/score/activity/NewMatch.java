@@ -20,6 +20,10 @@ import java.io.IOException;
  */
 
 public class NewMatch extends AppCompatActivity {
+
+    private final int blackColor = 0xff000000;
+    private final int redColor = 0xffcc0000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,11 +51,11 @@ public class NewMatch extends AppCompatActivity {
         String matchFormat = "";
 
         if (tournamentName.length() <= 0) {
-            ((TextView)findViewById(R.id.tournamentNameError)).setText("* Enter tournament.");
+            ((TextView)findViewById(R.id.tournamentNameText)).setTextColor(redColor);
             formValid = false;
         }
         else {
-            ((TextView)findViewById(R.id.tournamentNameError)).setText("");
+            ((TextView)findViewById(R.id.tournamentNameText)).setTextColor(blackColor);
         }
 
         if (date.length() <= 0) {
@@ -59,11 +63,11 @@ public class NewMatch extends AppCompatActivity {
         }
 
         if (playerOneName.length() <= 0) {
-            ((TextView)findViewById(R.id.player1NameError)).setText("* Name.");
             formValid = false;
+            ((TextView)findViewById(R.id.playerOneText)).setTextColor(redColor);
         }
         else {
-            ((TextView)findViewById(R.id.player1NameError)).setText("");
+            ((TextView)findViewById(R.id.playerOneText)).setTextColor(blackColor);
         }
 
         if (playerOneFrom.length() <= 0) {
@@ -71,11 +75,11 @@ public class NewMatch extends AppCompatActivity {
         }
 
         if (playerTwoName.length() <= 0) {
-            ((TextView)findViewById(R.id.player2NameError)).setText("* Name.");
             formValid = false;
+            ((TextView)findViewById(R.id.playerTwoText)).setTextColor(redColor);
         }
         else {
-            ((TextView)findViewById(R.id.player2NameError)).setText("");
+            ((TextView)findViewById(R.id.playerTwoText)).setTextColor(blackColor);
         }
 
         if (playerTwoFrom.length() <= 0) {
@@ -92,22 +96,22 @@ public class NewMatch extends AppCompatActivity {
 
         RadioButton selectedAdRule = (RadioButton)findViewById(((RadioGroup) findViewById(R.id.advantageSelect)).getCheckedRadioButtonId());
         if (selectedAdRule == null) {
-            ((TextView)findViewById(R.id.adSelectError)).setText("* Select scoring format.");
             formValid = false;
+            ((TextView)findViewById(R.id.adRuleText)).setTextColor(redColor);
         }
         else {
-            ((TextView)findViewById(R.id.adSelectError)).setText("");
             adRule = selectedAdRule.getText().toString();
+            ((TextView)findViewById(R.id.adRuleText)).setTextColor(blackColor);
         }
 
         RadioButton selectedFormat = (RadioButton)findViewById(((RadioGroup) findViewById(R.id.matchFormatSelect)).getCheckedRadioButtonId());
         if (selectedFormat == null) {
-            ((TextView)findViewById(R.id.matchFormatSelectError)).setText("* Select match format.");
             formValid = false;
+            ((TextView)findViewById(R.id.matchFormatText)).setTextColor(redColor);
         }
         else {
-            ((TextView)findViewById(R.id.matchFormatSelectError)).setText("");
             matchFormat = selectedFormat.getText().toString();
+            ((TextView)findViewById(R.id.matchFormatText)).setTextColor(blackColor);
         }
 
         if (referee.length() <= 0) {
