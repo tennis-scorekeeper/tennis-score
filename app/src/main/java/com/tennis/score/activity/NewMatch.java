@@ -36,7 +36,7 @@ public class NewMatch extends AppCompatActivity {
         String playerTwoName = ((EditText)findViewById(R.id.playerTwoName)).getText().toString();
 
         if (tournamentName.length() <= 0) {
-            ((TextView)findViewById(R.id.tournamentNameError)).setText("* Enter tournament name.");
+            ((TextView)findViewById(R.id.tournamentNameError)).setText("* Enter tournament.");
             formValid = false;
         }
         else {
