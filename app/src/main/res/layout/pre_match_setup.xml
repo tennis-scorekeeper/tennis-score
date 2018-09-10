@@ -13,7 +13,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="1.0">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -23,8 +23,9 @@
                 android:id="@+id/warmupTimeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:text="Warm-up time"
+                android:textColor="@android:color/black"
                 android:textSize="14sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -77,6 +78,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="12dp"
                 android:text="Toss winner"
+                android:textColor="@android:color/black"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/startTimer" />
 
@@ -87,7 +89,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/coinTossWinnerText">
@@ -103,8 +105,8 @@
                     android:id="@+id/coinTossWinnerPlayerTwo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
                     android:layout_weight="1"
+                    android:checked="false"
                     android:text="Player 2" />
             </RadioGroup>
 
@@ -115,6 +117,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Choice"
+                android:textColor="@android:color/black"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/coinTossWinnerSelect" />
 
@@ -151,7 +154,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_weight="1"
-                android:text="Player's starting sides"
+                android:text="Players' starting sides"
+                android:textColor="@android:color/black"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/winnerChoiceSelect" />
@@ -174,6 +178,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
                 android:text="Left of chair"
+                android:textColor="@android:color/black"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sideSelectText" />
 
@@ -210,6 +215,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Right of chair"
+                android:textColor="@android:color/black"
                 app:layout_constraintStart_toEndOf="@+id/tennisCourtImage"
                 app:layout_constraintTop_toBottomOf="@+id/sideSelectText" />
 
@@ -243,11 +249,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_weight="1"
                 android:text="Chair umpire"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/leftSideSelect" />
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/FormatScoring" />
 
             <EditText
                 android:id="@+id/chairUmpire"
@@ -268,27 +276,25 @@
                 android:id="@+id/courtNumberText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="140dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
                 android:text="Court number"
-                app:layout_constraintStart_toEndOf="@+id/chairUmpireText"
-                app:layout_constraintTop_toBottomOf="@+id/leftSideSelect" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/courtNumber"
                 android:layout_width="61dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="28dp"
-                android:layout_marginStart="28dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginRight="28dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="number"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/chairUmpire"
-                app:layout_constraintTop_toBottomOf="@+id/courtNumberText"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/courtNumberText" />
 
             <Button
                 android:id="@+id/setMatch"
@@ -305,6 +311,39 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/chairUmpire" />
+
+            <TextView
+                android:id="@+id/DivisionRound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="19dp"
+                android:text="Division, Round"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/leftSideSelect" />
+
+            <TextView
+                android:id="@+id/FormatScoring"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Format, Scoring"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/DivisionRound" />
+
+            <TextView
+                android:id="@+id/MatchTournament"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Tournament"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
 
