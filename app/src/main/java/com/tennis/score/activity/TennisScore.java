@@ -1,9 +1,11 @@
 package com.tennis.score.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.ListMenuItemView;
 import android.support.v7.widget.Toolbar;
@@ -119,6 +121,32 @@ public class TennisScore extends AppCompatActivity {
         };
     }
 
+    public void deleteMatches() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to delete all your matches?").setTitle("Test");
+
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                try {
+                    FileWriter fw = new FileWriter(file, false);
+                    fw.write("");
+                    fw.flush();
+                    fw.close();
+                    updateMatchList();
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        });
+
+        builder.show();
+    }
+
     private void updateMatchList() {
         file = new File(getFilesDir(), fileName);
 
@@ -137,7 +165,7 @@ public class TennisScore extends AppCompatActivity {
                 currentMatch.setTag(counter);
                 currentMatch.setClickable(true);
                 currentMatch.setOnClickListener(viewMatch);
-                currentMatch.setTextSize(30);
+                currentMatch.setTextSize(20);
                 currentMatch.setPadding(5, 5, 5, 5);
 
                 matchList.addView(currentMatch, 0);
@@ -177,6 +205,11 @@ public class TennisScore extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+
+        if (id == R.id.deleteMatches) {
+            System.out.println("calling dialog");
+            deleteMatches();
         }
 
         return super.onOptionsItemSelected(item);
