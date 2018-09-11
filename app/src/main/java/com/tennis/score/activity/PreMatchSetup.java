@@ -129,7 +129,7 @@ public class PreMatchSetup extends AppCompatActivity {
 
         //  creates error if coinTossWinnerSelect is not selected
         RadioButton selectedCoinTossWinnerSelect = (RadioButton)findViewById(((RadioGroup)
-                findViewById(R.id.matchFormatSelect)).getCheckedRadioButtonId());
+                findViewById(R.id.coinTossWinnerSelect)).getCheckedRadioButtonId());
         if (selectedCoinTossWinnerSelect == null) {
             formValid = false;
             ((TextView)findViewById(R.id.coinTossWinnerText)).setTextColor(redColor);
@@ -159,22 +159,31 @@ public class PreMatchSetup extends AppCompatActivity {
             ((TextView)findViewById(R.id.leftSideText)).setTextColor(redColor);
         }
         else {
-            leftSide = selectedCoinTossWinnerSelect.getText().toString();
+            leftSide = selectedLeftSideSelect.getText().toString();
             ((TextView) findViewById(R.id.leftSideText)).setTextColor(blackColor);
         }
 
         // creates error if rightSideSelect is not selected
         RadioButton selectedRightSideSelect = (RadioButton)findViewById(((RadioGroup)
                 findViewById(R.id.rightSideSelect)).getCheckedRadioButtonId());
-        if (selectedLeftSideSelect == null) {
+        if (selectedRightSideSelect == null) {
             formValid = false;
             ((TextView)findViewById(R.id.rightSideText)).setTextColor(redColor);
         }
         else {
-            rightSide = selectedCoinTossWinnerSelect.getText().toString();
+            rightSide = selectedRightSideSelect.getText().toString();
             ((TextView) findViewById(R.id.rightSideText)).setTextColor(blackColor);
         }
 
+        if (rightSide.equals(leftSide)) {
+            ((TextView)findViewById(R.id.rightSideText)).setTextColor(redColor);
+            ((TextView)findViewById(R.id.leftSideText)).setTextColor(redColor);
+            formValid = false;
+        }
+        else {
+            ((TextView) findViewById(R.id.rightSideText)).setTextColor(blackColor);
+            ((TextView) findViewById(R.id.leftSideText)).setTextColor(blackColor);
+        }
     }
 
     public void startTimer(View view) {

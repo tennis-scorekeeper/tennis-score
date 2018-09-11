@@ -214,7 +214,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Right of chair"
+                android:text="Right of chair *"
                 android:textColor="@android:color/black"
                 app:layout_constraintStart_toEndOf="@+id/tennisCourtImage"
                 app:layout_constraintTop_toBottomOf="@+id/sideSelectText" />
@@ -303,6 +303,7 @@
                 android:layout_marginRight="131dp"
                 android:layout_marginStart="131dp"
                 android:layout_marginTop="16dp"
+                android:onClick="onStartMatch"
                 android:text="Start match"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
