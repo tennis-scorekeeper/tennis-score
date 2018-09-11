@@ -184,6 +184,31 @@ public class PreMatchSetup extends AppCompatActivity {
             ((TextView) findViewById(R.id.rightSideText)).setTextColor(blackColor);
             ((TextView) findViewById(R.id.leftSideText)).setTextColor(blackColor);
         }
+
+        if (formValid) {
+            Intent intent = new Intent(view.getContext(), MatchInterface.class);
+
+            intent.putExtra("tournamentName", tournamentName);
+            intent.putExtra("date", date);
+            intent.putExtra("playerOneName", playerOneName);
+            intent.putExtra("playerOneFrom", playerOneFrom);
+            intent.putExtra("playerTwoName", playerTwoName);
+            intent.putExtra("playerTwoFrom", playerTwoFrom);
+            intent.putExtra("round", round);
+            intent.putExtra("division", division);
+            intent.putExtra("matchFormat", matchFormat);
+            intent.putExtra("adRule", adRule);
+            intent.putExtra("referee", referee);
+
+            intent.putExtra("courtNumber", courtNumber);
+            intent.putExtra("chairUmpire", chairUmpire);
+            intent.putExtra("coinTossWinner", coinTossWinner);
+            intent.putExtra("winnerChoice", winnerChoice);
+            intent.putExtra("leftSide", leftSide);
+            intent.putExtra("rightSide", rightSide);
+
+            startActivity(intent);
+        }
     }
 
     public void startTimer(View view) {
