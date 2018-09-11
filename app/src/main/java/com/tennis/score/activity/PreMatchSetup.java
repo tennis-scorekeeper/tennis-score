@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.tennis.score.R;
@@ -31,6 +33,8 @@ public class PreMatchSetup extends AppCompatActivity {
     private String adRule;
     private String referee;
 
+    private final int blackColor = 0xff000000;
+    private final int redColor = 0xffcc0000;
 
     private final int maxSeconds = 60*60;
 
@@ -70,7 +74,8 @@ public class PreMatchSetup extends AppCompatActivity {
                 + matchFormat + "," + adRule + "," + referee;
         System.out.println(fetchedData);
 
-        if (playerOneFrom == " ") {
+        // logic for printing players' names and locations
+        if (playerOneFrom.equals(" ")) {
             ((RadioButton)findViewById(R.id.coinTossWinnerPlayerOne)).setText(playerOneName);
         }
         else {
@@ -78,7 +83,7 @@ public class PreMatchSetup extends AppCompatActivity {
                     playerOneName + " (" + playerOneFrom + ")");
         }
 
-        if (playerTwoFrom == " ") {
+        if (playerTwoFrom.equals(" ")) {
             ((RadioButton)findViewById(R.id.coinTossWinnerPlayerTwo)).setText(playerTwoName);
         }
         else {
@@ -94,18 +99,82 @@ public class PreMatchSetup extends AppCompatActivity {
         ((RadioButton)findViewById(R.id.rightSidePlayerTwo)).setText(playerTwoName);
 
         ((TextView)findViewById(R.id.MatchTournament)).setText(tournamentName);
-        if (division == " ") {
+
+        // logic for printing of match division and round
+        if (division.equals(" ")) {
             ((TextView) findViewById(R.id.divisionRound)).setText(round);
         }
-        else if (round == " ") {
+        else if (round.equals(" ")) {
             ((TextView) findViewById(R.id.divisionRound)).setText(division);
         }
         else {
             ((TextView) findViewById(R.id.divisionRound)).setText(division + ", " + round);
         }
+
         ((TextView)findViewById(R.id.FormatScoring)).setText(matchFormat + ", " + adRule + " scoring");
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    public void onStartMatch(View view) {
+        boolean formValid = true;
+
+        String courtNumber = ((EditText) findViewById(R.id.courtNumber)).getText().toString();
+        String chairUmpire = ((EditText) findViewById(R.id.chairUmpire)).getText().toString();
+
+        String coinTossWinner = "";
+        String winnerChoice = "";
+        String leftSide = "";
+        String rightSide = "";
+
+        //  creates error if coinTossWinnerSelect is not selected
+        RadioButton selectedCoinTossWinnerSelect = (RadioButton)findViewById(((RadioGroup)
+                findViewById(R.id.matchFormatSelect)).getCheckedRadioButtonId());
+        if (selectedCoinTossWinnerSelect == null) {
+            formValid = false;
+            ((TextView)findViewById(R.id.coinTossWinnerText)).setTextColor(redColor);
+        }
+        else {
+            coinTossWinner = selectedCoinTossWinnerSelect.getText().toString();
+            ((TextView)findViewById(R.id.coinTossWinnerText)).setTextColor(blackColor);
+        }
+
+        // creates error if winnerChoiceSelect is not selected
+        RadioButton selectedWinnerChoiceSelect = (RadioButton)findViewById(((RadioGroup)
+                findViewById(R.id.winnerChoiceSelect)).getCheckedRadioButtonId());
+        if (selectedWinnerChoiceSelect == null) {
+            formValid = false;
+            ((TextView)findViewById(R.id.winnerElectedText)).setTextColor(redColor);
+        }
+        else {
+            winnerChoice = selectedWinnerChoiceSelect.getText().toString();
+            ((TextView)findViewById(R.id.winnerElectedText)).setTextColor(blackColor);
+        }
+
+        // creates error if leftSideSelect is not selected
+        RadioButton selectedLeftSideSelect = (RadioButton)findViewById(((RadioGroup)
+                findViewById(R.id.leftSideSelect)).getCheckedRadioButtonId());
+        if (selectedLeftSideSelect == null) {
+            formValid = false;
+            ((TextView)findViewById(R.id.leftSideText)).setTextColor(redColor);
+        }
+        else {
+            leftSide = selectedCoinTossWinnerSelect.getText().toString();
+            ((TextView) findViewById(R.id.leftSideText)).setTextColor(blackColor);
+        }
+
+        // creates error if rightSideSelect is not selected
+        RadioButton selectedRightSideSelect = (RadioButton)findViewById(((RadioGroup)
+                findViewById(R.id.rightSideSelect)).getCheckedRadioButtonId());
+        if (selectedLeftSideSelect == null) {
+            formValid = false;
+            ((TextView)findViewById(R.id.rightSideText)).setTextColor(redColor);
+        }
+        else {
+            rightSide = selectedCoinTossWinnerSelect.getText().toString();
+            ((TextView) findViewById(R.id.rightSideText)).setTextColor(blackColor);
+        }
+
     }
 
     public void startTimer(View view) {
