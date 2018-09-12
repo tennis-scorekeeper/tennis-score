@@ -87,16 +87,16 @@ public class Game {
     public String getScoreDisplay(boolean playerOneFirst) {
         if (tiebreak) {
             if (playerOneFirst) {
-                return playerOneScore + "-" + playerTwoScore;
+                return playerOneScore + " - " + playerTwoScore;
             } else {
-                return playerTwoScore + "-" + playerOneScore;
+                return playerTwoScore + " - " + playerOneScore;
             }
         }
         else {
             if (playerOneFirst) {
-                return displayScores[playerOneScore] + "-" + displayScores[playerTwoScore];
+                return displayScores[playerOneScore] + " - " + displayScores[playerTwoScore];
             } else {
-                return displayScores[playerTwoScore] + "-" + displayScores[playerOneScore];
+                return displayScores[playerTwoScore] + " - " + displayScores[playerOneScore];
             }
         }
     }

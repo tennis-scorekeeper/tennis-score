@@ -9,21 +9,15 @@ import java.util.List;
 
 public class MatchState {
 
-    private boolean playerOneOnLeftSide;
-
     public Set currentSet;
     private List<Set> completedSets;
 
-    MatchState(boolean p1LeftSide) {
-        playerOneOnLeftSide = p1LeftSide;
-
+    MatchState() {
         currentSet = new Set();
         completedSets = new ArrayList<>();
     }
 
     MatchState(MatchState oldState) {
-        playerOneOnLeftSide = oldState.playerOneOnLeftSide;
-
         currentSet = new Set(oldState.currentSet);
         completedSets = new ArrayList<>();
         for (Set completedSet : oldState.completedSets) {

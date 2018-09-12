@@ -13,13 +13,16 @@ public class Match {
     private List<MatchState> pastMatchStates;
 
     private boolean playerOneServedFirst;
+    private boolean playerOneStartedLeft;
 
     public Match(boolean p1Serve, boolean p1LeftSide) {
-        currentMatchState = new MatchState(p1LeftSide);
+        currentMatchState = new MatchState();
 
         pastMatchStates = new ArrayList<>();
 
         playerOneServedFirst = p1Serve;
+
+        playerOneStartedLeft = p1LeftSide;
     }
 
     public boolean checkPlayerOneServing() {
@@ -61,6 +64,27 @@ public class Match {
         else {
             return playerOneServing;
         }
+    }
+
+    public boolean checkPlayerOneLeftSide() {
+        int totalGames = currentMatchState.getTotalGames();
+
+        boolean playerOneLeftSide = playerOneStartedLeft;
+        if (totalGames == 0) {
+            return playerOneStartedLeft;
+        }
+        if (((totalGames - 1) / 2) % 2 == 0) {
+            playerOneLeftSide = !playerOneLeftSide;
+        }
+
+        if (currentMatchState.inTieBreak()) {
+            int tiebreakPoints = currentMatchState.getCurrentGameTotalScore();
+            if ((tiebreakPoints / 6) % 2 == 1) {
+                playerOneLeftSide = !playerOneLeftSide;
+            }
+        }
+
+        return playerOneLeftSide;
     }
 
     public String getCurrentGameScore() {
