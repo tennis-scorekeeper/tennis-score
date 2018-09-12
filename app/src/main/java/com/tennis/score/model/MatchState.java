@@ -68,6 +68,14 @@ public class MatchState {
         return currentSet.getCurrentGameTotalScore();
     }
 
+    public int getCurrentGamePlayerOneScore() {
+        return currentSet.getCurrentGamePlayerOneScore();
+    }
+
+    public int getCurrentGamePlayerTwoScore() {
+        return currentSet.getCurrentGamePlayerTwoScore();
+    }
+
     public List<String> getSetScores() {
         List<String> result = new ArrayList<>();
         for (Set completedSet : completedSets) {

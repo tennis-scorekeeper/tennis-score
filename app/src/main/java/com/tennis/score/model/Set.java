@@ -85,6 +85,14 @@ public class Set {
         return currentGame.getTotalGameScore();
     }
 
+    public int getCurrentGamePlayerOneScore() {
+        return currentGame.getPlayerOneScore();
+    }
+
+    public int getCurrentGamePlayerTwoScore() {
+        return currentGame.getPlayerTwoScore();
+    }
+
     public int getPlayerOneScore() {
         return playerOneScore;
     }

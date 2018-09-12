@@ -150,10 +150,41 @@ public class MatchInterface extends AppCompatActivity {
         ((TextView)findViewById(R.id.setsScoresDisplay)).setText(setString);
     }
 
+    public void updateLeadingPlayerName() {
+        int playerOneScore = match.getCurrentGamePlayerOneScore();
+        int playerTwoScore = match.getCurrentGamePlayerTwoScore();
+
+        if (match.checkInTiebreak()) {
+            if (playerOneScore > playerTwoScore) {
+                ((TextView)findViewById(R.id.leadingPlayerName)).setText(playerOneName);
+            }
+            else if (playerOneScore < playerTwoScore) {
+                ((TextView)findViewById(R.id.leadingPlayerName)).setText(playerTwoName);
+            }
+            else {
+                ((TextView)findViewById(R.id.leadingPlayerName)).setText("");
+            }
+        }
+        else {
+            if (match.getCurrentGameScore().equals("Ad")) {
+                if (playerOneScore == 4) {
+                    ((TextView)findViewById(R.id.leadingPlayerName)).setText(playerOneName);
+                }
+                else {
+                    ((TextView)findViewById(R.id.leadingPlayerName)).setText(playerTwoName);
+                }
+            }
+            else {
+                ((TextView)findViewById(R.id.leadingPlayerName)).setText("");
+            }
+        }
+    }
+
     public void updateAllDisplays() {
-        ((TextView)findViewById(R.id.gameScoreDisplay)).setText(match.getCurrentGameScore());
+        ((TextView) findViewById(R.id.gameScoreDisplay)).setText(match.getCurrentGameScore());
         setPlayerButtons();
         setSetScoreDisplay();
+        updateLeadingPlayerName();
     }
 
 }

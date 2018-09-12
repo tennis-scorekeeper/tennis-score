@@ -25,6 +25,10 @@ public class Match {
         playerOneStartedLeft = p1LeftSide;
     }
 
+    public boolean checkInTiebreak() {
+        return currentMatchState.inTieBreak();
+    }
+
     public boolean checkPlayerOneServing() {
         int totalGames = currentMatchState.getTotalGames();
 
@@ -89,6 +93,14 @@ public class Match {
 
     public String getCurrentGameScore() {
         return currentMatchState.currentSet.currentGame.getScoreDisplay(checkPlayerOneServing());
+    }
+
+    public int getCurrentGamePlayerOneScore() {
+        return currentMatchState.getCurrentGamePlayerOneScore();
+    }
+
+    public int getCurrentGamePlayerTwoScore() {
+        return currentMatchState.getCurrentGamePlayerTwoScore();
     }
 
     public void incrementPlayerOneScore() {

@@ -86,19 +86,31 @@ public class Game {
 
     public String getScoreDisplay(boolean playerOneFirst) {
         if (tiebreak) {
-            if (playerOneFirst) {
+            if (playerOneScore >= playerTwoScore) {
                 return playerOneScore + " - " + playerTwoScore;
-            } else {
+            }
+            else {
                 return playerTwoScore + " - " + playerOneScore;
             }
         }
         else {
+            if (playerOneScore == 4 || playerTwoScore == 4) {
+                return "Ad";
+            }
             if (playerOneFirst) {
                 return displayScores[playerOneScore] + " - " + displayScores[playerTwoScore];
             } else {
                 return displayScores[playerTwoScore] + " - " + displayScores[playerOneScore];
             }
         }
+    }
+
+    public int getPlayerOneScore() {
+        return playerOneScore;
+    }
+
+    public int getPlayerTwoScore() {
+        return playerTwoScore;
     }
 
     public boolean isTiebreak() {
