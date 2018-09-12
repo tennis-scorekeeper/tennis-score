@@ -9,6 +9,8 @@ import android.widget.EditText;
 import com.tennis.score.R;
 import com.tennis.score.model.Match;
 
+import java.util.List;
+
 /**
  * Created by Ali on 9/10/2018.
  */
@@ -75,18 +77,38 @@ public class MatchInterface extends AppCompatActivity {
 
     public void p1Score(View view) {
         match.incrementPlayerOneScore();
-        System.out.println(match.getCurrentMatchState().currentSet.getPlayerOneScore() + "-" + match.getCurrentMatchState().currentSet.getPlayerTwoScore() + " " + match.getCurrentGameScore());
 
+        List<String> setScores = match.getSetScores();
+        String setString = "";
+        for (int i = 0; i < setScores.size(); i += 2) {
+            setString += setScores.get(i) + "-" + setScores.get(i + 1) + " ";
+        }
+        System.out.println(setString);
+        System.out.println(match.getCurrentGameScore());
     }
 
     public void p2Score(View view) {
         match.incrementPlayerTwoScore();
-        System.out.println(match.getCurrentMatchState().currentSet.getPlayerOneScore() + "-" + match.getCurrentMatchState().currentSet.getPlayerTwoScore() + " " + match.getCurrentGameScore());
+
+        List<String> setScores = match.getSetScores();
+        String setString = "";
+        for (int i = 0; i < setScores.size(); i += 2) {
+            setString += setScores.get(i) + "-" + setScores.get(i + 1) + " ";
+        }
+        System.out.println(setString);
+        System.out.println(match.getCurrentGameScore());
     }
 
     public void undo(View view) {
         match.undo();
-        System.out.println(match.getCurrentMatchState().currentSet.getPlayerOneScore() + "-" + match.getCurrentMatchState().currentSet.getPlayerTwoScore() + " " + match.getCurrentGameScore());
+
+        List<String> setScores = match.getSetScores();
+        String setString = "";
+        for (int i = 0; i < setScores.size(); i += 2) {
+            setString += setScores.get(i) + "-" + setScores.get(i + 1) + " ";
+        }
+        System.out.println(setString);
+        System.out.println(match.getCurrentGameScore());
     }
 
 }

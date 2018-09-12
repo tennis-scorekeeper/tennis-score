@@ -73,6 +73,18 @@ public class Set {
         return false;
     }
 
+    public int getTotalGames() {
+        return playerOneScore + playerTwoScore;
+    }
+
+    public boolean inTiebreak() {
+        return currentGame.isTiebreak();
+    }
+
+    public int getCurrentGameTotalScore() {
+        return currentGame.getTotalGameScore();
+    }
+
     public int getPlayerOneScore() {
         return playerOneScore;
     }

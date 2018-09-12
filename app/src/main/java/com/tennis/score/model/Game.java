@@ -100,4 +100,12 @@ public class Game {
             }
         }
     }
+
+    public boolean isTiebreak() {
+        return tiebreak;
+    }
+
+    public int getTotalGameScore() {
+        return playerOneScore + playerTwoScore;
+    }
 }
