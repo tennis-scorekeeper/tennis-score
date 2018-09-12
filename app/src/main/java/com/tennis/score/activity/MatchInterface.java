@@ -72,7 +72,26 @@ public class MatchInterface extends AppCompatActivity {
                 + leftSide + "," + rightSide;
         System.out.println(fetchedData);
 
-        match = new Match(true, true);
+        boolean playerOneServe = true;
+        boolean playerOneLeftSide = true;
+
+        if (coinTossWinner.equals(playerOneName)) {
+            if (winnerChoice.equals("Receive")) {
+                playerOneServe = false;
+            }
+        }
+        if (coinTossWinner.equals(playerTwoName)) {
+            if (winnerChoice.equals("Serve")) {
+                playerOneServe = false;
+            }
+        }
+
+        if (leftSide.equals(playerTwoName)) {
+            playerOneLeftSide = false;
+        }
+        System.out.println(playerOneLeftSide);
+
+        match = new Match(playerOneServe, playerOneLeftSide);
     }
 
     public void p1Score(View view) {
