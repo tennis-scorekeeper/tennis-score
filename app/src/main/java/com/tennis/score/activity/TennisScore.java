@@ -185,7 +185,7 @@ public class TennisScore extends AppCompatActivity {
         String playerOne = lineValues[2];
         String playerTwo = lineValues[4];
 
-        return tournamentName + ": " + playerOne + " Vs. " + playerTwo;
+        return tournamentName + ": " + playerOne + " vs. " + playerTwo;
     }
 
     @Override
