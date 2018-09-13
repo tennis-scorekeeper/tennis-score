@@ -135,6 +135,9 @@ public class PreMatchSetup extends AppCompatActivity {
             ((TextView)findViewById(R.id.coinTossWinnerText)).setTextColor(redColor);
         }
         else {
+            ((RadioButton)findViewById(R.id.coinTossWinnerPlayerOne)).setText(playerOneName);
+            ((RadioButton)findViewById(R.id.coinTossWinnerPlayerTwo)).setText(playerTwoName);
+
             coinTossWinner = selectedCoinTossWinnerSelect.getText().toString();
             ((TextView)findViewById(R.id.coinTossWinnerText)).setTextColor(blackColor);
         }

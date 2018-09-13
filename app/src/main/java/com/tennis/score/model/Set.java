@@ -44,7 +44,7 @@ public class Set {
             currentGame = new Game();
         }
 
-        if (playerOneScore == 6 && playerTwoScore < 4) {
+        if (playerOneScore == 6 && playerTwoScore <= 4) {
             return true;
         }
         if (playerOneScore == 7) {
@@ -64,7 +64,7 @@ public class Set {
             currentGame = new Game();
         }
 
-        if (playerTwoScore == 6 && playerOneScore < 4) {
+        if (playerTwoScore == 6 && playerOneScore <= 4) {
             return true;
         }
         if (playerTwoScore == 7) {

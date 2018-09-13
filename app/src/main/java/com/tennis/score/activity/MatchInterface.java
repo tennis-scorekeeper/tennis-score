@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.tennis.score.R;
 import com.tennis.score.model.Match;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,10 +39,29 @@ public class MatchInterface extends AppCompatActivity {
     private String leftSide;
     private String rightSide;
 
-    Match match;
+    private Match match;
 
-    View.OnClickListener incrementPlayerOne;
-    View.OnClickListener incrementPlayerTwo;
+    private List<TextView> setScoreTextViews;
+
+    // Increment score button on click listeners
+
+    private View.OnClickListener incrementPlayerOne = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            match.incrementPlayerOneScore();
+
+            updateAllDisplays();
+        }
+    };
+
+    private View.OnClickListener incrementPlayerTwo = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            match.incrementPlayerTwoScore();
+
+            updateAllDisplays();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,27 +89,7 @@ public class MatchInterface extends AppCompatActivity {
         leftSide = intent.getStringExtra("leftSide");
         rightSide = intent.getStringExtra("rightSide");
 
-        ((TextView)findViewById(R.id.playerOneNameDisplay)).setText(playerOneName);
-        ((TextView)findViewById(R.id.playerTwoNameDisplay)).setText(playerTwoName);
-
-        incrementPlayerOne = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                match.incrementPlayerOneScore();
-
-                updateAllDisplays();
-            }
-        };
-
-        incrementPlayerTwo = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                match.incrementPlayerTwoScore();
-
-                updateAllDisplays();
-            }
-        };
-
+        createSetTable();
 
         boolean playerOneServe = true;
         boolean playerOneLeftSide = true;
@@ -141,13 +141,34 @@ public class MatchInterface extends AppCompatActivity {
         }
     }
 
+    public void createSetTable() {
+        setScoreTextViews = new ArrayList<>();
+        setScoreTextViews.add(((TextView)findViewById(R.id.playerOneSetOne)));
+        setScoreTextViews.add(((TextView)findViewById(R.id.playerTwoSetOne)));
+        setScoreTextViews.add(((TextView)findViewById(R.id.playerOneSetTwo)));
+        setScoreTextViews.add(((TextView)findViewById(R.id.playerTwoSetTwo)));
+        setScoreTextViews.add(((TextView)findViewById(R.id.playerOneSetThree)));
+        setScoreTextViews.add(((TextView)findViewById(R.id.playerTwoSetThree)));
+        setScoreTextViews.add(((TextView)findViewById(R.id.playerOneSetFour)));
+        setScoreTextViews.add(((TextView)findViewById(R.id.playerTwoSetFour)));
+        setScoreTextViews.add(((TextView)findViewById(R.id.playerOneSetFive)));
+        setScoreTextViews.add(((TextView)findViewById(R.id.playerTwoSetFive)));
+    }
+
     public void setSetScoreDisplay() {
         List<String> setScores = match.getSetScores();
-        String setString = "";
-        for (int i = 0; i < setScores.size(); i += 2) {
-            setString += setScores.get(i) + "-" + setScores.get(i + 1) + " ";
+        for (int i = 0; i < setScores.size(); i++) {
+            setScoreTextViews.get(i).setText(setScores.get(i));
+            setScoreTextViews.get(i).setTextColor(blackColor);
         }
-        ((TextView)findViewById(R.id.setsScoresDisplay)).setText(setString);
+        if (match.checkPlayerOneServing()) {
+            ((TextView)findViewById(R.id.playerOneNameDisplay)).setText(playerOneName + "*");
+            ((TextView)findViewById(R.id.playerTwoNameDisplay)).setText(playerTwoName);
+        }
+        else {
+            ((TextView)findViewById(R.id.playerOneNameDisplay)).setText(playerOneName);
+            ((TextView)findViewById(R.id.playerTwoNameDisplay)).setText(playerTwoName + "*");
+        }
     }
 
     public void updateLeadingPlayerName() {
@@ -187,4 +208,5 @@ public class MatchInterface extends AppCompatActivity {
         updateLeadingPlayerName();
     }
 
+    private final int blackColor = 0xff000000;
 }
