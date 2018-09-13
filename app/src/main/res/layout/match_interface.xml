@@ -210,7 +210,7 @@
         android:layout_height="66dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="180dp"
         android:onClick="p1Score"
         android:text="Player 1"
         android:textSize="16sp"
@@ -224,7 +224,7 @@
         android:layout_height="66dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="180dp"
         android:onClick="p2Score"
         android:text="Player 2"
         android:textSize="16sp"
@@ -265,5 +265,84 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gameScoreDisplay" />
+
+    <ImageView
+        android:id="@+id/tennisCourtView"
+        android:layout_width="131dp"
+        android:layout_height="81dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toStartOf="@+id/resetTimer"
+        app:layout_constraintTop_toTopOf="@+id/leadingPlayerName"
+        app:srcCompat="@drawable/tenniscourt" />
+
+    <Switch
+        android:id="@+id/netCheck"
+        android:layout_width="73dp"
+        android:layout_height="28dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:text="Net"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/gameScoreDisplay"
+        app:layout_constraintTop_toTopOf="@+id/gameScoreDisplay" />
+
+    <Button
+        android:id="@+id/ace"
+        android:layout_width="82dp"
+        android:layout_height="57dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Ace"
+        app:layout_constraintEnd_toStartOf="@+id/fault"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/leftPlayerScore" />
+
+    <Button
+        android:id="@+id/fault"
+        android:layout_width="82dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="8dp"
+        android:text="Fault"
+        app:layout_constraintEnd_toStartOf="@+id/let"
+        app:layout_constraintStart_toEndOf="@+id/ace"
+        app:layout_constraintTop_toBottomOf="@+id/leftPlayerScore" />
+
+    <Button
+        android:id="@+id/let"
+        android:layout_width="82dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="8dp"
+        android:text="Let"
+        app:layout_constraintEnd_toStartOf="@+id/button6"
+        app:layout_constraintStart_toEndOf="@+id/fault"
+        app:layout_constraintTop_toBottomOf="@+id/rightPlayerScore" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="82dp"
+        android:layout_height="57dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Options"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/let"
+        app:layout_constraintTop_toBottomOf="@+id/rightPlayerScore" />
+
+    <Button
+        android:id="@+id/resetTimer"
+        android:layout_width="68dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="48dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="reset"
+        app:layout_constraintBottom_toTopOf="@+id/rightPlayerScore"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
