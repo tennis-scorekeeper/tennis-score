@@ -91,6 +91,10 @@ public class Match {
         return playerOneLeftSide;
     }
 
+    public boolean getFaulted() {
+        return currentMatchState.getFaulted();
+    }
+
     public String getCurrentGameScore() {
         return currentMatchState.currentSet.currentGame.getScoreDisplay(checkPlayerOneServing());
     }
@@ -111,6 +115,22 @@ public class Match {
         return currentMatchState.getPlayerTwoAces();
     }
 
+    public int getPlayerOneFaults() {
+        return currentMatchState.getPlayerOneFaults();
+    }
+
+    public int getPlayerOneDoubleFaults() {
+        return currentMatchState.getPlayerOneDoubleFaults();
+    }
+
+    public int getPlayerTwoFaults() {
+        return currentMatchState.getPlayerTwoFaults();
+    }
+
+    public int getPlayerTwoDoubleFaults() {
+        return currentMatchState.getPlayerTwoDoubleFaults();
+    }
+
     public void incrementPlayerOneScore() {
         pastMatchStates.add(currentMatchState);
 
@@ -123,6 +143,20 @@ public class Match {
         currentMatchState = currentMatchState.incrementPlayerTwoScore();
     }
 
+    public void let() {
+        MatchState nextMatchState = new MatchState(currentMatchState);
+        if (currentMatchState.getFaulted()) {
+            if (checkPlayerOneServing()) {
+                nextMatchState.playerOneSubtractFault();
+            }
+            else {
+                nextMatchState.playerTwoSubtractFault();
+            }
+        }
+        pastMatchStates.add(currentMatchState);
+        currentMatchState = nextMatchState;
+    }
+
     public void serverAced() {
         pastMatchStates.add(currentMatchState);
         if (checkPlayerOneServing()) {
@@ -130,6 +164,16 @@ public class Match {
         }
         else {
             currentMatchState = currentMatchState.playerTwoAce();
+        }
+    }
+
+    public void serverFaulted() {
+        pastMatchStates.add(currentMatchState);
+        if (checkPlayerOneServing()) {
+            currentMatchState = currentMatchState.playerOneFault();
+        }
+        else {
+            currentMatchState = currentMatchState.playerTwoFault();
         }
     }
 
