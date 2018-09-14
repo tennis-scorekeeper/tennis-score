@@ -120,6 +120,12 @@ public class MatchInterface extends AppCompatActivity {
         updateAllDisplays();
     }
 
+    public void ace(View view) {
+        match.serverAced();
+
+        updateAllDisplays();
+    }
+
     public void setPlayerButtons() {
         if (match.checkPlayerOneLeftSide()) {
             Button leftPlayerButton = ((Button) findViewById(R.id.leftPlayerScore));

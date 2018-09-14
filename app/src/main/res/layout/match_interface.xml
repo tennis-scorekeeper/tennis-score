@@ -318,6 +318,7 @@
                 android:layout_height="57dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="16dp"
+                android:onClick="ace"
                 android:text="Ace"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/fault"
