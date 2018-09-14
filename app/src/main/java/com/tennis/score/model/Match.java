@@ -103,6 +103,14 @@ public class Match {
         return currentMatchState.getCurrentGamePlayerTwoScore();
     }
 
+    public int getPlayerOneAces() {
+        return currentMatchState.getPlayerOneAces();
+    }
+
+    public int getPlayerTwoAces() {
+        return currentMatchState.getPlayerTwoAces();
+    }
+
     public void incrementPlayerOneScore() {
         pastMatchStates.add(currentMatchState);
 
@@ -115,8 +123,14 @@ public class Match {
         currentMatchState = currentMatchState.incrementPlayerTwoScore();
     }
 
-    public MatchState getCurrentMatchState() {
-        return currentMatchState;
+    public void serverAced() {
+        pastMatchStates.add(currentMatchState);
+        if (checkPlayerOneServing()) {
+            currentMatchState = currentMatchState.playerOneAce();
+        }
+        else {
+            currentMatchState = currentMatchState.playerTwoAce();
+        }
     }
 
     public void undo() {

@@ -12,9 +12,15 @@ public class MatchState {
     public Set currentSet;
     private List<Set> completedSets;
 
+    private int playerOneAces;
+    private int playerTwoAces;
+
     MatchState() {
         currentSet = new Set();
         completedSets = new ArrayList<>();
+
+        playerOneAces = 0;
+        playerTwoAces = 0;
     }
 
     MatchState(MatchState oldState) {
@@ -23,6 +29,21 @@ public class MatchState {
         for (Set completedSet : oldState.completedSets) {
             completedSets.add(new Set(completedSet));
         }
+
+        playerOneAces = oldState.playerOneAces;
+        playerTwoAces = oldState.playerTwoAces;
+    }
+
+    public MatchState playerOneAce() {
+        MatchState nextMatchState = incrementPlayerOneScore();
+        nextMatchState.playerOneAces += 1;
+        return nextMatchState;
+    }
+
+    public MatchState playerTwoAce() {
+        MatchState nextMatchState = incrementPlayerTwoScore();
+        nextMatchState.playerTwoAces += 1;
+        return nextMatchState;
     }
 
     public MatchState incrementPlayerOneScore() {
@@ -75,6 +96,10 @@ public class MatchState {
     public int getCurrentGamePlayerTwoScore() {
         return currentSet.getCurrentGamePlayerTwoScore();
     }
+
+    public int getPlayerOneAces() { return playerOneAces; }
+
+    public int getPlayerTwoAces() { return playerTwoAces; }
 
     public List<String> getSetScores() {
         List<String> result = new ArrayList<>();
