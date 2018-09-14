@@ -225,10 +225,9 @@
 
     <Button
         android:id="@+id/undoScoreButton"
-        android:layout_width="68dp"
-        android:layout_height="38dp"
+        android:layout_width="52dp"
+        android:layout_height="29dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginTop="32dp"
         android:background="@android:color/holo_blue_light"
         android:onClick="undo"
@@ -254,12 +253,10 @@
         android:id="@+id/tennisCourtView"
         android:layout_width="177dp"
         android:layout_height="102dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="48dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/leadingPlayerName"
         app:srcCompat="@drawable/tenniscourt" />
@@ -279,16 +276,14 @@
 
     <TableLayout
         android:id="@+id/scoreButtonHolder"
-        android:layout_width="wrap_content"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="22dp"
-        android:layout_marginLeft="22dp"
-        android:layout_marginRight="22dp"
         android:layout_marginStart="22dp"
-        android:layout_marginTop="64dp"
+        app:layout_constraintBottom_toTopOf="@+id/optionButtonsHolder"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tennisCourtView">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TableRow
             android:layout_width="match_parent"
@@ -327,14 +322,12 @@
         android:id="@+id/optionButtonsHolder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scoreButtonHolder">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TableRow
             android:layout_width="match_parent"
@@ -393,12 +386,13 @@
         android:id="@+id/resetTimer"
         android:layout_width="68dp"
         android:layout_height="38dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="144dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="96dp"
         android:background="@android:color/holo_green_light"
         android:text="reset"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gameScoreDisplay" />
 
     <TextView
