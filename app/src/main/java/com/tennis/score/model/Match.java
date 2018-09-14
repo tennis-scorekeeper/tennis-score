@@ -91,6 +91,45 @@ public class Match {
         return playerOneLeftSide;
     }
 
+    public String getGameHistory() {
+        List<MatchState> history = new ArrayList<>();
+
+        int lastPlayerOneGameScore = currentMatchState.getCurrentGamePlayerOneScore();
+        int lastPlayerTwoGameScore = currentMatchState.getCurrentGamePlayerTwoScore();
+
+        int i = pastMatchStates.size() - 1;
+
+        while ((i >= 0) && (history.size() < 5)) {
+            MatchState historyCurrentState = pastMatchStates.get(i);
+
+            if (historyCurrentState.getCurrentSetPlayerOneScore()
+                    != currentMatchState.getCurrentSetPlayerOneScore()) {
+                break;
+            }
+            if (historyCurrentState.getCurrentSetPlayerTwoScore()
+                    != currentMatchState.getCurrentSetPlayerTwoScore()) {
+                break;
+            }
+
+            if ((historyCurrentState.getCurrentGamePlayerOneScore() != lastPlayerOneGameScore)
+                    || (historyCurrentState.getCurrentGamePlayerTwoScore() != lastPlayerTwoGameScore)) {
+                history.add(historyCurrentState);
+                lastPlayerOneGameScore = historyCurrentState.getCurrentGamePlayerOneScore();
+                lastPlayerTwoGameScore = historyCurrentState.getCurrentGamePlayerTwoScore();
+            }
+            i--;
+        }
+
+        String result = "";
+
+        for (MatchState matchState : history) {
+            result += matchState.getCurrentSetPlayerOneScore() + "-" + matchState.getCurrentSetPlayerTwoScore();
+            result += " (" + matchState.getGameHistoryScoreDisplay() + ") ";
+        }
+
+        return result.trim();
+    }
+
     public boolean getFaulted() {
         return currentMatchState.getFaulted();
     }
@@ -144,17 +183,18 @@ public class Match {
     }
 
     public void let() {
-        MatchState nextMatchState = new MatchState(currentMatchState);
+
         if (currentMatchState.getFaulted()) {
+            MatchState nextMatchState = new MatchState(currentMatchState);
             if (checkPlayerOneServing()) {
                 nextMatchState.playerOneSubtractFault();
             }
             else {
                 nextMatchState.playerTwoSubtractFault();
             }
+            pastMatchStates.add(currentMatchState);
+            currentMatchState = nextMatchState;
         }
-        pastMatchStates.add(currentMatchState);
-        currentMatchState = nextMatchState;
     }
 
     public void serverAced() {
@@ -186,4 +226,5 @@ public class Match {
     public List<String> getSetScores() {
         return currentMatchState.getSetScores();
     }
+
 }

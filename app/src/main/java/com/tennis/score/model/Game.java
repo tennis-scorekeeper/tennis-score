@@ -105,6 +105,15 @@ public class Game {
         }
     }
 
+    public String getHistoryScoreDisplay() {
+        if (tiebreak) {
+            return playerOneScore + "-" + playerTwoScore;
+        }
+        else {
+            return displayScores[playerOneScore] + "-" + displayScores[playerTwoScore];
+        }
+    }
+
     public int getPlayerOneScore() {
         return playerOneScore;
     }

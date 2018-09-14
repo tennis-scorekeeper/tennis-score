@@ -93,6 +93,8 @@ public class Set {
         return currentGame.getPlayerTwoScore();
     }
 
+    public String getGameHistoryScoreDisplay() { return currentGame.getHistoryScoreDisplay(); }
+
     public int getPlayerOneScore() {
         return playerOneScore;
     }

@@ -198,6 +198,10 @@ public class MatchInterface extends AppCompatActivity {
         }
     }
 
+    public void updateGameHistoryDisplay() {
+        ((TextView)findViewById(R.id.gameHistoryDisplay)).setText(match.getGameHistory());
+    }
+
     public void updateLeadingPlayerName() {
         int playerOneScore = match.getCurrentGamePlayerOneScore();
         int playerTwoScore = match.getCurrentGamePlayerTwoScore();
@@ -234,6 +238,7 @@ public class MatchInterface extends AppCompatActivity {
         setSetScoreDisplay();
         updateLeadingPlayerName();
         setFaultButton();
+        updateGameHistoryDisplay();
         System.out.println(match.getPlayerOneFaults() + " " + match.getPlayerOneDoubleFaults());
         System.out.println(match.getPlayerTwoFaults() + " " + match.getPlayerTwoDoubleFaults());
     }
