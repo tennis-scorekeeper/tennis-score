@@ -280,7 +280,7 @@
                 android:onClick="p1Score"
                 android:text="Player 1"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/fault"
+                app:layout_constraintBottom_toTopOf="@+id/faultButton"
                 app:layout_constraintEnd_toStartOf="@+id/rightPlayerScore"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -321,14 +321,15 @@
                 android:onClick="ace"
                 android:text="Ace"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/fault"
+                app:layout_constraintEnd_toStartOf="@+id/faultButton"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <Button
-                android:id="@+id/fault"
+                android:id="@+id/faultButton"
                 android:layout_width="82dp"
                 android:layout_height="57dp"
                 android:layout_marginBottom="8dp"
+                android:onClick="fault"
                 android:text="Fault"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/let"
@@ -339,10 +340,11 @@
                 android:layout_width="82dp"
                 android:layout_height="57dp"
                 android:layout_marginBottom="8dp"
+                android:onClick="let"
                 android:text="Let"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/options"
-                app:layout_constraintStart_toEndOf="@+id/fault" />
+                app:layout_constraintStart_toEndOf="@+id/faultButton" />
 
             <Button
                 android:id="@+id/options"

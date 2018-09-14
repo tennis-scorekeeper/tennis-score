@@ -126,6 +126,18 @@ public class MatchInterface extends AppCompatActivity {
         updateAllDisplays();
     }
 
+    public void let(View view) {
+        match.let();
+
+        updateAllDisplays();
+    }
+
+    public void fault(View view) {
+        match.serverFaulted();
+
+        updateAllDisplays();
+    }
+
     public void setPlayerButtons() {
         if (match.checkPlayerOneLeftSide()) {
             Button leftPlayerButton = ((Button) findViewById(R.id.leftPlayerScore));
@@ -177,6 +189,15 @@ public class MatchInterface extends AppCompatActivity {
         }
     }
 
+    public void setFaultButton() {
+        if (match.getFaulted()) {
+            ((Button)findViewById(R.id.faultButton)).setText("Double Fault");
+        }
+        else {
+            ((Button)findViewById(R.id.faultButton)).setText("Fault");
+        }
+    }
+
     public void updateLeadingPlayerName() {
         int playerOneScore = match.getCurrentGamePlayerOneScore();
         int playerTwoScore = match.getCurrentGamePlayerTwoScore();
@@ -212,6 +233,9 @@ public class MatchInterface extends AppCompatActivity {
         setPlayerButtons();
         setSetScoreDisplay();
         updateLeadingPlayerName();
+        setFaultButton();
+        System.out.println(match.getPlayerOneFaults() + " " + match.getPlayerOneDoubleFaults());
+        System.out.println(match.getPlayerTwoFaults() + " " + match.getPlayerTwoDoubleFaults());
     }
 
     private final int blackColor = 0xff000000;

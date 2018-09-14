@@ -15,12 +15,27 @@ public class MatchState {
     private int playerOneAces;
     private int playerTwoAces;
 
+    private int playerOneFaults;
+    private int playerOneDoubleFaults;
+    private int playerTwoFaults;
+    private int playerTwoDoubleFaults;
+
+    private boolean faulted;
+
     MatchState() {
         currentSet = new Set();
         completedSets = new ArrayList<>();
 
         playerOneAces = 0;
         playerTwoAces = 0;
+
+        playerOneFaults = 0;
+        playerOneDoubleFaults = 0;
+        playerTwoFaults = 0;
+        playerTwoDoubleFaults = 0;
+
+
+        faulted = false;
     }
 
     MatchState(MatchState oldState) {
@@ -32,18 +47,13 @@ public class MatchState {
 
         playerOneAces = oldState.playerOneAces;
         playerTwoAces = oldState.playerTwoAces;
-    }
 
-    public MatchState playerOneAce() {
-        MatchState nextMatchState = incrementPlayerOneScore();
-        nextMatchState.playerOneAces += 1;
-        return nextMatchState;
-    }
+        playerOneFaults = oldState.playerOneFaults;
+        playerOneDoubleFaults = oldState.playerOneDoubleFaults;
+        playerTwoFaults = oldState.playerTwoFaults;
+        playerTwoDoubleFaults = oldState.playerTwoDoubleFaults;
 
-    public MatchState playerTwoAce() {
-        MatchState nextMatchState = incrementPlayerTwoScore();
-        nextMatchState.playerTwoAces += 1;
-        return nextMatchState;
+        faulted = false;
     }
 
     public MatchState incrementPlayerOneScore() {
@@ -72,6 +82,54 @@ public class MatchState {
         return nextMatchState;
     }
 
+    public MatchState playerOneAce() {
+        MatchState nextMatchState = incrementPlayerOneScore();
+        nextMatchState.playerOneAces += 1;
+        return nextMatchState;
+    }
+
+    public MatchState playerTwoAce() {
+        MatchState nextMatchState = incrementPlayerTwoScore();
+        nextMatchState.playerTwoAces += 1;
+        return nextMatchState;
+    }
+
+    public MatchState playerOneFault() {
+        if (faulted) {
+            MatchState nextMatchState =  incrementPlayerTwoScore();
+            nextMatchState.playerOneDoubleFaults += 1;
+            return nextMatchState;
+        }
+        else {
+            MatchState nextMatchState = new MatchState(this);
+            nextMatchState.faulted = true;
+            nextMatchState.playerOneFaults += 1;
+            return nextMatchState;
+        }
+    }
+
+    public MatchState playerTwoFault() {
+        if (faulted) {
+            MatchState nextMatchState = incrementPlayerOneScore();
+            nextMatchState.playerTwoDoubleFaults += 1;
+            return nextMatchState;
+        }
+        else {
+            MatchState nextMatchState = new MatchState(this);
+            nextMatchState.faulted = true;
+            nextMatchState.playerTwoFaults += 1;
+            return nextMatchState;
+        }
+    }
+
+    public void playerOneSubtractFault() {
+        playerOneFaults -= 1;
+    }
+
+    public void playerTwoSubtractFault() {
+        playerTwoFaults -= 1;
+    }
+
     public int getTotalGames() {
         int total = 0;
         for (Set set : completedSets) {
@@ -97,9 +155,19 @@ public class MatchState {
         return currentSet.getCurrentGamePlayerTwoScore();
     }
 
+    public boolean getFaulted() { return faulted; }
+
     public int getPlayerOneAces() { return playerOneAces; }
 
     public int getPlayerTwoAces() { return playerTwoAces; }
+
+    public int getPlayerOneFaults() { return playerOneFaults; }
+
+    public int getPlayerOneDoubleFaults() { return playerOneDoubleFaults; }
+
+    public int getPlayerTwoFaults() { return playerTwoFaults; }
+
+    public int getPlayerTwoDoubleFaults() { return playerTwoDoubleFaults; }
 
     public List<String> getSetScores() {
         List<String> result = new ArrayList<>();
