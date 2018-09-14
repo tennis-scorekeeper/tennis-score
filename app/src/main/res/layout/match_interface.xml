@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="81dp">
 
     <TableLayout
         android:id="@+id/setTable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="73dp"
+        android:layout_marginLeft="73dp"
+        android:layout_marginRight="73dp"
+        android:layout_marginStart="73dp"
+        android:layout_marginTop="32dp"
         android:background="?android:attr/statusBarColor"
+        app:layout_constraintBottom_toTopOf="@+id/gameScoreDisplay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6">
 
         <TableRow
             android:layout_width="match_parent"
@@ -115,7 +120,8 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:baselineAligned="false">
 
             <TextView
                 android:id="@+id/playerTwoNameDisplay"
@@ -206,67 +212,83 @@
 
     <TextView
         android:id="@+id/gameScoreDisplay"
-        android:layout_width="0dp"
+        android:layout_width="384dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:text="0 - 0"
         android:textAlignment="center"
+        android:textColor="@android:color/black"
         android:textSize="64sp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/setTable" />
 
     <Button
         android:id="@+id/undoScoreButton"
         android:layout_width="68dp"
         android:layout_height="38dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="32dp"
+        android:background="@android:color/holo_blue_light"
         android:onClick="undo"
         android:text="Undo"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gameScoreDisplay" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setTable" />
 
     <TextView
         android:id="@+id/leadingPlayerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="191dp"
+        android:layout_marginLeft="192dp"
+        android:layout_marginRight="191dp"
+        android:layout_marginStart="192dp"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gameScoreDisplay" />
 
     <ImageView
         android:id="@+id/tennisCourtView"
-        android:layout_width="131dp"
-        android:layout_height="81dp"
-        android:layout_marginTop="56dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/leadingPlayerName"
+        android:layout_width="177dp"
+        android:layout_height="102dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/leadingPlayerName"
         app:srcCompat="@drawable/tenniscourt" />
 
     <Switch
         android:id="@+id/netCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="32dp"
         android:text="Net"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/gameScoreDisplay"
-        app:layout_constraintTop_toTopOf="@+id/gameScoreDisplay" />
+        app:layout_constraintTop_toBottomOf="@+id/setTable"
+        tools:checked="false" />
 
     <TableLayout
         android:id="@+id/scoreButtonHolder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/optionButtonsHolder"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        android:layout_marginEnd="22dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tennisCourtView">
 
         <TableRow
             android:layout_width="match_parent"
@@ -274,9 +296,10 @@
 
             <Button
                 android:id="@+id/leftPlayerScore"
-                android:layout_width="163dp"
+                android:layout_width="166dp"
                 android:layout_height="66dp"
                 android:layout_marginRight="4dp"
+                android:background="@android:color/holo_blue_light"
                 android:onClick="p1Score"
                 android:text="Player 1"
                 android:textSize="16sp"
@@ -286,9 +309,10 @@
 
             <Button
                 android:id="@+id/rightPlayerScore"
-                android:layout_width="163dp"
+                android:layout_width="166dp"
                 android:layout_height="66dp"
                 android:layout_marginLeft="4dp"
+                android:background="@android:color/holo_green_light"
                 android:onClick="p2Score"
                 android:text="Player 2"
                 android:textSize="16sp"
@@ -303,10 +327,14 @@
         android:id="@+id/optionButtonsHolder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        android:layout_marginEnd="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scoreButtonHolder">
 
         <TableRow
             android:layout_width="match_parent"
@@ -365,12 +393,12 @@
         android:id="@+id/resetTimer"
         android:layout_width="68dp"
         android:layout_height="38dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="144dp"
+        android:background="@android:color/holo_green_light"
         android:text="reset"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tennisCourtView"
-        app:layout_constraintTop_toTopOf="@+id/leadingPlayerName" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameScoreDisplay" />
 
 </android.support.constraint.ConstraintLayout>
