@@ -155,6 +155,18 @@ public class MatchState {
         return currentSet.getCurrentGamePlayerTwoScore();
     }
 
+    public int getCurrentSetPlayerOneScore() {
+        return currentSet.getPlayerOneScore();
+    }
+
+    public int getCurrentSetPlayerTwoScore() {
+        return currentSet.getPlayerTwoScore();
+    }
+
+    public String getGameHistoryScoreDisplay() {
+        return currentSet.getGameHistoryScoreDisplay();
+    }
+
     public boolean getFaulted() { return faulted; }
 
     public int getPlayerOneAces() { return playerOneAces; }
