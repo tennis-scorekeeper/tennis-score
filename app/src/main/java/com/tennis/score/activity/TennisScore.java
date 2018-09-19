@@ -20,7 +20,7 @@ public class TennisScore extends AppCompatActivity {
     }
 
     public void signIn(View view) {
-        Intent intent = new Intent(view.getContext(), MatchList.class);
+        Intent intent = new Intent(view.getContext(), SignIn.class);
         startActivity(intent);
     }
 

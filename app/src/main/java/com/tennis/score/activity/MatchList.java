@@ -44,13 +44,6 @@ public class MatchList extends AppCompatActivity {
         createMatchDataFile();
         createViewMatchOnClickListener();
         updateMatchList();
-
-        try {
-            System.out.println(new RetrieveFeedTask("https://www.mikenguyenmd.com/match_live/testWebService", new String[]{"email", "test"}).execute().get());
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

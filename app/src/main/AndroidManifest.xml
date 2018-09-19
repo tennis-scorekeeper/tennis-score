@@ -24,6 +24,7 @@
         <activity android:name=".activity.MatchInterface"></activity>
         <activity android:name=".activity.MatchList"></activity>
         <activity android:name=".activity.Register" />
+        <activity android:name=".activity.SignIn" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
