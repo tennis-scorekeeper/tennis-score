@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,13 +16,6 @@ import com.tennis.score.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 /**
  * Created by Ali on 9/19/2018.
  */
@@ -33,9 +25,6 @@ public class MatchList extends AppCompatActivity {
     String signedInEmail;
     int tournamentId;
     String tournamentName;
-
-    private File file;
-    private String fileName = "matchData";
 
     private View.OnClickListener viewMatch;
 
@@ -53,7 +42,6 @@ public class MatchList extends AppCompatActivity {
         tournamentId = intent.getIntExtra("tournamentId", -1);
 
         setTournamentName();
-        createMatchDataFile();
         createViewMatchOnClickListener();
         updateMatchList();
     }
@@ -68,18 +56,6 @@ public class MatchList extends AppCompatActivity {
         intent.putExtra("signedInEmail", signedInEmail);
         intent.putExtra("tournamentId", tournamentId);
         startActivityForResult(intent, 0);
-    }
-
-    private void createMatchDataFile() {
-        file = new File(getFilesDir(), fileName);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            }
-            catch (IOException e){
-                e.printStackTrace();
-            }
-        }
     }
 
     private void createViewMatchOnClickListener() {
@@ -103,16 +79,6 @@ public class MatchList extends AppCompatActivity {
 
         builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                try {
-                    FileWriter fw = new FileWriter(file, false);
-                    fw.write("");
-                    fw.flush();
-                    fw.close();
-                    updateMatchList();
-                }
-                catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

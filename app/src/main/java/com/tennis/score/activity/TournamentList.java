@@ -12,12 +12,6 @@ import com.tennis.score.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 /**
  * Created by Ali on 9/19/2018.
  */

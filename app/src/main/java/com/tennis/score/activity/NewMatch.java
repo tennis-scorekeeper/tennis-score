@@ -12,9 +12,6 @@ import android.widget.TextView;
 
 import com.tennis.score.R;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Date;
 
 /**
