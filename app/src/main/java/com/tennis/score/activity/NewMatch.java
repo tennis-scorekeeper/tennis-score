@@ -1,5 +1,6 @@
 package com.tennis.score.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.tennis.score.R;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * Created by Ali on 9/6/2018.
@@ -24,19 +26,26 @@ public class NewMatch extends AppCompatActivity {
     private final int blackColor = 0xff000000;
     private final int redColor = 0xffcc0000;
 
+    String signedInEmail;
+    int tournamentId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_match_form);
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        Intent intent = getIntent();
+        signedInEmail = intent.getStringExtra("signedInEmail");
+        tournamentId = intent.getIntExtra("tournamentId", -1);
     }
 
     public void onSubmit(View view) {
         boolean formValid = true;
 
-        String tournamentName = ((EditText)findViewById(R.id.tournamentName)).getText().toString();
         String date = ((EditText)findViewById(R.id.date)).getText().toString();
+        String sqlDate = "";
 
         String playerOneName = ((EditText)findViewById(R.id.playerOneName)).getText().toString();
         String playerOneFrom = ((EditText)findViewById(R.id.player1from)).getText().toString();
@@ -50,16 +59,19 @@ public class NewMatch extends AppCompatActivity {
         String adRule = "";
         String matchFormat = "";
 
-        if (tournamentName.length() <= 0) {
-            ((TextView)findViewById(R.id.tournamentNameText)).setTextColor(redColor);
-            formValid = false;
-        }
-        else {
-            ((TextView)findViewById(R.id.tournamentNameText)).setTextColor(blackColor);
-        }
-
         if (date.length() <= 0) {
             date = " ";
+            ((TextView)findViewById(R.id.dateText)).setTextColor(blackColor);
+        }
+        else {
+            ((TextView)findViewById(R.id.dateText)).setTextColor(blackColor);
+            try {
+                sqlDate = new java.sql.Date(new Date(date).getTime()).toString();
+            }
+            catch (IllegalArgumentException iae) {
+                formValid = false;
+                ((TextView)findViewById(R.id.dateText)).setTextColor(redColor);
+            }
         }
 
         if (playerOneName.length() <= 0) {
@@ -119,22 +131,30 @@ public class NewMatch extends AppCompatActivity {
         }
 
         if (formValid) {
-            File file = new File(getFilesDir(), "matchData");
+            String[] params = new String[]{
+                    "tournamentId", String.valueOf(tournamentId),
+                    "date", sqlDate,
+                    "playerOneName", playerOneName,
+                    "playerOneFrom", playerOneFrom,
+                    "playerTwoName", playerTwoName,
+                    "playerTwoFrom", playerTwoFrom,
+                    "round", round,
+                    "division", division,
+                    "matchFormat", matchFormat,
+                    "adRule", adRule,
+                    "referee", referee};
             try {
-                String lineToWrite = tournamentName + "," + date + "," + playerOneName + "," + playerOneFrom + ","
-                        + playerTwoName + "," + playerTwoFrom + "," + round + "," + division + ","
-                        + matchFormat + "," + adRule + "," + referee;
-                FileWriter fw = new FileWriter(file, true);
-                fw.write(lineToWrite);
-                fw.write(System.getProperty("line.separator"));
-                fw.flush();
-                fw.close();
+                String response = new RetrieveFeedTask(
+                        "https://www.mikenguyenmd.com/match_live/createMatch", params).execute().get();
+
+                System.out.println(response);
+
+                setResult(0);
+                finish();
             }
-            catch (IOException e) {
+            catch (Exception e) {
                 e.printStackTrace();
             }
-            setResult(0);
-            finish();
         }
     }
 }

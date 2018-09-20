@@ -14,13 +14,19 @@ import android.widget.TextView;
 
 import com.tennis.score.R;
 
+import org.json.JSONObject;
+
 public class PreMatchSetup extends AppCompatActivity {
+
+    String signedInEmail;
 
     private TextView timerDisplay;
 
     private Button startTimerButton;
     private Button resetTimerButton;
 
+    private int tournamentId;
+    private int matchId;
     private String tournamentName;
     private String date;
     private String playerOneName;
@@ -51,17 +57,12 @@ public class PreMatchSetup extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        signedInEmail = intent.getStringExtra("signedInEmail");
+        tournamentId = intent.getIntExtra("touranmentId", -1);
+        matchId = intent.getIntExtra("matchId", -1);
         tournamentName = intent.getStringExtra("tournamentName");
-        date = intent.getStringExtra("date");
-        playerOneName = intent.getStringExtra("playerOneName");
-        playerOneFrom = intent.getStringExtra("playerOneFrom");
-        playerTwoName = intent.getStringExtra("playerTwoName");
-        playerTwoFrom = intent.getStringExtra("playerTwoFrom");
-        round = intent.getStringExtra("round");
-        division = intent.getStringExtra("division");
-        matchFormat = intent.getStringExtra("matchFormat");
-        adRule = intent.getStringExtra("adRule");
-        referee = intent.getStringExtra("referee");
+
+        setMatchData();
 
         timerDisplay = (TextView)findViewById(R.id.timerDisplay);
 
@@ -265,5 +266,33 @@ public class PreMatchSetup extends AppCompatActivity {
             secondString = "0" + secondString;
         }
         return minuteString + ":" + secondString;
+    }
+
+    private void setMatchData() {
+        String[] params = new String[]{
+                "matchId", String.valueOf(matchId)};
+
+        try {
+            String response = new RetrieveFeedTask(
+                    "https://www.mikenguyenmd.com/match_live/getMatch", params).execute().get();
+
+            if (!response.equals("null")) {
+                JSONObject matchObject = new JSONObject(response.toString());
+
+                date = matchObject.getString("date");
+                playerOneName = matchObject.getString("playerOneName");
+                playerOneFrom = matchObject.getString("playerOneFrom");
+                playerTwoName = matchObject.getString("playerTwoName");
+                playerTwoFrom = matchObject.getString("playerTwoFrom");
+                round = matchObject.getString("round");
+                division = matchObject.getString("division");
+                matchFormat = matchObject.getString("matchFormat");
+                adRule = matchObject.getString("adRule");
+                referee = matchObject.getString("referee");
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -44,7 +44,8 @@ public class SignIn extends AppCompatActivity {
 
                 if (response.equals("1")) {
                     ((TextView) findViewById(R.id.signInError)).setText("");
-                    Intent intent = new Intent(view.getContext(), MatchList.class);
+                    Intent intent = new Intent(view.getContext(), TournamentList.class);
+                    intent.putExtra("signedInEmail", email);
                     startActivity(intent);
                 } else {
                     ((TextView) findViewById(R.id.signInError)).setText("Incorrect email or password");

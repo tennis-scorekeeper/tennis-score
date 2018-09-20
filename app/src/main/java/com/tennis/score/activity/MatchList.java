@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import com.tennis.score.R;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,6 +29,10 @@ import java.io.InputStreamReader;
  */
 
 public class MatchList extends AppCompatActivity {
+
+    String signedInEmail;
+    int tournamentId;
+    String tournamentName;
 
     private File file;
     private String fileName = "matchData";
@@ -41,6 +48,11 @@ public class MatchList extends AppCompatActivity {
 
         matchList = (LinearLayout)findViewById(R.id.matchList);
 
+        Intent intent = getIntent();
+        signedInEmail = intent.getStringExtra("signedInEmail");
+        tournamentId = intent.getIntExtra("tournamentId", -1);
+
+        setTournamentName();
         createMatchDataFile();
         createViewMatchOnClickListener();
         updateMatchList();
@@ -53,6 +65,8 @@ public class MatchList extends AppCompatActivity {
 
     public void newMatch(View view) {
         Intent intent = new Intent(view.getContext(), NewMatch.class);
+        intent.putExtra("signedInEmail", signedInEmail);
+        intent.putExtra("tournamentId", tournamentId);
         startActivityForResult(intent, 0);
     }
 
@@ -72,42 +86,13 @@ public class MatchList extends AppCompatActivity {
         viewMatch = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int lineToGet = (int)view.getTag();
-                try {
-                    FileInputStream fis = new FileInputStream(file);
-                    InputStreamReader chapterReader = new InputStreamReader(fis);
-                    BufferedReader buffReader = new BufferedReader(chapterReader);
-
-                    String line = buffReader.readLine();
-                    int counter = 0;
-                    while (line != null) {
-                        if (counter == lineToGet) {
-                            String[] lineSplit = line.split(",");
-
-                            Intent intent = new Intent(view.getContext(), PreMatchSetup.class);
-                            intent.putExtra("tournamentName", lineSplit[0]);
-                            intent.putExtra("date", lineSplit[1]);
-                            intent.putExtra("playerOneName", lineSplit[2]);
-                            intent.putExtra("playerOneFrom", lineSplit[3]);
-                            intent.putExtra("playerTwoName", lineSplit[4]);
-                            intent.putExtra("playerTwoFrom", lineSplit[5]);
-                            intent.putExtra("round", lineSplit[6]);
-                            intent.putExtra("division", lineSplit[7]);
-                            intent.putExtra("matchFormat", lineSplit[8]);
-                            intent.putExtra("adRule", lineSplit[9]);
-                            intent.putExtra("referee", lineSplit[10]);
-                            startActivity(intent);
-
-                            break;
-                        }
-
-                        line = buffReader.readLine();
-                        counter++;
-                    }
-                }
-                catch (IOException e) {
-                    e.printStackTrace();
-                }
+                int matchId = (int)view.getTag();
+                Intent intent = new Intent(view.getContext(), PreMatchSetup.class);
+                intent.putExtra("signedInEmail", signedInEmail);
+                intent.putExtra("tournamentId", tournamentId);
+                intent.putExtra("matchId", matchId);
+                intent.putExtra("tournamentName", tournamentName);
+                startActivity(intent);
             }
         };
     }
@@ -139,44 +124,63 @@ public class MatchList extends AppCompatActivity {
     }
 
     private void updateMatchList() {
-        file = new File(getFilesDir(), fileName);
+        String[] params = new String[]{
+                "tournamentId", String.valueOf(tournamentId)};
 
         try {
-            FileInputStream fis = new FileInputStream(file);
-            InputStreamReader chapterReader = new InputStreamReader(fis);
-            BufferedReader buffReader = new BufferedReader(chapterReader);
+            String response = new RetrieveFeedTask(
+                    "https://www.mikenguyenmd.com/match_live/getMatchList", params).execute().get();
 
-            String line = buffReader.readLine();
-            int counter = 0;
+            System.out.println(response);
             matchList.removeAllViews();
-            while (line != null) {
-                TextView currentMatch = new TextView(this);
+            if (!response.equals("null")) {
+                JSONArray matchArray = new JSONArray(response.toString());
+                for (int i = 0; i < matchArray.length(); i++) {
+                    TextView currentTournament = new TextView(this);
 
-                currentMatch.setText(getMatchDisplayString(line));
-                currentMatch.setTag(counter);
-                currentMatch.setClickable(true);
-                currentMatch.setOnClickListener(viewMatch);
-                currentMatch.setTextSize(20);
-                currentMatch.setPadding(5, 5, 5, 5);
+                    currentTournament.setText(getMatchDisplayString(matchArray.getJSONObject(i)));
+                    currentTournament.setTag(matchArray.getJSONObject(i).getInt("matchId"));
+                    currentTournament.setClickable(true);
+                    currentTournament.setOnClickListener(viewMatch);
+                    currentTournament.setTextSize(20);
+                    currentTournament.setPadding(5, 5, 5, 5);
 
-                matchList.addView(currentMatch, 0);
-
-                line = buffReader.readLine();
-                counter++;
+                    matchList.addView(currentTournament, 0);
+                }
             }
         }
-        catch (IOException e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private String getMatchDisplayString(String line) {
-        String[] lineValues = line.split(",");
-        String tournamentName = lineValues[0];
-        String playerOne = lineValues[2];
-        String playerTwo = lineValues[4];
+    private String getMatchDisplayString(JSONObject match) {
+        try {
+            return match.getString("playerOneName") + " vs. " + match.getString("playerTwoName");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-        return tournamentName + ": " + playerOne + " vs. " + playerTwo;
+    private void setTournamentName() {
+        String[] params = new String[]{
+                "tournamentId", String.valueOf(tournamentId)};
+
+        try {
+            String response = new RetrieveFeedTask(
+                    "https://www.mikenguyenmd.com/match_live/getTournament", params).execute().get();
+
+            if (!response.equals("null")) {
+                JSONObject tournamentObject = new JSONObject(response.toString());
+                tournamentName = tournamentObject.getString("tournamentName");
+                ((TextView)findViewById(R.id.matchListTournamentNameDisplay)).setText(tournamentName);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
