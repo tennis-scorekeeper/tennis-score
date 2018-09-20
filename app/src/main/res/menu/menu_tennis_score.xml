@@ -3,11 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.tennis.score.activity.TennisScore">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/addUserToTournament"
+        android:title="Add chair umpire" />
     <item
         android:id="@+id/deleteMatches"
+        android:orderInCategory="101"
         android:title="Delete Matches" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings" />
 </menu>
