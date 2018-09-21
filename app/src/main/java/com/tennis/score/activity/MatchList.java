@@ -2,6 +2,7 @@ package com.tennis.score.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -10,9 +11,13 @@ import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.tennis.score.R;
@@ -100,20 +105,34 @@ public class MatchList extends AppCompatActivity {
         builder.show();
     }
 
-    public void addUserToTournament() {
+    public void manageChairUmpires() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Add chair umpire");
+        builder.setTitle("Manage chair umpires");
 
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
 
+        ScrollView scrollView = new ScrollView(this);
+
+        LinearLayout innerLayout = new LinearLayout(this);
+        innerLayout.setOrientation(LinearLayout.VERTICAL);
+
         final TextView resultMessage = new TextView(this);
+        final TextView addUmpireLabel = new TextView(this);
         final TextView inputLabel = new TextView(this);
         final EditText input = new EditText(this);
 
         resultMessage.setText("");
         resultMessage.setGravity(1);
         resultMessage.setPadding(0,25,0,25);
+
+        final TableLayout tableLayout = new TableLayout(this);
+        fillUsersOnTournamentTableLayout(tableLayout, resultMessage);
+
+        addUmpireLabel.setText("Add chair umpire");
+        addUmpireLabel.setPadding(50,50,0,50);
+        addUmpireLabel.setTextSize(20);
+        addUmpireLabel.setTextColor(blackColor);
 
         inputLabel.setText("Enter email of chair umpire");
         inputLabel.setTextColor(blackColor);
@@ -140,6 +159,8 @@ public class MatchList extends AppCompatActivity {
                     if (response.equals("0")) {
                         resultMessage.setText(emailToAdd + " added to this tournament");
                         resultMessage.setTextColor(greenColor);
+                        fillUsersOnTournamentTableLayout(tableLayout, resultMessage);
+                        input.setText("");
                         return;
                     }
                     if (response.equals("1")) {
@@ -167,10 +188,14 @@ public class MatchList extends AppCompatActivity {
             }
         });
 
-        layout.addView(resultMessage);
-        layout.addView(inputLabel);
-        layout.addView(input);
-        layout.addView(addButton);
+        innerLayout.addView(resultMessage);
+        innerLayout.addView(tableLayout);
+        innerLayout.addView(addUmpireLabel);
+        innerLayout.addView(inputLabel);
+        innerLayout.addView(input);
+        innerLayout.addView(addButton);
+        scrollView.addView(innerLayout);
+        layout.addView(scrollView);
         builder.setView(layout);
 
         builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
@@ -179,6 +204,70 @@ public class MatchList extends AppCompatActivity {
         });
 
         builder.show();
+    }
+
+    private void fillUsersOnTournamentTableLayout(final TableLayout tableLayout, final TextView resultMessage) {
+        tableLayout.removeAllViews();
+
+        String[] params = new String[]{
+                "tournamentId", String.valueOf(tournamentId)};
+        try {
+            String response = new RetrieveFeedTask(
+                    "https://www.mikenguyenmd.com/match_live/getUsersOnTournament", params).execute().get();
+
+            if (!response.equals("null")) {
+                JSONArray umpires = new JSONArray(response.toString());
+                for (int i = 0; i < umpires.length(); i++) {
+                    TableRow row = new TableRow(this);
+                    TextView name = new TextView(this);
+
+                    final String currentEmail = umpires.getJSONObject(i).getString("email");
+
+                    name.setText(umpires.getJSONObject(i).getString("firstname")
+                            + " " + umpires.getJSONObject(i).getString("lastname"));
+                    name.setPadding(25, 25, 100, 25);
+                    name.setTextSize(15);
+                    name.setTextColor(blackColor);
+                    row.addView(name);
+
+                    if (currentEmail.equals(tournamentObject.getString("creatorEmail"))) {
+                        TextView creator = new TextView(this);
+                        creator.setText("(Tournament host)");
+                        creator.setTextSize(15);
+                        creator.setTextColor(blackColor);
+                        row.addView(creator);
+                    }
+                    else {
+                        TextView deleteUmpire = new TextView(this);
+                        deleteUmpire.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View view) {
+                                String[] params = new String[]{
+                                        "tournamentId", String.valueOf(tournamentId), "email", currentEmail};
+                                try {
+                                    String response = new RetrieveFeedTask(
+                                            "https://www.mikenguyenmd.com/match_live/deleteUserTournamentMapping", params).execute().get();
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                resultMessage.setText(currentEmail + " removed from this tournament");
+                                resultMessage.setTextColor(redColor);
+                                fillUsersOnTournamentTableLayout(tableLayout, resultMessage);
+                            }
+                        });
+                        deleteUmpire.setText("Remove");
+                        deleteUmpire.setTextSize(15);
+                        deleteUmpire.setTextColor(redColor);
+                        row.addView(deleteUmpire);
+                    }
+
+                    tableLayout.addView(row);
+                }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateMatchList() {
@@ -291,8 +380,8 @@ public class MatchList extends AppCompatActivity {
             deleteMatches();
         }
 
-        if (id == R.id.addUserToTournament) {
-            addUserToTournament();
+        if (id == R.id.manageChairUmpires) {
+            manageChairUmpires();
         }
 
         return super.onOptionsItemSelected(item);

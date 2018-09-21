@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.tennis.score.activity.TennisScore">
     <item
-        android:id="@+id/addUserToTournament"
-        android:title="Add chair umpire" />
+        android:id="@+id/manageChairUmpires"
+        android:title="Manage chair umpires" />
     <item
         android:id="@+id/deleteMatches"
         android:orderInCategory="101"
