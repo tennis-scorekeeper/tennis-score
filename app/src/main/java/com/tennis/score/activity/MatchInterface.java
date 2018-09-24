@@ -113,7 +113,10 @@ public class MatchInterface extends AppCompatActivity {
         matchTimeDisplay = (TextView)findViewById(R.id.matchTimeDisplay);
         matchTimeTimer = new CountDownTimer(maxMatchSeconds * 1000, 1000) {
             public void onTick(long millisUntilFinished) {
-                matchSeconds = maxMatchSeconds - ((int) (millisUntilFinished / 1000));
+                matchSeconds = maxMatchSeconds - ((int) (millisUntilFinished / 1000)) - 1;
+                if (matchSeconds < 0) {
+                    matchSeconds = 0;
+                }
                 matchTimeDisplay.setText(getHourTimeString(matchSeconds));
             }
 
@@ -176,7 +179,10 @@ public class MatchInterface extends AppCompatActivity {
         }
         countDownTimer = new CountDownTimer(maxSeconds * 1000, 1000) {
             public void onTick(long millisUntilFinished) {
-                warmupSeconds = maxSeconds - ((int) (millisUntilFinished / 1000));
+                warmupSeconds = maxSeconds - ((int) (millisUntilFinished / 1000)) - 1;
+                if (warmupSeconds < 0) {
+                    warmupSeconds = 0;
+                }
                 serveTimerDisplay.setText(getTimeString(warmupSeconds));
             }
 
@@ -311,8 +317,16 @@ public class MatchInterface extends AppCompatActivity {
 
     private String getHourTimeString(int totalSeconds) {
         int hours = totalSeconds / 3600;
+        int minutes = totalSeconds / 60;
+
         String hourString = String.valueOf(hours);
-        return hourString + ":" + getTimeString(totalSeconds-(hours*3600));
+        String minuteString = String.valueOf(minutes);
+
+
+        if (minuteString.length() == 1) {
+            minuteString = "0" + minuteString;
+        }
+        return hourString + ":" + minuteString;
     }
 
     private final int blackColor = 0xff000000;

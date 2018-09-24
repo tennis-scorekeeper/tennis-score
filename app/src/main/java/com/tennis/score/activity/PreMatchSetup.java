@@ -219,8 +219,12 @@ public class PreMatchSetup extends AppCompatActivity {
         if (paused) {
             countDownTimer = new CountDownTimer(maxSeconds * 1000, 1000) {
                 public void onTick(long millisUntilFinished) {
-                    warmupSeconds = maxSeconds - ((int) (millisUntilFinished / 1000));
-                    timerDisplay.setText(getTimeString(warmupSeconds + stoppedAtSecond));
+                    warmupSeconds = maxSeconds - ((int) (millisUntilFinished / 1000)) - 1;
+                    int secondsToDisplay = warmupSeconds + stoppedAtSecond;
+                    if (secondsToDisplay < 0) {
+                        secondsToDisplay = 0;
+                    }
+                    timerDisplay.setText(getTimeString(secondsToDisplay));
                 }
 
                 public void onFinish() {
