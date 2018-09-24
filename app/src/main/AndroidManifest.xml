@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".activity.NewMatch" />
         <activity android:name=".activity.PreMatchSetup"></activity>
-        <activity android:name=".activity.MatchInterface"></activity>
+        <activity android:name=".activity.MatchInterface"
+                    android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".activity.MatchList"></activity>
         <activity android:name=".activity.Register" />
         <activity android:name=".activity.SignIn" />

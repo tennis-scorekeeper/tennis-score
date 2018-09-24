@@ -2,8 +2,11 @@ package com.tennis.score.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -43,6 +46,16 @@ public class MatchInterface extends AppCompatActivity {
 
     private List<TextView> setScoreTextViews;
 
+    private CountDownTimer countDownTimer;
+    private final int maxSeconds = 60*60;
+    private TextView serveTimerDisplay;
+    private int warmupSeconds = 0;
+
+    private CountDownTimer matchTimeTimer;
+    private final int maxMatchSeconds = 600*60;
+    private int matchSeconds = 3595;
+    private TextView matchTimeDisplay;
+
     // Increment score button on click listeners
 
     private View.OnClickListener incrementPlayerOne = new View.OnClickListener() {
@@ -66,6 +79,11 @@ public class MatchInterface extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.match_interface);
 
         Intent intent = getIntent();
@@ -90,6 +108,20 @@ public class MatchInterface extends AppCompatActivity {
         rightSide = intent.getStringExtra("rightSide");
 
         createSetTable();
+
+        serveTimerDisplay = (TextView)findViewById(R.id.serveTimerDisplay);
+        matchTimeDisplay = (TextView)findViewById(R.id.matchTimeDisplay);
+        matchTimeTimer = new CountDownTimer(maxMatchSeconds * 1000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                matchSeconds = maxMatchSeconds - ((int) (millisUntilFinished / 1000));
+                matchTimeDisplay.setText(getHourTimeString(matchSeconds));
+            }
+
+            public void onFinish() {
+                matchTimeDisplay.setText("00:00");
+            }
+        };
+        matchTimeTimer.start();
 
         boolean playerOneServe = true;
         boolean playerOneLeftSide = true;
@@ -136,6 +168,25 @@ public class MatchInterface extends AppCompatActivity {
         match.serverFaulted();
 
         updateAllDisplays();
+    }
+
+    public void resetTimer(View view) {
+        if (!(countDownTimer == null)) {
+            countDownTimer.cancel();
+        }
+        countDownTimer = new CountDownTimer(maxSeconds * 1000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                warmupSeconds = maxSeconds - ((int) (millisUntilFinished / 1000));
+                serveTimerDisplay.setText(getTimeString(warmupSeconds));
+            }
+
+            public void onFinish() {
+                serveTimerDisplay.setText("00:00");
+            }
+        };
+
+        countDownTimer.start();
+
     }
 
     public void setPlayerButtons() {
@@ -233,14 +284,35 @@ public class MatchInterface extends AppCompatActivity {
     }
 
     public void updateAllDisplays() {
+        resetTimer(findViewById(R.id.resetTimer));
         ((TextView) findViewById(R.id.gameScoreDisplay)).setText(match.getCurrentGameScore());
         setPlayerButtons();
         setSetScoreDisplay();
         updateLeadingPlayerName();
         setFaultButton();
         updateGameHistoryDisplay();
-        System.out.println(match.getPlayerOneFaults() + " " + match.getPlayerOneDoubleFaults());
-        System.out.println(match.getPlayerTwoFaults() + " " + match.getPlayerTwoDoubleFaults());
+    }
+
+    private String getTimeString(int totalSeconds) {
+        int minutes = totalSeconds / 60;
+        int seconds = totalSeconds % 60;
+
+        String minuteString = String.valueOf(minutes);
+        String secondString = String.valueOf(seconds);
+
+        if (minuteString.length() == 1) {
+            minuteString = "0" + minuteString;
+        }
+        if (secondString.length() == 1) {
+            secondString = "0" + secondString;
+        }
+        return minuteString + ":" + secondString;
+    }
+
+    private String getHourTimeString(int totalSeconds) {
+        int hours = totalSeconds / 3600;
+        String hourString = String.valueOf(hours);
+        return hourString + ":" + getTimeString(totalSeconds-(hours*3600));
     }
 
     private final int blackColor = 0xff000000;
