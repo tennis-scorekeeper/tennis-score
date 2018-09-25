@@ -170,6 +170,10 @@ public class Match {
         return currentMatchState.getPlayerTwoDoubleFaults();
     }
 
+    public int getPlayerOneTimeViolations() { return currentMatchState.getPlayerOneTimeViolations(); }
+
+    public int getPlayerTwoTimeViolations() { return currentMatchState.getPlayerTwoTimeViolations(); }
+
     public void incrementPlayerOneScore() {
         pastMatchStates.add(currentMatchState);
 
@@ -215,6 +219,16 @@ public class Match {
         else {
             currentMatchState = currentMatchState.playerTwoFault();
         }
+    }
+
+    public void playerOneTimeViolation(boolean pointPenalty) {
+        pastMatchStates.add(currentMatchState);
+        currentMatchState = currentMatchState.playerOneTimeViolation(pointPenalty);
+    }
+
+    public void playerTwoTimeViolation(boolean pointPenalty) {
+        pastMatchStates.add(currentMatchState);
+        currentMatchState = currentMatchState.playerTwoTimeViolation(pointPenalty);
     }
 
     public void undo() {

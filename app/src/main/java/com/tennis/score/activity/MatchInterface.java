@@ -1,14 +1,24 @@
 package com.tennis.score.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.ScrollView;
+import android.widget.Spinner;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.tennis.score.R;
@@ -299,6 +309,183 @@ public class MatchInterface extends AppCompatActivity {
         updateGameHistoryDisplay();
     }
 
+    public void optionsMenu(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Options");
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        ScrollView scrollView = new ScrollView(this);
+
+        final LinearLayout innerLayout = new LinearLayout(this);
+        innerLayout.setOrientation(LinearLayout.VERTICAL);
+        innerLayout.setPadding(0,25,0,0);
+
+        scrollView.addView(innerLayout);
+        layout.addView(scrollView);
+        builder.setView(layout);
+
+        builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        });
+
+        final AlertDialog dialog = builder.create();
+        buildOptionsMenu(innerLayout, dialog);
+
+        dialog.show();
+    }
+
+    private void buildOptionsMenu(final LinearLayout innerLayout, final AlertDialog dialog) {
+        Button codeButton = new Button(this);
+        codeButton.setText("Code Violation");
+        codeButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                buildCodeMenu(innerLayout);
+            }
+        });
+
+        Button tvButton = new Button(this);
+        tvButton.setText("Time Violation");
+        tvButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                buildTVMenu(innerLayout, dialog);
+            }
+        });
+
+        Button timeoutButton = new Button(this);
+        timeoutButton.setText("Timeout");
+        timeoutButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+            }
+        });
+
+        innerLayout.addView(codeButton);
+        innerLayout.addView(tvButton);
+        innerLayout.addView(timeoutButton);
+    }
+
+    private void buildCodeMenu(LinearLayout innerLayout) {
+        final RadioGroup playerPenalty = new RadioGroup(this);
+        playerPenalty.setOrientation(RadioGroup.HORIZONTAL);
+        playerPenalty.setPadding(96,16,0,16);
+
+        final RadioButton playerOneChoice = new RadioButton(this);
+        playerOneChoice.setText(playerOneName);
+        final RadioButton playerTwoChoice = new RadioButton(this);
+        playerTwoChoice.setText(playerTwoName);
+        playerOneChoice.setPadding(0,0,16,0);
+
+        playerPenalty.addView(playerOneChoice);
+        playerPenalty.addView(playerTwoChoice);
+
+        Spinner penalty = new Spinner(this);
+        List<String> penaltyOptions = new ArrayList<>();
+        penaltyOptions.add("Warning");
+        penaltyOptions.add("Point Penalty");
+        penaltyOptions.add("Game Penalty");
+        penaltyOptions.add("Default");
+        ArrayAdapter<String> penaltyAdapter =
+                new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, penaltyOptions);
+        penaltyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        penalty.setAdapter(penaltyAdapter);
+        penalty.setPadding(96,16,0,32);
+
+        Spinner codeType = new Spinner(this);
+        List<String> codeOptions = new ArrayList<>();
+        codeOptions.add("Del - Unreasonable Delays");
+        codeOptions.add("AOb - Audible Obscenity");
+        codeOptions.add("VOb - Visible Obscenity");
+        codeOptions.add("BA - Ball Abuse");
+        codeOptions.add("RA - Racket Abuse");
+        codeOptions.add("VA - Verbal Abuse");
+        codeOptions.add("PhA - Physical Abuse");
+        codeOptions.add("CC - Coaching, Coaches");
+        codeOptions.add("UnC - Unsportsmanlike Conduct");
+        ArrayAdapter<String> codeTypeAdapter =
+                new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, codeOptions);
+        codeTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        codeType.setAdapter(codeTypeAdapter);
+        codeType.setPadding(96,32,0,16);
+
+        innerLayout.removeAllViews();
+        innerLayout.addView(playerPenalty);
+        innerLayout.addView(penalty);
+        innerLayout.addView(codeType);
+
+    }
+
+    private void buildTVMenu(LinearLayout innerLayout, final AlertDialog dialog) {
+        final TextView playerLabel = new TextView(this);
+        playerLabel.setText("Player");
+        playerLabel.setTextColor(blackColor);
+        playerLabel.setPadding(96, 16, 0, 8);
+
+        final RadioGroup playerPenalty = new RadioGroup(this);
+        playerPenalty.setOrientation(RadioGroup.HORIZONTAL);
+        playerPenalty.setPadding(96,0,0,16);
+
+        final RadioButton playerOneChoice = new RadioButton(this);
+        playerOneChoice.setText(playerOneName);
+        final RadioButton playerTwoChoice = new RadioButton(this);
+        playerTwoChoice.setText(playerTwoName);
+        playerOneChoice.setPadding(0,0,16,0);
+
+        playerPenalty.addView(playerOneChoice);
+        playerPenalty.addView(playerTwoChoice);
+
+        TextView penaltyLabel = new TextView(this);
+        penaltyLabel.setText("Penalty");
+        penaltyLabel.setTextColor(blackColor);
+        penaltyLabel.setPadding(96, 16, 0, 8);
+
+        final Spinner penalty = new Spinner(this);
+        List<String> penaltyOptions = new ArrayList<>();
+        penaltyOptions.add("Warning");
+        penaltyOptions.add("Point Penalty");
+        ArrayAdapter<String> penaltyAdapter =
+                new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, penaltyOptions);
+        penaltyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        penalty.setAdapter(penaltyAdapter);
+        penalty.setPadding(96,16,0,32);
+
+        Button submitButton = new Button(this);
+        submitButton.setText("Submit");
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                String penaltyType = penalty.getSelectedItem().toString();
+                boolean pointPenalty = true;
+                if (penaltyType.equals("Warning")) {
+                    pointPenalty = false;
+                }
+
+                int selectedPlayer = playerPenalty.getCheckedRadioButtonId();
+                if (selectedPlayer == playerOneChoice.getId()) {
+                    dialog.dismiss();
+                    match.playerOneTimeViolation(pointPenalty);
+                    updateAllDisplays();
+                }
+                else if (selectedPlayer == playerTwoChoice.getId()) {
+                    dialog.dismiss();
+                    match.playerTwoTimeViolation(pointPenalty);
+                    updateAllDisplays();
+                }
+                else {
+                    playerLabel.setTextColor(redColor);
+                }
+            }
+        });
+
+        innerLayout.removeAllViews();
+        innerLayout.addView(playerLabel);
+        innerLayout.addView(playerPenalty);
+        innerLayout.addView(penaltyLabel);
+        innerLayout.addView(penalty);
+        innerLayout.addView(submitButton);
+    }
+
     private String getTimeString(int totalSeconds) {
         int minutes = totalSeconds / 60;
         int seconds = totalSeconds % 60;
@@ -330,4 +517,5 @@ public class MatchInterface extends AppCompatActivity {
     }
 
     private final int blackColor = 0xff000000;
+    private final int redColor = 0xffcc0000;
 }

@@ -20,6 +20,9 @@ public class MatchState {
     private int playerTwoFaults;
     private int playerTwoDoubleFaults;
 
+    private int playerOneTimeViolations;
+    private int playerTwoTimeViolations;
+
     private boolean faulted;
 
     MatchState() {
@@ -34,6 +37,8 @@ public class MatchState {
         playerTwoFaults = 0;
         playerTwoDoubleFaults = 0;
 
+        playerOneTimeViolations = 0;
+        playerTwoTimeViolations = 0;
 
         faulted = false;
     }
@@ -52,6 +57,9 @@ public class MatchState {
         playerOneDoubleFaults = oldState.playerOneDoubleFaults;
         playerTwoFaults = oldState.playerTwoFaults;
         playerTwoDoubleFaults = oldState.playerTwoDoubleFaults;
+
+        playerOneTimeViolations = oldState.playerOneTimeViolations;
+        playerTwoTimeViolations = oldState.playerTwoTimeViolations;
 
         faulted = false;
     }
@@ -122,6 +130,32 @@ public class MatchState {
         }
     }
 
+    public MatchState playerOneTimeViolation(boolean pointPenalty) {
+        if (pointPenalty) {
+            MatchState nextMatchState = incrementPlayerOneScore();
+            nextMatchState.playerOneTimeViolations += 1;
+            return nextMatchState;
+        }
+        else {
+            MatchState nextMatchState = new MatchState(this);
+            nextMatchState.playerOneTimeViolations += 1;
+            return nextMatchState;
+        }
+    }
+
+    public MatchState playerTwoTimeViolation(boolean pointPenalty) {
+        if (pointPenalty) {
+            MatchState nextMatchState = incrementPlayerTwoScore();
+            nextMatchState.playerTwoTimeViolations += 1;
+            return nextMatchState;
+        }
+        else {
+            MatchState nextMatchState = new MatchState(this);
+            nextMatchState.playerTwoTimeViolations += 1;
+            return nextMatchState;
+        }
+    }
+
     public void playerOneSubtractFault() {
         playerOneFaults -= 1;
     }
@@ -180,6 +214,10 @@ public class MatchState {
     public int getPlayerTwoFaults() { return playerTwoFaults; }
 
     public int getPlayerTwoDoubleFaults() { return playerTwoDoubleFaults; }
+
+    public int getPlayerOneTimeViolations() { return playerOneTimeViolations; }
+
+    public int getPlayerTwoTimeViolations() { return playerTwoTimeViolations; }
 
     public List<String> getSetScores() {
         List<String> result = new ArrayList<>();
