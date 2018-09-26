@@ -174,6 +174,10 @@ public class Match {
 
     public int getPlayerTwoTimeViolations() { return currentMatchState.getPlayerTwoTimeViolations(); }
 
+    public List<CodeViolation> getPlayerOneCodeViolations() { return currentMatchState.getPlayerOneCodeViolations(); }
+
+    public List<CodeViolation> getPlayerTwoCodeViolations() { return currentMatchState.getPlayerTwoCodeViolations(); }
+
     public void incrementPlayerOneScore() {
         pastMatchStates.add(currentMatchState);
 
@@ -229,6 +233,16 @@ public class Match {
     public void playerTwoTimeViolation(boolean pointPenalty) {
         pastMatchStates.add(currentMatchState);
         currentMatchState = currentMatchState.playerTwoTimeViolation(pointPenalty);
+    }
+
+    public void playerOneCodeViolation(int penaltyType, String penaltyReason, String playerName) {
+        pastMatchStates.add(currentMatchState);
+        currentMatchState = currentMatchState.playerOneCodeViolation(penaltyType, penaltyReason, playerName);
+    }
+
+    public void playerTwoCodeViolation(int penaltyType, String penaltyReason, String playerName) {
+        pastMatchStates.add(currentMatchState);
+        currentMatchState = currentMatchState.playerTwoCodeViolation(penaltyType, penaltyReason, playerName);
     }
 
     public void undo() {

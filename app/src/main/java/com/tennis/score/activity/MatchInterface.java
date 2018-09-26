@@ -342,7 +342,7 @@ public class MatchInterface extends AppCompatActivity {
         codeButton.setText("Code Violation");
         codeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                buildCodeMenu(innerLayout);
+                buildCodeMenu(innerLayout, dialog);
             }
         });
 
@@ -367,10 +367,15 @@ public class MatchInterface extends AppCompatActivity {
         innerLayout.addView(timeoutButton);
     }
 
-    private void buildCodeMenu(LinearLayout innerLayout) {
+    private void buildCodeMenu(LinearLayout innerLayout, final AlertDialog dialog) {
+        final TextView playerLabel = new TextView(this);
+        playerLabel.setText("Player");
+        playerLabel.setTextColor(blackColor);
+        playerLabel.setPadding(96, 16, 0, 8);
+
         final RadioGroup playerPenalty = new RadioGroup(this);
         playerPenalty.setOrientation(RadioGroup.HORIZONTAL);
-        playerPenalty.setPadding(96,16,0,16);
+        playerPenalty.setPadding(96,0,0,16);
 
         final RadioButton playerOneChoice = new RadioButton(this);
         playerOneChoice.setText(playerOneName);
@@ -381,7 +386,12 @@ public class MatchInterface extends AppCompatActivity {
         playerPenalty.addView(playerOneChoice);
         playerPenalty.addView(playerTwoChoice);
 
-        Spinner penalty = new Spinner(this);
+        final TextView penaltyLabel = new TextView(this);
+        penaltyLabel.setText("Penalty");
+        penaltyLabel.setTextColor(blackColor);
+        penaltyLabel.setPadding(96, 0, 0, 8);
+
+        final Spinner penalty = new Spinner(this);
         List<String> penaltyOptions = new ArrayList<>();
         penaltyOptions.add("Warning");
         penaltyOptions.add("Point Penalty");
@@ -391,9 +401,14 @@ public class MatchInterface extends AppCompatActivity {
                 new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, penaltyOptions);
         penaltyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         penalty.setAdapter(penaltyAdapter);
-        penalty.setPadding(96,16,0,32);
+        penalty.setPadding(96,0,0,32);
 
-        Spinner codeType = new Spinner(this);
+        final TextView reasonLabel = new TextView(this);
+        reasonLabel.setText("Reason");
+        reasonLabel.setTextColor(blackColor);
+        reasonLabel.setPadding(96, 0, 0, 8);
+
+        final Spinner codeType = new Spinner(this);
         List<String> codeOptions = new ArrayList<>();
         codeOptions.add("Del - Unreasonable Delays");
         codeOptions.add("AOb - Audible Obscenity");
@@ -408,12 +423,53 @@ public class MatchInterface extends AppCompatActivity {
                 new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, codeOptions);
         codeTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         codeType.setAdapter(codeTypeAdapter);
-        codeType.setPadding(96,32,0,16);
+        codeType.setPadding(96,0,0,16);
+
+        Button submitButton = new Button(this);
+        submitButton.setText("Submit");
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                String penaltyType = penalty.getSelectedItem().toString();
+                String penaltyReason = codeType.getSelectedItem().toString();
+                int penaltyTypeNumber = -1;
+                if (penaltyType.equals("Warning")) {
+                    penaltyTypeNumber = 0;
+                }
+                else if (penaltyType.equals("Point Penalty")) {
+                    penaltyTypeNumber = 1;
+                }
+                else if (penaltyType.equals("Game Penalty")) {
+                    penaltyTypeNumber = 2;
+                }
+                else if (penaltyType.equals("Default")) {
+                    penaltyTypeNumber = 3;
+                }
+
+                int selectedPlayer = playerPenalty.getCheckedRadioButtonId();
+                if (selectedPlayer == playerOneChoice.getId()) {
+                    dialog.dismiss();
+                    match.playerOneCodeViolation(penaltyTypeNumber, penaltyReason, playerOneName);
+                    updateAllDisplays();
+                }
+                else if (selectedPlayer == playerTwoChoice.getId()) {
+                    dialog.dismiss();
+                    match.playerTwoCodeViolation(penaltyTypeNumber, penaltyReason, playerTwoName);
+                    updateAllDisplays();
+                }
+                else {
+                    playerLabel.setTextColor(redColor);
+                }
+            }
+        });
 
         innerLayout.removeAllViews();
+        innerLayout.addView(playerLabel);
         innerLayout.addView(playerPenalty);
+        innerLayout.addView(penaltyLabel);
         innerLayout.addView(penalty);
+        innerLayout.addView(reasonLabel);
         innerLayout.addView(codeType);
+        innerLayout.addView(submitButton);
 
     }
 
