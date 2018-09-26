@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:background="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/gameScoreDisplay"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,8 +35,8 @@
                 android:background="@android:color/white"
                 android:padding="2dp"
                 android:paddingBottom="2dp"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
                 android:paddingTop="2dp"
                 android:text="Player 1"
                 android:textColor="@android:color/black"
@@ -130,8 +130,8 @@
                 android:background="@android:color/white"
                 android:padding="2dp"
                 android:paddingBottom="2dp"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
                 android:paddingTop="2dp"
                 android:text="Player 2"
                 android:textColor="@android:color/black"
@@ -222,15 +222,13 @@
 
     <Button
         android:id="@+id/undoScoreButton"
-        android:layout_width="52dp"
-        android:layout_height="29dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="32dp"
-        android:background="@android:color/holo_blue_light"
+        android:layout_width="107dp"
+        android:layout_height="50dp"
+        android:background="#dddcdc"
         android:onClick="undo"
         android:text="Undo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/setTable" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/leadingPlayerName"
@@ -258,37 +256,26 @@
         app:layout_constraintTop_toBottomOf="@+id/leadingPlayerName"
         app:srcCompat="@drawable/tenniscourt" />
 
-    <Switch
-        android:id="@+id/netCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="Net"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/gameScoreDisplay"
-        app:layout_constraintTop_toBottomOf="@+id/setTable"
-        tools:checked="false" />
-
     <TableLayout
         android:id="@+id/scoreButtonHolder"
-        android:layout_width="340dp"
+        android:layout_width="347dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginStart="22dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toTopOf="@+id/optionButtonsHolder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="376dp"
             android:layout_height="match_parent">
 
             <Button
                 android:id="@+id/leftPlayerScore"
-                android:layout_width="166dp"
+                android:layout_width="170dp"
                 android:layout_height="66dp"
                 android:layout_marginRight="4dp"
                 android:background="@android:color/holo_blue_light"
@@ -301,7 +288,7 @@
 
             <Button
                 android:id="@+id/rightPlayerScore"
-                android:layout_width="166dp"
+                android:layout_width="170dp"
                 android:layout_height="66dp"
                 android:layout_marginLeft="4dp"
                 android:background="@android:color/holo_green_light"
@@ -333,9 +320,10 @@
             <Button
                 android:id="@+id/ace"
                 android:layout_width="82dp"
-                android:layout_height="57dp"
+                android:layout_height="66dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="16dp"
+                android:background="#dddcdc"
                 android:onClick="ace"
                 android:text="Ace"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -345,8 +333,9 @@
             <Button
                 android:id="@+id/faultButton"
                 android:layout_width="82dp"
-                android:layout_height="57dp"
+                android:layout_height="66dp"
                 android:layout_marginBottom="8dp"
+                android:background="#dddcdc"
                 android:onClick="fault"
                 android:text="Fault"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -356,8 +345,9 @@
             <Button
                 android:id="@+id/let"
                 android:layout_width="82dp"
-                android:layout_height="57dp"
+                android:layout_height="66dp"
                 android:layout_marginBottom="8dp"
+                android:background="#dddcdc"
                 android:onClick="let"
                 android:text="Let"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -367,9 +357,10 @@
             <Button
                 android:id="@+id/options"
                 android:layout_width="82dp"
-                android:layout_height="57dp"
+                android:layout_height="66dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="16dp"
+                android:background="#dddcdc"
                 android:onClick="optionsMenu"
                 android:text="Options"
                 android:textSize="13sp"
@@ -382,12 +373,10 @@
 
     <Button
         android:id="@+id/resetTimer"
-        android:layout_width="68dp"
-        android:layout_height="38dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_width="107dp"
+        android:layout_height="50dp"
         android:layout_marginTop="96dp"
-        android:background="@android:color/holo_green_light"
+        android:background="#dddcdc"
         android:onClick="resetTimer"
         android:text="reset"
         app:layout_constraintEnd_toEndOf="parent"
@@ -415,6 +404,7 @@
         android:text="00:00"
         android:textColor="@android:color/black"
         android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/resetTimer"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -422,12 +412,25 @@
         android:id="@+id/matchTimeDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:layout_marginTop="16dp"
         android:text="0:00"
         android:textColor="@android:color/black"
-        android:textSize="30sp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/setTable"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/netCheck"
+        android:layout_width="107dp"
+        android:layout_height="50dp"
+        android:background="#dddcdc"
+        android:text="Net Check"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

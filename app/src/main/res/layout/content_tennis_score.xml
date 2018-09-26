@@ -10,9 +10,10 @@
 
     <Button
         android:id="@+id/signInButton"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="156dp"
+        android:layout_marginTop="332dp"
+        android:background="@android:color/holo_blue_light"
         android:onClick="signIn"
         android:text="Sign In"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -21,9 +22,10 @@
 
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="24dp"
+        android:background="@android:color/holo_green_light"
         android:onClick="register"
         android:text="Register"
         app:layout_constraintLeft_toLeftOf="parent"

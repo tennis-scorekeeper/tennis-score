@@ -171,7 +171,7 @@
                 android:layout_marginRight="142dp"
                 android:layout_marginStart="143dp"
                 android:layout_marginTop="24dp"
-                android:background="@android:color/holo_green_light"
+                android:background="#dddcdc"
                 android:onClick="onSubmit"
                 android:text="Submit"
                 app:layout_constraintBottom_toBottomOf="parent"

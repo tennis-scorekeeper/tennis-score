@@ -307,7 +307,7 @@
                 android:layout_marginRight="125dp"
                 android:layout_marginStart="124dp"
                 android:layout_marginTop="16dp"
-                android:background="@android:color/holo_green_light"
+                android:background="#dddcdc"
                 android:onClick="onStartMatch"
                 android:text="Start match"
                 app:layout_constraintBottom_toBottomOf="parent"
