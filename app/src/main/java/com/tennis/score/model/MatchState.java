@@ -297,6 +297,8 @@ public class MatchState {
 
     public int getPlayerTwoTimeViolations() { return playerTwoTimeViolations; }
 
+    public List<Set> getCompletedSets() { return completedSets; }
+
     public List<CodeViolation> getPlayerOneCodeViolations() { return playerOneCodeViolations; }
 
     public List<CodeViolation> getPlayerTwoCodeViolations() { return playerTwoCodeViolations; }

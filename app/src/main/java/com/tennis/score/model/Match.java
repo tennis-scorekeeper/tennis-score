@@ -182,6 +182,7 @@ public class Match {
         pastMatchStates.add(currentMatchState);
 
         currentMatchState = currentMatchState.incrementPlayerOneScore();
+
     }
 
     public void incrementPlayerTwoScore() {
@@ -249,6 +250,25 @@ public class Match {
         if (pastMatchStates.size() > 0) {
             currentMatchState = pastMatchStates.remove(pastMatchStates.size() - 1);
         }
+    }
+
+    public boolean checkIfMatchOver() {
+        List<Set> matchSets = currentMatchState.getCompletedSets();
+        int playerOneSets = 0;
+        int playerTwoSets = 0;
+
+        for (Set set : matchSets) {
+            if (set.getPlayerOneScore() > set.getPlayerTwoScore()) {
+                playerOneSets += 1;
+            }
+            else {
+                playerTwoSets += 1;
+            }
+        }
+        if (playerOneSets == 3 || playerTwoSets == 3) {
+            return true;
+        }
+        return false;
     }
 
     public List<String> getSetScores() {
