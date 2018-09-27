@@ -258,12 +258,13 @@
 
     <TableLayout
         android:id="@+id/scoreButtonHolder"
-        android:layout_width="wrap_content"
+        android:layout_width="348dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toTopOf="@+id/optionButtonsHolder"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <TableRow
@@ -301,9 +302,11 @@
 
     <TableLayout
         android:id="@+id/optionButtonsHolder"
-        android:layout_width="wrap_content"
+        android:layout_width="376dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -364,8 +367,9 @@
 
     <Button
         android:id="@+id/resetTimer"
-        android:layout_width="107dp"
+        android:layout_width="75dp"
         android:layout_height="50dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="84dp"
         android:background="#dddcdc"
         android:onClick="resetTimer"
