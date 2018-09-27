@@ -260,13 +260,14 @@
         android:id="@+id/scoreButtonHolder"
         android:layout_width="347dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         app:layout_constraintBottom_toTopOf="@+id/optionButtonsHolder"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent">
 
         <TableRow
@@ -319,11 +320,10 @@
 
             <Button
                 android:id="@+id/ace"
-                android:layout_width="82dp"
-                android:layout_height="66dp"
+                android:layout_width="86dp"
+                android:layout_height="76dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="16dp"
-                android:background="#dddcdc"
                 android:onClick="ace"
                 android:text="Ace"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -332,10 +332,9 @@
 
             <Button
                 android:id="@+id/faultButton"
-                android:layout_width="82dp"
-                android:layout_height="66dp"
+                android:layout_width="86dp"
+                android:layout_height="76dp"
                 android:layout_marginBottom="8dp"
-                android:background="#dddcdc"
                 android:onClick="fault"
                 android:text="Fault"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -344,10 +343,9 @@
 
             <Button
                 android:id="@+id/let"
-                android:layout_width="82dp"
-                android:layout_height="66dp"
+                android:layout_width="86dp"
+                android:layout_height="76dp"
                 android:layout_marginBottom="8dp"
-                android:background="#dddcdc"
                 android:onClick="let"
                 android:text="Let"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -356,11 +354,10 @@
 
             <Button
                 android:id="@+id/options"
-                android:layout_width="82dp"
-                android:layout_height="66dp"
+                android:layout_width="86dp"
+                android:layout_height="76dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="#dddcdc"
                 android:onClick="optionsMenu"
                 android:text="Options"
                 android:textSize="13sp"
@@ -375,7 +372,7 @@
         android:id="@+id/resetTimer"
         android:layout_width="107dp"
         android:layout_height="50dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="84dp"
         android:background="#dddcdc"
         android:onClick="resetTimer"
         android:text="reset"
@@ -399,8 +396,9 @@
         android:id="@+id/serveTimerDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:text="00:00"
         android:textColor="@android:color/black"
         android:textSize="30sp"
