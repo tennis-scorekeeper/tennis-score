@@ -15,14 +15,18 @@ public class Match {
     private boolean playerOneServedFirst;
     private boolean playerOneStartedLeft;
 
-    public Match(boolean p1Serve, boolean p1LeftSide) {
-        currentMatchState = new MatchState();
+    private int matchFormat;
+
+    public Match(boolean p1Serve, boolean p1LeftSide, boolean ads, int matchFormatIndex) {
+        currentMatchState = new MatchState(ads, matchFormatIndex == 3, matchFormatIndex == 2);
 
         pastMatchStates = new ArrayList<>();
 
         playerOneServedFirst = p1Serve;
 
         playerOneStartedLeft = p1LeftSide;
+
+        matchFormat = matchFormatIndex;
     }
 
     public boolean checkInTiebreak() {
@@ -135,7 +139,7 @@ public class Match {
     }
 
     public String getCurrentGameScore() {
-        return currentMatchState.currentSet.currentGame.getScoreDisplay(checkPlayerOneServing());
+        return currentMatchState.currentSet.getScoreDisplay(checkPlayerOneServing());
     }
 
     public int getCurrentGamePlayerOneScore() {
@@ -253,6 +257,17 @@ public class Match {
     }
 
     public boolean checkIfMatchOver() {
+        int setsNeededToWin;
+        if (matchFormat == 0) {
+            setsNeededToWin = 3;
+        }
+        else if (matchFormat == 1 || matchFormat == 2) {
+            setsNeededToWin = 2;
+        }
+        else {
+            setsNeededToWin = 1;
+        }
+
         List<Set> matchSets = currentMatchState.getCompletedSets();
         int playerOneSets = 0;
         int playerTwoSets = 0;
@@ -265,7 +280,7 @@ public class Match {
                 playerTwoSets += 1;
             }
         }
-        if (playerOneSets == 3 || playerTwoSets == 3) {
+        if (playerOneSets == setsNeededToWin || playerTwoSets == setsNeededToWin) {
             return true;
         }
         return false;

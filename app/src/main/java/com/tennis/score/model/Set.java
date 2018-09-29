@@ -14,12 +14,20 @@ public class Set {
     public Game currentGame;
     private List<Game> completedGames;
 
-    public Set() {
+    boolean adRule;
+    boolean eightGameProSet;
+    boolean matchTiebreakSet;
+
+    public Set(boolean ads, boolean isEightGame, boolean isMatchTiebreakSet) {
         playerOneScore = 0;
         playerTwoScore = 0;
 
-        currentGame = new Game();
+        currentGame = new Game(isMatchTiebreakSet, 10, ads);
         completedGames = new ArrayList<>();
+
+        adRule = ads;
+        eightGameProSet = isEightGame;
+        matchTiebreakSet = isMatchTiebreakSet;
     }
 
     public Set(Set set) {
@@ -31,46 +39,77 @@ public class Set {
         for (Game completedGame : set.completedGames) {
             completedGames.add(new Game(completedGame));
         }
+
+        adRule = set.adRule;
+        eightGameProSet = set.eightGameProSet;
+        matchTiebreakSet = set.matchTiebreakSet;
+    }
+
+    public boolean incrementPlayerOneGameScore() {
+        return currentGame.incrementPlayerOneScore();
+    }
+
+    public boolean incrementPlayerTwoGameScore() {
+        return currentGame.incrementPlayerTwoScore();
     }
 
     public boolean incrementPlayerOneScore() {
-        playerOneScore++;
-        completedGames.add(currentGame);
-
-        if (playerOneScore == 6 && playerTwoScore == 6) {
-            currentGame = new Game(true);
+        if (matchTiebreakSet) {
+            return true;
         }
         else {
-            currentGame = new Game();
-        }
+            playerOneScore++;
+            completedGames.add(currentGame);
 
-        if (playerOneScore == 6 && playerTwoScore <= 4) {
-            return true;
+            int gamesNeeded = 6;
+            if (eightGameProSet) {
+                gamesNeeded = 8;
+            }
+
+            if (playerOneScore == gamesNeeded && playerTwoScore == gamesNeeded) {
+                currentGame = new Game(true, 7, adRule);
+            } else {
+                currentGame = new Game(adRule);
+            }
+
+            if (playerOneScore == gamesNeeded && playerTwoScore <= gamesNeeded - 2) {
+                return true;
+            }
+            if (playerOneScore == gamesNeeded + 1) {
+                return true;
+            }
+            return false;
         }
-        if (playerOneScore == 7) {
-            return true;
-        }
-        return false;
     }
 
     public boolean incrementPlayerTwoScore() {
-        playerTwoScore++;
-        completedGames.add(currentGame);
-
-        if (playerOneScore == 6 && playerTwoScore == 6) {
-            currentGame = new Game(true);
+        if (matchTiebreakSet) {
+            return true;
         }
         else {
-            currentGame = new Game();
-        }
+            playerTwoScore++;
 
-        if (playerTwoScore == 6 && playerOneScore <= 4) {
-            return true;
+            completedGames.add(currentGame);
+
+            int gamesNeeded = 6;
+            if (eightGameProSet) {
+                gamesNeeded = 8;
+            }
+
+            if (playerOneScore == gamesNeeded && playerTwoScore == gamesNeeded) {
+                currentGame = new Game(true, 7, adRule);
+            } else {
+                currentGame = new Game(adRule);
+            }
+
+            if (playerTwoScore == gamesNeeded && playerOneScore <= gamesNeeded - 2) {
+                return true;
+            }
+            if (playerTwoScore == gamesNeeded + 1) {
+                return true;
+            }
+            return false;
         }
-        if (playerTwoScore == 7) {
-            return true;
-        }
-        return false;
     }
 
     public int getTotalGames() {
@@ -105,5 +144,13 @@ public class Set {
 
     public String getSetScore() {
         return playerOneScore + "-" + playerTwoScore;
+    }
+
+    public String getScoreDisplay(boolean playerOneFirst) {
+        return currentGame.getScoreDisplay(playerOneFirst);
+    }
+
+    public boolean isMatchTiebreakSet() {
+        return matchTiebreakSet;
     }
 }

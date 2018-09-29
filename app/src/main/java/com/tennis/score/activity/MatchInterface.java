@@ -138,6 +138,8 @@ public class MatchInterface extends AppCompatActivity {
 
         boolean playerOneServe = true;
         boolean playerOneLeftSide = true;
+        boolean ads = true;
+        int matchFormatIndex = 0;
 
         if (coinTossWinner.equals(playerOneName)) {
             if (winnerChoice.equals("Receive")) {
@@ -153,8 +155,16 @@ public class MatchInterface extends AppCompatActivity {
         if (leftSide.equals(playerTwoName)) {
             playerOneLeftSide = false;
         }
+        if (!adRule.equals("Regular")) {
+            ads = false;
+        }
+        for (int i = 0; i < formats.length; i++) {
+            if (matchFormat.equals(formats[i])) {
+                matchFormatIndex = i;
+            }
+        }
 
-        match = new Match(playerOneServe, playerOneLeftSide);
+        match = new Match(playerOneServe, playerOneLeftSide, ads, matchFormatIndex);
 
         updateAllDisplays();
     }
@@ -574,4 +584,11 @@ public class MatchInterface extends AppCompatActivity {
 
     private final int blackColor = 0xff000000;
     private final int redColor = 0xffcc0000;
+
+    private final String[] formats = {
+            "Best of five tiebreak sets",
+            "Best of three tiebreak sets",
+            "Best of two tiebreak sets and match tiebreak",
+            "Eight game pro-set",
+            "Six game pro-set"};
 }

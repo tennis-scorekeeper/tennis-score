@@ -27,9 +27,13 @@ public class MatchState {
     private List<CodeViolation> playerTwoCodeViolations;
 
     private boolean faulted;
+    private boolean adRule;
 
-    MatchState() {
-        currentSet = new Set();
+    private boolean eightGameProSet;
+    private boolean hasMatchTiebreakSet;
+
+    MatchState(boolean ads, boolean isEightGameProSet, boolean matchTiebreakSet) {
+        currentSet = new Set(ads, isEightGameProSet, false);
         completedSets = new ArrayList<>();
 
         playerOneAces = 0;
@@ -47,6 +51,10 @@ public class MatchState {
         playerTwoCodeViolations = new ArrayList<>();
 
         faulted = false;
+        adRule = ads;
+
+        eightGameProSet = isEightGameProSet;
+        hasMatchTiebreakSet = matchTiebreakSet;
     }
 
     MatchState(MatchState oldState) {
@@ -78,16 +86,23 @@ public class MatchState {
         }
 
         faulted = false;
+        adRule = oldState.adRule;
+        eightGameProSet = oldState.eightGameProSet;
+        hasMatchTiebreakSet = oldState.hasMatchTiebreakSet;
     }
 
     public MatchState incrementPlayerOneScore() {
         MatchState nextMatchState = new MatchState(this);
-        boolean wonGame = nextMatchState.currentSet.currentGame.incrementPlayerOneScore();
+        boolean wonGame = nextMatchState.currentSet.incrementPlayerOneGameScore();
         if (wonGame) {
             boolean wonSet = nextMatchState.currentSet.incrementPlayerOneScore();
             if (wonSet) {
                 nextMatchState.completedSets.add(nextMatchState.currentSet);
-                nextMatchState.currentSet = new Set();
+                boolean nextSetMatchTiebreak = false;
+                if (hasMatchTiebreakSet && nextMatchState.completedSets.size() == 2){
+                    nextSetMatchTiebreak = true;
+                }
+                nextMatchState.currentSet = new Set(adRule, eightGameProSet, nextSetMatchTiebreak);
             }
         }
         return nextMatchState;
@@ -95,12 +110,16 @@ public class MatchState {
 
     public MatchState incrementPlayerTwoScore() {
         MatchState nextMatchState = new MatchState(this);
-        boolean wonGame = nextMatchState.currentSet.currentGame.incrementPlayerTwoScore();
+        boolean wonGame = nextMatchState.currentSet.incrementPlayerTwoGameScore();
         if (wonGame) {
             boolean wonSet = nextMatchState.currentSet.incrementPlayerTwoScore();
             if (wonSet) {
                 nextMatchState.completedSets.add(nextMatchState.currentSet);
-                nextMatchState.currentSet = new Set();
+                boolean nextSetMatchTiebreak = false;
+                if (hasMatchTiebreakSet && nextMatchState.completedSets.size() == 2){
+                    nextSetMatchTiebreak = true;
+                }
+                nextMatchState.currentSet = new Set(adRule, eightGameProSet, nextSetMatchTiebreak);
             }
         }
         return nextMatchState;
@@ -306,11 +325,23 @@ public class MatchState {
     public List<String> getSetScores() {
         List<String> result = new ArrayList<>();
         for (Set completedSet : completedSets) {
-            result.add(String.valueOf(completedSet.getPlayerOneScore()));
-            result.add(String.valueOf(completedSet.getPlayerTwoScore()));
+            if (completedSet.isMatchTiebreakSet()) {
+                result.add(String.valueOf(completedSet.getCurrentGamePlayerOneScore()));
+                result.add(String.valueOf(completedSet.getCurrentGamePlayerTwoScore()));
+            }
+            else {
+                result.add(String.valueOf(completedSet.getPlayerOneScore()));
+                result.add(String.valueOf(completedSet.getPlayerTwoScore()));
+            }
         }
-        result.add(String.valueOf(currentSet.getPlayerOneScore()));
-        result.add(String.valueOf(currentSet.getPlayerTwoScore()));
+        if (currentSet.isMatchTiebreakSet()) {
+            result.add(String.valueOf(currentSet.getCurrentGamePlayerOneScore()));
+            result.add(String.valueOf(currentSet.getCurrentGamePlayerTwoScore()));
+        }
+        else {
+            result.add(String.valueOf(currentSet.getPlayerOneScore()));
+            result.add(String.valueOf(currentSet.getPlayerTwoScore()));
+        }
 
         return result;
     }
