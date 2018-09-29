@@ -174,7 +174,7 @@ public class MatchList extends AppCompatActivity {
                         return;
                     }
                     else {
-                        resultMessage.setText("An error occured while adding user.");
+                        resultMessage.setText("An error occurred while adding user.");
                         resultMessage.setTextColor(redColor);
                     }
 
@@ -182,7 +182,7 @@ public class MatchList extends AppCompatActivity {
                 }
                 catch (Exception e) {
                     e.printStackTrace();
-                    resultMessage.setText("An error occured while adding user.");
+                    resultMessage.setText("An error occurred while adding user.");
                     resultMessage.setTextColor(redColor);
                 }
             }

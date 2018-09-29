@@ -52,7 +52,7 @@ public class SignIn extends AppCompatActivity {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                ((TextView) findViewById(R.id.signInError)).setText("An error occured while trying to sign in");
+                ((TextView) findViewById(R.id.signInError)).setText("An error occurred while trying to sign in");
             }
         }
         else {

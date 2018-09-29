@@ -60,7 +60,7 @@ public class PreMatchSetup extends AppCompatActivity {
         Intent intent = getIntent();
 
         signedInEmail = intent.getStringExtra("signedInEmail");
-        tournamentId = intent.getIntExtra("touranmentId", -1);
+        tournamentId = intent.getIntExtra("tournamentId", -1);
         matchId = intent.getIntExtra("matchId", -1);
         tournamentName = intent.getStringExtra("tournamentName");
 
