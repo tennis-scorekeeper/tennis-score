@@ -55,6 +55,8 @@ public class Set {
 
     public boolean incrementPlayerOneScore() {
         if (matchTiebreakSet) {
+            playerOneScore = currentGame.getPlayerOneScore();
+            playerTwoScore = currentGame.getPlayerTwoScore();
             return true;
         }
         else {
@@ -84,6 +86,8 @@ public class Set {
 
     public boolean incrementPlayerTwoScore() {
         if (matchTiebreakSet) {
+            playerOneScore = currentGame.getPlayerOneScore();
+            playerTwoScore = currentGame.getPlayerTwoScore();
             return true;
         }
         else {
@@ -152,5 +156,9 @@ public class Set {
 
     public boolean isMatchTiebreakSet() {
         return matchTiebreakSet;
+    }
+
+    public List<Game> getCompletedGames() {
+        return completedGames;
     }
 }

@@ -286,6 +286,71 @@ public class Match {
         return false;
     }
 
+    public boolean checkPlayerOneWinningMatch() {
+        List<Set> matchSets = currentMatchState.getCompletedSets();
+        int playerOneSets = 0;
+        int playerTwoSets = 0;
+
+        for (Set set : matchSets) {
+            if (set.getPlayerOneScore() > set.getPlayerTwoScore()) {
+                playerOneSets += 1;
+            }
+            else {
+                playerTwoSets += 1;
+            }
+        }
+
+        if (playerOneSets > playerTwoSets) {
+            return true;
+        }
+        return false;
+    }
+
+    public String getSetScoreString() {
+        String result = "";
+
+        if (checkPlayerOneWinningMatch()) {
+            List<Set> matchSets = currentMatchState.getCompletedSets();
+            for (Set set : matchSets) {
+                if (set.isMatchTiebreakSet()) {
+                    result += set.getPlayerOneScore() + "-" + set.getPlayerTwoScore();
+                }
+                else {
+                    List<Game> completedGames = set.getCompletedGames();
+                    Game lastGame = completedGames.get(completedGames.size() - 1);
+                    if (lastGame.isTiebreak()) {
+                        result += set.getPlayerOneScore() + "-" + set.getPlayerTwoScore() + "("
+                                + Math.min(lastGame.getPlayerOneScore(), lastGame.getPlayerTwoScore()) + "); ";
+
+                    } else {
+                        result += set.getPlayerOneScore() + "-" + set.getPlayerTwoScore() + "; ";
+                    }
+                }
+            }
+        }
+        else {
+            List<Set> matchSets = currentMatchState.getCompletedSets();
+            for (Set set : matchSets) {
+                if (set.isMatchTiebreakSet()) {
+                    result += set.getPlayerTwoScore() + "-" + set.getPlayerOneScore();
+                }
+                else {
+                    List<Game> completedGames = set.getCompletedGames();
+                    Game lastGame = completedGames.get(completedGames.size() - 1);
+                    if (lastGame.isTiebreak()) {
+                        result += set.getPlayerTwoScore() + "-" + set.getPlayerOneScore() + "("
+                                + Math.min(lastGame.getPlayerOneScore(), lastGame.getPlayerTwoScore()) + "); ";
+
+                    } else {
+                        result += set.getPlayerTwoScore() + "-" + set.getPlayerOneScore() + "; ";
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+
     public List<String> getSetScores() {
         return currentMatchState.getSetScores();
     }

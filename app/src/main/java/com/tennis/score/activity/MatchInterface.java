@@ -24,6 +24,8 @@ import android.widget.TextView;
 import com.tennis.score.R;
 import com.tennis.score.model.Match;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +54,10 @@ public class MatchInterface extends AppCompatActivity {
     private String leftSide;
     private String rightSide;
 
+    private int matchId;
+    private int matchStatus;
+    private String matchScore;
+
     private Match match;
 
     private List<TextView> setScoreTextViews;
@@ -65,6 +71,8 @@ public class MatchInterface extends AppCompatActivity {
     private final int maxMatchSeconds = 600*60;
     private int matchSeconds = 3595;
     private TextView matchTimeDisplay;
+
+    private int matchFormatIndex;
 
     // Increment score button on click listeners
 
@@ -117,7 +125,9 @@ public class MatchInterface extends AppCompatActivity {
         leftSide = intent.getStringExtra("leftSide");
         rightSide = intent.getStringExtra("rightSide");
 
-        createSetTable();
+        matchId = intent.getIntExtra("matchId", -1);
+
+        getMatchObject();
 
         serveTimerDisplay = (TextView)findViewById(R.id.serveTimerDisplay);
         matchTimeDisplay = (TextView)findViewById(R.id.matchTimeDisplay);
@@ -139,7 +149,7 @@ public class MatchInterface extends AppCompatActivity {
         boolean playerOneServe = true;
         boolean playerOneLeftSide = true;
         boolean ads = true;
-        int matchFormatIndex = 0;
+        matchFormatIndex = 0;
 
         if (coinTossWinner.equals(playerOneName)) {
             if (winnerChoice.equals("Receive")) {
@@ -164,9 +174,16 @@ public class MatchInterface extends AppCompatActivity {
             }
         }
 
+        createSetTable();
+
         match = new Match(playerOneServe, playerOneLeftSide, ads, matchFormatIndex);
 
-        updateAllDisplays();
+        if (matchStatus == 1 || matchStatus == 2) {
+            updateMatchCompletedDisplays();
+        }
+        else {
+            updateAllDisplays();
+        }
     }
 
     public void undo(View view) {
@@ -240,19 +257,24 @@ public class MatchInterface extends AppCompatActivity {
         setScoreTextViews = new ArrayList<>();
         setScoreTextViews.add(((TextView)findViewById(R.id.playerOneSetOne)));
         setScoreTextViews.add(((TextView)findViewById(R.id.playerTwoSetOne)));
-        setScoreTextViews.add(((TextView)findViewById(R.id.playerOneSetTwo)));
-        setScoreTextViews.add(((TextView)findViewById(R.id.playerTwoSetTwo)));
-        setScoreTextViews.add(((TextView)findViewById(R.id.playerOneSetThree)));
-        setScoreTextViews.add(((TextView)findViewById(R.id.playerTwoSetThree)));
-        setScoreTextViews.add(((TextView)findViewById(R.id.playerOneSetFour)));
-        setScoreTextViews.add(((TextView)findViewById(R.id.playerTwoSetFour)));
-        setScoreTextViews.add(((TextView)findViewById(R.id.playerOneSetFive)));
-        setScoreTextViews.add(((TextView)findViewById(R.id.playerTwoSetFive)));
+
+        if (matchFormatIndex < 3) {
+            setScoreTextViews.add(((TextView) findViewById(R.id.playerOneSetTwo)));
+            setScoreTextViews.add(((TextView) findViewById(R.id.playerTwoSetTwo)));
+            setScoreTextViews.add(((TextView) findViewById(R.id.playerOneSetThree)));
+            setScoreTextViews.add(((TextView) findViewById(R.id.playerTwoSetThree)));
+        }
+        if (matchFormatIndex == 0) {
+            setScoreTextViews.add(((TextView) findViewById(R.id.playerOneSetFour)));
+            setScoreTextViews.add(((TextView) findViewById(R.id.playerTwoSetFour)));
+            setScoreTextViews.add(((TextView) findViewById(R.id.playerOneSetFive)));
+            setScoreTextViews.add(((TextView) findViewById(R.id.playerTwoSetFive)));
+        }
     }
 
     public void setSetScoreDisplay() {
         List<String> setScores = match.getSetScores();
-        for (int i = 0; i < setScores.size(); i++) {
+        for (int i = 0; i < setScores.size() && i < setScoreTextViews.size(); i++) {
             setScoreTextViews.get(i).setText(setScores.get(i));
             setScoreTextViews.get(i).setTextColor(blackColor);
         }
@@ -317,6 +339,10 @@ public class MatchInterface extends AppCompatActivity {
         updateLeadingPlayerName();
         setFaultButton();
         updateGameHistoryDisplay();
+
+        if (match.checkIfMatchOver()) {
+            buildMatchCompleteMenu();
+        }
     }
 
     public void optionsMenu(View view) {
@@ -552,6 +578,105 @@ public class MatchInterface extends AppCompatActivity {
         innerLayout.addView(submitButton);
     }
 
+    public void buildMatchCompleteMenu() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Match Complete");
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        ScrollView scrollView = new ScrollView(this);
+
+        final LinearLayout innerLayout = new LinearLayout(this);
+        innerLayout.setOrientation(LinearLayout.VERTICAL);
+        innerLayout.setPadding(0,25,0,0);
+
+        scrollView.addView(innerLayout);
+        layout.addView(scrollView);
+        builder.setView(layout);
+
+        builder.setNegativeButton("Undo match point", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                match.undo();
+
+                updateAllDisplays();
+            }
+        });
+
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                ((Button)findViewById(R.id.leftPlayerScore)).setEnabled(false);
+                ((Button)findViewById(R.id.rightPlayerScore)).setEnabled(false);
+                ((Button)findViewById(R.id.ace)).setEnabled(false);
+                ((Button)findViewById(R.id.faultButton)).setEnabled(false);
+                ((Button)findViewById(R.id.let)).setEnabled(false);
+                ((Button)findViewById(R.id.resetTimer)).setEnabled(false);
+                ((Button)findViewById(R.id.undoScoreButton)).setEnabled(false);
+                matchTimeTimer.cancel();
+                countDownTimer.cancel();
+
+                List<String> setScores = match.getSetScores();
+                String score = "";
+                if (match.checkPlayerOneWinningMatch()) {
+                    for (int i = 0; i < setScores.size() - 2; i++) {
+                        score += setScores.get(i) + ",";
+                    }
+                }
+                else {
+                    for (int i = 0; i < setScores.size() - 2; i += 2) {
+                        score += setScores.get(i+1) + ",";
+                        score += setScores.get(i) + ",";
+                    }
+                }
+                String status = "2";
+                if (match.checkPlayerOneWinningMatch()) {
+                    status = "1";
+                }
+
+                String[] params = new String[]{
+                        "status", status, "score", score, "matchId", String.valueOf(matchId)};
+
+                try {
+                    String response = new RetrieveFeedTask(
+                            "https://www.mikenguyenmd.com/match_live/completeMatch", params).execute().get();
+
+                    if (!response.equals("0")) {
+                        System.out.println("error");
+                    }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        final AlertDialog dialog = builder.create();
+
+        TextView winnerMessage = new TextView(this);
+        String winnerMessageString = "";
+        if (match.checkPlayerOneWinningMatch()) {
+            winnerMessageString = playerOneName + " def. " + playerTwoName;
+        }
+        else {
+            winnerMessageString = playerTwoName + " def. " + playerOneName;
+        }
+        winnerMessage.setText(winnerMessageString);
+        winnerMessage.setPadding(96,16,0,16);
+        winnerMessage.setTextColor(blackColor);
+        winnerMessage.setTextSize(20);
+
+        TextView winnerScore = new TextView(this);
+        winnerScore.setText(match.getSetScoreString());
+        winnerScore.setPadding(96, 0, 0, 0);
+        winnerScore.setTextColor(blackColor);
+        winnerScore.setTextSize(20);
+
+        innerLayout.addView(winnerMessage);
+        innerLayout.addView(winnerScore);
+
+        dialog.show();
+    }
+
     private String getTimeString(int totalSeconds) {
         int minutes = totalSeconds / 60;
         int seconds = totalSeconds % 60;
@@ -580,6 +705,46 @@ public class MatchInterface extends AppCompatActivity {
             minuteString = "0" + minuteString;
         }
         return hourString + ":" + minuteString;
+    }
+
+    private void getMatchObject() {
+        String[] params = new String[]{
+                "matchId", String.valueOf(matchId)};
+
+        try {
+            String response = new RetrieveFeedTask(
+                    "https://www.mikenguyenmd.com/match_live/getMatch", params).execute().get();
+
+            if (!response.equals("null")) {
+                JSONObject matchObject = new JSONObject(response.toString());
+
+                matchStatus = matchObject.getInt("status");
+                matchScore = matchObject.getString("score");
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateMatchCompletedDisplays() {
+        ((Button)findViewById(R.id.leftPlayerScore)).setEnabled(false);
+        ((Button)findViewById(R.id.rightPlayerScore)).setEnabled(false);
+        ((Button)findViewById(R.id.ace)).setEnabled(false);
+        ((Button)findViewById(R.id.faultButton)).setEnabled(false);
+        ((Button)findViewById(R.id.let)).setEnabled(false);
+        ((Button)findViewById(R.id.resetTimer)).setEnabled(false);
+        ((Button)findViewById(R.id.undoScoreButton)).setEnabled(false);
+        ((Button)findViewById(R.id.options)).setEnabled(false);
+        matchTimeTimer.cancel();
+
+        String[] setScores = matchScore.split(",");
+        for (int i = 0; i < setScores.length && i < setScoreTextViews.size(); i++) {
+            setScoreTextViews.get(i).setText(setScores[i]);
+            setScoreTextViews.get(i).setTextColor(blackColor);
+        }
+        ((TextView)findViewById(R.id.playerOneNameDisplay)).setText(playerOneName);
+        ((TextView)findViewById(R.id.playerTwoNameDisplay)).setText(playerTwoName);
     }
 
     private final int blackColor = 0xff000000;

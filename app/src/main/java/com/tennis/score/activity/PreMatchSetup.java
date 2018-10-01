@@ -38,6 +38,8 @@ public class PreMatchSetup extends AppCompatActivity {
     private String matchFormat;
     private String adRule;
     private String referee;
+    private int status;
+    private String score;
 
     private final int blackColor = 0xff000000;
     private final int redColor = 0xffcc0000;
@@ -53,7 +55,7 @@ public class PreMatchSetup extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pre_match_setup);
+
 
         Intent intent = getIntent();
 
@@ -64,57 +66,75 @@ public class PreMatchSetup extends AppCompatActivity {
 
         setMatchData();
 
-        timerDisplay = (TextView)findViewById(R.id.timerDisplay);
+        if (status == 1 || status == 2) {
+            setContentView(R.layout.completed_match);
 
-        startTimerButton = (Button)findViewById(R.id.startTimer);
-        resetTimerButton = (Button)findViewById(R.id.resetTimer);
+            String result = "";
+            if (status == 1) {
+                ((TextView)findViewById(R.id.matchResultDisplay)).setText(playerOneName + " def. " + playerTwoName);
+            }
+            else {
+                ((TextView)findViewById(R.id.matchResultDisplay)).setText(playerTwoName + " def. " + playerOneName);
+            }
 
-
-        String fetchedData = tournamentName + "," + date + "," + playerOneName + "," + playerOneFrom + ","
-                + playerTwoName + "," + playerTwoFrom + "," + round + "," + division + ","
-                + matchFormat + "," + adRule + "," + referee;
-        System.out.println(fetchedData);
-
-        // logic for printing players' names and locations
-        if (playerOneFrom.equals(" ")) {
-            ((RadioButton)findViewById(R.id.coinTossWinnerPlayerOne)).setText(playerOneName);
+            String scoreDisplay = "";
+            String[] scores = score.split(",");
+            for (int i = 0; i < scores.length; i += 2) {
+                scoreDisplay += scores[i] + "-" + scores[i+1] + "; ";
+            }
+            ((TextView)findViewById(R.id.scoreDisplay)).setText(scoreDisplay);
         }
         else {
-            ((RadioButton)findViewById(R.id.coinTossWinnerPlayerOne)).setText(
-                    playerOneName + " (" + playerOneFrom + ")");
+            setContentView(R.layout.pre_match_setup);
+
+            timerDisplay = (TextView) findViewById(R.id.timerDisplay);
+
+            startTimerButton = (Button) findViewById(R.id.startTimer);
+            resetTimerButton = (Button) findViewById(R.id.resetTimer);
+
+
+            String fetchedData = tournamentName + "," + date + "," + playerOneName + "," + playerOneFrom + ","
+                    + playerTwoName + "," + playerTwoFrom + "," + round + "," + division + ","
+                    + matchFormat + "," + adRule + "," + referee;
+            System.out.println(fetchedData);
+
+            // logic for printing players' names and locations
+            if (playerOneFrom.equals(" ")) {
+                ((RadioButton) findViewById(R.id.coinTossWinnerPlayerOne)).setText(playerOneName);
+            } else {
+                ((RadioButton) findViewById(R.id.coinTossWinnerPlayerOne)).setText(
+                        playerOneName + " (" + playerOneFrom + ")");
+            }
+
+            if (playerTwoFrom.equals(" ")) {
+                ((RadioButton) findViewById(R.id.coinTossWinnerPlayerTwo)).setText(playerTwoName);
+            } else {
+                ((RadioButton) findViewById(R.id.coinTossWinnerPlayerTwo)).setText(
+                        playerTwoName + " (" + playerTwoFrom + ")");
+            }
+
+
+            ((RadioButton) findViewById(R.id.leftSidePlayerOne)).setText(playerOneName);
+            ((RadioButton) findViewById(R.id.leftSidePlayerTwo)).setText(playerTwoName);
+
+            ((RadioButton) findViewById(R.id.rightSidePlayerOne)).setText(playerOneName);
+            ((RadioButton) findViewById(R.id.rightSidePlayerTwo)).setText(playerTwoName);
+
+            ((TextView) findViewById(R.id.MatchTournament)).setText(tournamentName);
+
+            // logic for printing of match division and round
+            if (division.equals(" ")) {
+                ((TextView) findViewById(R.id.divisionRound)).setText(round);
+            } else if (round.equals(" ")) {
+                ((TextView) findViewById(R.id.divisionRound)).setText(division);
+            } else {
+                ((TextView) findViewById(R.id.divisionRound)).setText(division + ", " + round);
+            }
+
+            ((TextView) findViewById(R.id.FormatScoring)).setText(matchFormat + ", " + adRule + " scoring");
+
+            this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         }
-
-        if (playerTwoFrom.equals(" ")) {
-            ((RadioButton)findViewById(R.id.coinTossWinnerPlayerTwo)).setText(playerTwoName);
-        }
-        else {
-            ((RadioButton)findViewById(R.id.coinTossWinnerPlayerTwo)).setText(
-                    playerTwoName + " (" + playerTwoFrom + ")");
-        }
-
-
-        ((RadioButton)findViewById(R.id.leftSidePlayerOne)).setText(playerOneName);
-        ((RadioButton)findViewById(R.id.leftSidePlayerTwo)).setText(playerTwoName);
-
-        ((RadioButton)findViewById(R.id.rightSidePlayerOne)).setText(playerOneName);
-        ((RadioButton)findViewById(R.id.rightSidePlayerTwo)).setText(playerTwoName);
-
-        ((TextView)findViewById(R.id.MatchTournament)).setText(tournamentName);
-
-        // logic for printing of match division and round
-        if (division.equals(" ")) {
-            ((TextView) findViewById(R.id.divisionRound)).setText(round);
-        }
-        else if (round.equals(" ")) {
-            ((TextView) findViewById(R.id.divisionRound)).setText(division);
-        }
-        else {
-            ((TextView) findViewById(R.id.divisionRound)).setText(division + ", " + round);
-        }
-
-        ((TextView)findViewById(R.id.FormatScoring)).setText(matchFormat + ", " + adRule + " scoring");
-
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     public void onStartMatch(View view) {
@@ -211,7 +231,10 @@ public class PreMatchSetup extends AppCompatActivity {
             intent.putExtra("leftSide", leftSide);
             intent.putExtra("rightSide", rightSide);
 
+            intent.putExtra("matchId", matchId);
+
             startActivity(intent);
+            this.finish();
         }
     }
 
@@ -293,6 +316,10 @@ public class PreMatchSetup extends AppCompatActivity {
                 matchFormat = matchObject.getString("matchFormat");
                 adRule = matchObject.getString("adRule");
                 referee = matchObject.getString("referee");
+                status =  matchObject.getInt("status");
+                if (status == 1 || status == 2) {
+                    score = matchObject.getString("score");
+                }
             }
         }
         catch (Exception e) {
