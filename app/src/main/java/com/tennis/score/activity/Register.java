@@ -37,7 +37,7 @@ public class Register extends AppCompatActivity {
 
         if (email.length() <= 0 || !email.contains("@")) {
             ((TextView)findViewById(R.id.emailLabel)).setTextColor(redColor);
-            ((TextView)findViewById(R.id.emailError)).setText("Not a valid email!");
+            ((TextView)findViewById(R.id.emailError)).setText("Not a valid email.");
             formValid = false;
         }
         else {
@@ -51,7 +51,7 @@ public class Register extends AppCompatActivity {
 
                 if (response.equals("1")) {
                     ((TextView)findViewById(R.id.emailLabel)).setTextColor(redColor);
-                    ((TextView)findViewById(R.id.emailError)).setText("Email already in use!");
+                    ((TextView)findViewById(R.id.emailError)).setText("Email already in use.");
                     formValid = false;
                 }
                 else {
@@ -81,15 +81,28 @@ public class Register extends AppCompatActivity {
             ((TextView)findViewById(R.id.lastNameLabel)).setTextColor(blackColor);
         }
 
-        if (password.length() <= 0) {
-            formValid = false;
-            ((TextView)findViewById(R.id.passwordLabel)).setTextColor(redColor);
-        }
-        else {
+        boolean passwordLengthValid = false;
+        boolean passwordDigitValid = false;
+        boolean passwordUpperCaseValid = false;
+
+        if (password.length() >= 5) {
+            passwordLengthValid = true;
             ((TextView)findViewById(R.id.passwordLabel)).setTextColor(blackColor);
         }
+        else {
+            ((TextView)findViewById(R.id.passwordLabel)).setTextColor(redColor);
+        }
 
-        if (confirmPassword.length() <= 0) {
+        for (int i = 0; i < password.length(); i++) {
+            if ((Character.isDigit(password.charAt(i)))) {
+                passwordDigitValid = true;
+            }
+            if ((Character.isUpperCase(password.charAt(i)))) {
+                passwordUpperCaseValid = true;
+            }
+        }
+
+        if (confirmPassword.length() <= 5) {
             formValid = false;
             ((TextView)findViewById(R.id.confirmPasswordLabel)).setTextColor(redColor);
         }
@@ -97,16 +110,23 @@ public class Register extends AppCompatActivity {
             ((TextView)findViewById(R.id.confirmPasswordLabel)).setTextColor(blackColor);
         }
 
-        if (password.length() > 0 && confirmPassword.length() > 0) {
+        if (password.length() > 5) {
             if (!password.equals(confirmPassword)) {
                 formValid = false;
                 ((TextView) findViewById(R.id.passwordLabel)).setTextColor(redColor);
                 ((TextView) findViewById(R.id.confirmPasswordLabel)).setTextColor(redColor);
-                ((TextView)findViewById(R.id.passwordError)).setText("Passwords do not match!");
+                ((TextView) findViewById(R.id.passwordError)).setText("Passwords do not match.");
             } else {
-                ((TextView) findViewById(R.id.passwordLabel)).setTextColor(blackColor);
-                ((TextView) findViewById(R.id.confirmPasswordLabel)).setTextColor(blackColor);
-                ((TextView)findViewById(R.id.passwordError)).setText("");
+                if (!(passwordLengthValid && passwordDigitValid && passwordUpperCaseValid)) {
+                    formValid = false;
+                    ((TextView) findViewById(R.id.passwordLabel)).setTextColor(redColor);
+                    ((TextView) findViewById(R.id.passwordError)).setText("Invalid password.");
+                }
+                else {
+                    ((TextView) findViewById(R.id.passwordLabel)).setTextColor(blackColor);
+                    ((TextView) findViewById(R.id.confirmPasswordLabel)).setTextColor(blackColor);
+                    ((TextView) findViewById(R.id.passwordError)).setText("");
+                }
             }
         }
 
