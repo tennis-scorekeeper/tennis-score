@@ -257,6 +257,7 @@ public class MatchState {
             MatchState nextMatchState = new MatchState(this);
             nextMatchState.playerOneForfeit = true;
             nextMatchState.completedSets.add(currentSet);
+            nextMatchState.currentSet = new Set(false, false, false);
             nextMatchState.playerOneCodeViolations.add(new CodeViolation(playerName, penaltyType, penaltyReason));
             return nextMatchState;
         }
@@ -319,6 +320,7 @@ public class MatchState {
             MatchState nextMatchState = new MatchState(this);
             nextMatchState.playerTwoForfeit = true;
             nextMatchState.completedSets.add(currentSet);
+            nextMatchState.currentSet = new Set(false, false, false);
             nextMatchState.playerTwoCodeViolations.add(new CodeViolation(playerName, penaltyType, penaltyReason));
             return nextMatchState;
         }

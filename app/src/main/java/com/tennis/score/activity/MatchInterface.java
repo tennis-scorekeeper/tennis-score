@@ -273,6 +273,9 @@ public class MatchInterface extends AppCompatActivity {
     }
 
     public void setSetScoreDisplay() {
+        for (TextView currentSet : setScoreTextViews) {
+            currentSet.setTextColor(whiteColor);
+        }
         List<String> setScores = match.getSetScores();
         for (int i = 0; i < setScores.size() && i < setScoreTextViews.size(); i++) {
             setScoreTextViews.get(i).setText(setScores.get(i));
@@ -749,6 +752,7 @@ public class MatchInterface extends AppCompatActivity {
 
     private final int blackColor = 0xff000000;
     private final int redColor = 0xffcc0000;
+    private final int whiteColor = 0xffffffff;
 
     private final String[] formats = {
             "Best of five tiebreak sets",
