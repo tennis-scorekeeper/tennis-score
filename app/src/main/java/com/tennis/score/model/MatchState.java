@@ -32,6 +32,9 @@ public class MatchState {
     private boolean eightGameProSet;
     private boolean hasMatchTiebreakSet;
 
+    private boolean playerOneForfeit;
+    private boolean playerTwoForfeit;
+
     MatchState(boolean ads, boolean isEightGameProSet, boolean matchTiebreakSet) {
         currentSet = new Set(ads, isEightGameProSet, false);
         completedSets = new ArrayList<>();
@@ -55,6 +58,9 @@ public class MatchState {
 
         eightGameProSet = isEightGameProSet;
         hasMatchTiebreakSet = matchTiebreakSet;
+
+        playerOneForfeit = false;
+        playerTwoForfeit = false;
     }
 
     MatchState(MatchState oldState) {
@@ -89,6 +95,9 @@ public class MatchState {
         adRule = oldState.adRule;
         eightGameProSet = oldState.eightGameProSet;
         hasMatchTiebreakSet = oldState.hasMatchTiebreakSet;
+
+        playerOneForfeit = oldState.playerOneForfeit;
+        playerTwoForfeit = oldState.playerTwoForfeit;
     }
 
     public MatchState incrementPlayerOneScore() {
@@ -208,15 +217,46 @@ public class MatchState {
             int playerOneOriginalScore = nextMatchState.getCurrentSetPlayerOneScore();
             int playerTwoOriginalScore = nextMatchState.getCurrentSetPlayerTwoScore();
 
+            int playerOneGameScore = nextMatchState.getCurrentGamePlayerOneScore();
+            int playerTwoGameScore = nextMatchState.getCurrentGamePlayerTwoScore();
+
+            if (nextMatchState.inTieBreak()) {
+                playerOneGameScore = 0;
+                playerTwoGameScore = 0;
+            }
+
             while ((nextMatchState.getCurrentSetPlayerOneScore() == playerOneOriginalScore)
                     && (nextMatchState.getCurrentSetPlayerTwoScore() == playerTwoOriginalScore)) {
                 nextMatchState = nextMatchState.incrementPlayerTwoScore();
             }
+
+            if (nextMatchState.inTieBreak()) {
+                playerOneGameScore = 0;
+                playerTwoGameScore = 0;
+            }
+
+            while (playerOneGameScore > 0 && playerTwoGameScore > 0) {
+                nextMatchState = nextMatchState.incrementPlayerOneScore();
+                nextMatchState = nextMatchState.incrementPlayerTwoScore();
+                playerOneGameScore--;
+                playerTwoGameScore--;
+            }
+            while (playerOneGameScore > 0) {
+                nextMatchState = nextMatchState.incrementPlayerOneScore();
+                playerOneGameScore--;
+            }
+            while (playerTwoGameScore > 0) {
+                nextMatchState = nextMatchState.incrementPlayerTwoScore();
+                playerTwoGameScore--;
+            }
+
             nextMatchState.playerOneCodeViolations.add(new CodeViolation(playerName, penaltyType, penaltyReason));
             return nextMatchState;
         }
         else {
             MatchState nextMatchState = new MatchState(this);
+            nextMatchState.playerOneForfeit = true;
+            nextMatchState.completedSets.add(currentSet);
             nextMatchState.playerOneCodeViolations.add(new CodeViolation(playerName, penaltyType, penaltyReason));
             return nextMatchState;
         }
@@ -239,15 +279,46 @@ public class MatchState {
             int playerOneOriginalScore = nextMatchState.getCurrentSetPlayerOneScore();
             int playerTwoOriginalScore = nextMatchState.getCurrentSetPlayerTwoScore();
 
+            int playerOneGameScore = nextMatchState.getCurrentGamePlayerOneScore();
+            int playerTwoGameScore = nextMatchState.getCurrentGamePlayerTwoScore();
+
+            if (nextMatchState.inTieBreak()) {
+                playerOneGameScore = 0;
+                playerTwoGameScore = 0;
+            }
+
             while ((nextMatchState.getCurrentSetPlayerOneScore() == playerOneOriginalScore)
                     && (nextMatchState.getCurrentSetPlayerTwoScore() == playerTwoOriginalScore)) {
                 nextMatchState = nextMatchState.incrementPlayerOneScore();
             }
+
+            if (nextMatchState.inTieBreak()) {
+                playerOneGameScore = 0;
+                playerTwoGameScore = 0;
+            }
+
+            while (playerOneGameScore > 0 && playerTwoGameScore > 0) {
+                nextMatchState = nextMatchState.incrementPlayerOneScore();
+                nextMatchState = nextMatchState.incrementPlayerTwoScore();
+                playerOneGameScore--;
+                playerTwoGameScore--;
+            }
+            while (playerOneGameScore > 0) {
+                nextMatchState = nextMatchState.incrementPlayerOneScore();
+                playerOneGameScore--;
+            }
+            while (playerTwoGameScore > 0) {
+                nextMatchState = nextMatchState.incrementPlayerTwoScore();
+                playerTwoGameScore--;
+            }
+
             nextMatchState.playerTwoCodeViolations.add(new CodeViolation(playerName, penaltyType, penaltyReason));
             return nextMatchState;
         }
         else {
             MatchState nextMatchState = new MatchState(this);
+            nextMatchState.playerTwoForfeit = true;
+            nextMatchState.completedSets.add(currentSet);
             nextMatchState.playerTwoCodeViolations.add(new CodeViolation(playerName, penaltyType, penaltyReason));
             return nextMatchState;
         }
@@ -321,6 +392,10 @@ public class MatchState {
     public List<CodeViolation> getPlayerOneCodeViolations() { return playerOneCodeViolations; }
 
     public List<CodeViolation> getPlayerTwoCodeViolations() { return playerTwoCodeViolations; }
+
+    public boolean getPlayerOneForfeit() { return playerOneForfeit; }
+
+    public boolean getPlayerTwoForfeit() { return playerTwoForfeit; }
 
     public List<String> getSetScores() {
         List<String> result = new ArrayList<>();

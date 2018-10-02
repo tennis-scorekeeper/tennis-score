@@ -257,6 +257,9 @@ public class Match {
     }
 
     public boolean checkIfMatchOver() {
+        if (currentMatchState.getPlayerOneForfeit() || currentMatchState.getPlayerTwoForfeit()) {
+            return true;
+        }
         int setsNeededToWin;
         if (matchFormat == 0) {
             setsNeededToWin = 3;
@@ -287,6 +290,12 @@ public class Match {
     }
 
     public boolean checkPlayerOneWinningMatch() {
+        if (currentMatchState.getPlayerTwoForfeit()) {
+            return true;
+        }
+        if (currentMatchState.getPlayerOneForfeit()) {
+            return false;
+        }
         List<Set> matchSets = currentMatchState.getCompletedSets();
         int playerOneSets = 0;
         int playerTwoSets = 0;
@@ -336,13 +345,15 @@ public class Match {
                 }
                 else {
                     List<Game> completedGames = set.getCompletedGames();
-                    Game lastGame = completedGames.get(completedGames.size() - 1);
-                    if (lastGame.isTiebreak()) {
-                        result += set.getPlayerTwoScore() + "-" + set.getPlayerOneScore() + "("
-                                + Math.min(lastGame.getPlayerOneScore(), lastGame.getPlayerTwoScore()) + "); ";
+                    if (completedGames.size() > 0) {
+                        Game lastGame = completedGames.get(completedGames.size() - 1);
+                        if (lastGame.isTiebreak()) {
+                            result += set.getPlayerTwoScore() + "-" + set.getPlayerOneScore() + "("
+                                    + Math.min(lastGame.getPlayerOneScore(), lastGame.getPlayerTwoScore()) + "); ";
 
-                    } else {
-                        result += set.getPlayerTwoScore() + "-" + set.getPlayerOneScore() + "; ";
+                        } else {
+                            result += set.getPlayerTwoScore() + "-" + set.getPlayerOneScore() + "; ";
+                        }
                     }
                 }
             }
